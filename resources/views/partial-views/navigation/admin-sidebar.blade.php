@@ -2,21 +2,21 @@
     <div class="position-sticky pt-5">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">
                     <span data-feather="home"></span>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('list-inquiries') }}">
                     <span data-feather="file"></span>
-                    Orders
+                    Inquiries
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('list-reservations') }}">
                     <span data-feather="shopping-cart"></span>
-                    Products
+                    Reservations
                 </a>
             </li>
             <li class="nav-item">

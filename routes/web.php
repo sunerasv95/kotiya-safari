@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\InquiryController;
+use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,11 +19,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('test');
-});
+Route::get('/', [HomeController::class, "homePage"])->name('home');
+Route::get('/blog', [HomeController::class, "blog"])->name('blog');
 
 Auth::routes();
 
-Route::get('/dashboard', [DashboardController::class, "index"]);
+Route::prefix('/cn/admin')->group(function(){
+    Route::get('/', [AuthController::class, "login"])->name('admin-login');
+    Route::get('dashboard', [DashboardController::class, "index"])->name('dashboard');
+    Route::prefix('inquiries')->group(function(){
+        Route::get('/', [InquiryController::class, "findAll"])->name('list-inquiries');
+        Route::get('{inquiryId}', [InquiryController::class, "findByReferenceNumber"])->name('view-inquiry');
+    });
+    Route::prefix('reservations')->group(function(){
+        Route::get('/', [ReservationController::class, "findAll"])->name('list-reservations');
+        Route::get('create', [ReservationController::class, "findAll"])->name('create-reservation');
+        Route::get('{bkRefId}', [ReservationController::class, "findByReferenceNumber"])->name('view-reservation');
+    });
+
+    Route::post('/auth/signIn', [AuthController::class, "submitSignIn"])->name('submit-signin');
+});
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');

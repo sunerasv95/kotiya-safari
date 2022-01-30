@@ -1,6 +1,8 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/js/admin-app.js": "/js/admin-app.js",
-    "/css/admin-app.css": "/css/admin-app.css",
-    "/css/app.css": "/css/app.css"
+    "/dist/js/app.js": "/dist/js/app.js",
+    "/dist/admin/js/admin-app.js": "/dist/admin/js/admin-app.js",
+    "/dist/admin/js/reservations.js": "/dist/admin/js/reservations.js",
+    "/dist/admin/css/admin-app.css": "/dist/admin/css/admin-app.css",
+    "/dist/css/app.css": "/dist/css/app.css",
+    "/dist/admin/css/signin.css": "/dist/admin/css/signin.css"
 }

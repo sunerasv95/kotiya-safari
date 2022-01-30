@@ -15,24 +15,23 @@
     <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
 
     <!-- Styles -->
-    <link href="{{ asset('css/admin-app.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/admin/css/admin-app.css') }}" rel="stylesheet">
     @yield('page-styles')
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/admin-app.js') }}" defer></script>
 </head>
 
 <body>
-    @include('partial-views.admin-header')
+    @include('partial-views.navigation.admin-header')
     <div class="container-fluid">
         <div class="row">
-            @include('partial-views.admin-sidebar')
+            @include('partial-views.navigation.admin-sidebar')
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 @yield('main-content')
             </main>
         </div>
     </div>
+    @include('partial-views.navigation.admin-footer')
+    <!-- Scripts -->
+    <script src="{{ asset('dist/admin/js/admin-app.js') }}"></script>
     @yield('page-scripts')
 </body>
-
 </html>
