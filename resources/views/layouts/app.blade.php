@@ -28,7 +28,8 @@
         </main>
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('dist/js/app.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="{{ asset('dist/js/app.js') }}"></script>
     @yield('page-scripts')
 </body>
 

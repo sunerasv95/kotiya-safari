@@ -4,5 +4,6 @@
     "/dist/admin/js/reservations.js": "/dist/admin/js/reservations.js",
     "/dist/admin/css/admin-app.css": "/dist/admin/css/admin-app.css",
     "/dist/css/app.css": "/dist/css/app.css",
-    "/dist/admin/css/signin.css": "/dist/admin/css/signin.css"
+    "/dist/admin/css/signin.css": "/dist/admin/css/signin.css",
+    "/dist/css/blog.css": "/dist/css/blog.css"
 }

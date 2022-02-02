@@ -1,0 +1,27 @@
+section {
+  padding: 10px 8px;
+  margin: 5px 0;
+}
+
+.blog-cover-img {
+  min-height: 90vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  opacity: 0.9;
+}
+
+.blog-author-avatar {
+  width: 90px;
+  height: 90px;
+  margin-right: 20px;
+}
+
+.blog-title {
+  font-size: 2.75rem;
+  font-weight: 600;
+}
+
+.blog-content-text {
+  font-size: 16px;
+}

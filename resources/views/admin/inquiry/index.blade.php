@@ -58,7 +58,7 @@
                     <a href="{{ route('view-inquiry', ['inquiryId'=> $inquiry['inq_reference_no']]) }}"
                         class="btn btn-primary btn-sm">
                         View
-                        </button>
+                    </a>
                 </td>
             </tr>
             @endforeach

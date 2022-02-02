@@ -38,4 +38,35 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    // public function render($request, Throwable $exception)
+    // {
+    //     //dd($exception);
+    //     //retrive ex message -> $exception->getMessage()
+    //     // if (get_class($exception) === "Illuminate\Database\Eloquent\ModelNotFoundException") {
+    //     //     return $this->respondNotFound("Resource not found!", ErrorCodes::NOT_FOUND);
+    //     // }
+
+    //     // if (get_class($exception) === "Illuminate\Database\QueryException") {
+    //     //     return $this->respondInternalError($exception, ErrorCodes::SERVER_ERROR);
+    //     // }
+
+    //     // if (get_class($exception) === "Exception") {
+    //     //     return $this->respondInternalError("Something went wrong!", ErrorCodes::SERVER_ERROR);
+    //     // }
+
+    //     // if (get_class($exception) === "Error") {
+    //     //     return $this->respondInternalError("Something went wrong!", ErrorCodes::SERVER_ERROR);
+    //     // }
+
+    //     if (get_class($exception) === "Illuminate\Validation\ValidationException") {
+    //         dd($exception);
+    //     }
+
+    //     // if (get_class($exception) === "Illuminate\Auth\AuthenticationException") {
+    //     //     return $this->respondUnAuthorized('Unauthorized', ErrorCodes::INVALID_TOKEN);
+    //     // }
+
+    //     return parent::render($request, $exception);
+    // }
 }

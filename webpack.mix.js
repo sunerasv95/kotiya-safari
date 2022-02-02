@@ -13,11 +13,12 @@ const mix = require('laravel-mix');
 
 mix
     .js('resources/js/app.js', 'public/dist/js')
-    
+
     .js('resources/js/admin/admin-app.js', 'public/dist/admin/js')
     .js('resources/js/admin/reservations.js', 'public/dist/admin/js')
 
     .sass('resources/sass/app.scss', 'public/dist/css')
+    .sass('resources/sass/blog.scss', 'public/dist/css')
 
     .sass('resources/sass/admin/admin-app.scss', 'public/dist/admin/css')
     .sass('resources/sass/admin/signin.scss', 'public/dist/admin/css')
