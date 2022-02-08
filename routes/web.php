@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\FileUploadController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BookingInquiryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,12 +24,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, "homePage"])->name('home');
+
 Route::prefix('blog')->group(function(){
     Route::get('/', [BlogController::class, "fetchAllPosts"])->name('blog');
     Route::get('{postSlug}', [BlogController::class, "showPost"])->name('show-blog');
 });
 
-Auth::routes();
+Route::prefix('reservations/request')->group(function(){
+    Route::get('/', [BookingInquiryController::class, "makeRequest"])->name('reservation-request');
+
+    Route::post("submit", [BookingInquiryController::class, "storeReservationRequest"])->name('submit-reservation-request');
+});
+
 
 Route::prefix('/cn/admin')->group(function(){
     Route::get('/', [AuthController::class, "login"])->name('admin-login');

@@ -18,9 +18,13 @@ class CreateGuestsTbl extends Migration
             $table->string('guest_code', 20);
             $table->string('full_name', 50);
             $table->string('email', 60);
-            $table->integer('country_code')->nullable();
-            $table->ipAddress('ip_address')->nullable();
+            $table->tinyInteger('is_email_verified')->default(0);
+            $table->string('country_code')->nullable();
+            $table->ipAddress('last_login_ip')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
+            $table->timestamp('email_verified_at')->nullable();
+
         });
     }
 

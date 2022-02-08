@@ -8,7 +8,7 @@
 
 <div class="container pt-5">
   <div class="blog-cover-img p-4 p-md-5 mb-4 text-white"
-    style="background-image: url('{{ asset('dist/images/cover/cover_2.jpg')}}');">
+    style="background-image: url('{{ $post['thumbnail_url'] }}');">
   </div>
 </div>
 

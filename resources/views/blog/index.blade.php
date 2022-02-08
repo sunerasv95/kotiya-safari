@@ -8,11 +8,11 @@
 
 <div class="container pt-5">
   <div class="p-4 p-md-5 mb-4 text-white rounded"
-    style="background-image: url('{{ asset('dist/images/cover/cover_2.jpg')}}');background-repeat: no-repeat;background-attachment: fixed;background-size: cover;opacity:0.9">
+    style="background-image: url('{{ $featuredPost['thumbnail_url'] }}');background-repeat: no-repeat;background-attachment: fixed;background-size: cover;opacity:0.9">
     <div class="col-md-6 px-0">
       <h1 class="display-4">{{ $featuredPost['post_title'] }}</h1>
-      <p class="lead my-3">{{ $featuredPost['thumbnail_text'] }}</p>
-      <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+      <p class="lead my-3">{!! $featuredPost['thumbnail_text'] !!}</p>
+      <p class="lead mb-0"><a href="{{ route('show-blog', ['postSlug'=> $featuredPost['post_slug'] ]) }}" class="text-white fw-bold">Continue reading...</a></p>
     </div>
   </div>
 </div>

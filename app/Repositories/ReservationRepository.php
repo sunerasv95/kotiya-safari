@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Reservation as ModelReservation;
+use App\Models\Reservation as RepoModel;
 use App\Repositories\Contracts\ReservationRepositoryInterface;
 use Carbon\Carbon;
 
@@ -11,17 +11,17 @@ class ReservationRepository implements ReservationRepositoryInterface
 
     public function findAllReservations()
     {
-        return ModelReservation::get();
+        return RepoModel::get();
     }
 
     public function findReservationByBkRefNumber(string $bkRefNumber)
     {
-        return ModelReservation::where('bk_reference_no', $bkRefNumber)->first();
+        return RepoModel::where('bk_reference_no', $bkRefNumber)->first();
     }
 
     public function saveReservation(array $inquiryData)
     {
-        $newInquiry = new ModelReservation();
+        $newInquiry = new RepoModel();
 
         $newInquiry->inquiry_id             = $inquiryData['id'];
         $newInquiry->bk_reference_no        = "KBR".rand(100000, 999999);

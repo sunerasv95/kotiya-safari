@@ -27,6 +27,9 @@
                         <a class="nav-link" aria-current="page" href="{{ route('blog') }}">Blog</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="{{ route('reservation-request') }}" class="btn btn-warning btn-sm">Make a Request</a></li>
+                </ul>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">

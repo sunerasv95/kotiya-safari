@@ -11286,6 +11286,20 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+body {
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+/* JQUERY VALIDATE JS
+-------------------------------------------------- */
+label.error {
+  color: #FF0000;
+  font-size: 12px;
+}
+
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 /* Carousel base class */

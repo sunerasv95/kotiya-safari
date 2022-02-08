@@ -27,24 +27,24 @@ class BlogRepository implements BlogRepositoryInterface
         return RepoModel::where('post_slug', $slug)->first();
     }
 
-    public function savePost(array $blogPost)
+    public function savePost(array $newBlogPost)
     {
-        $newBlogPost = new RepoModel();
+        $blogPost = new RepoModel();
 
-        $newBlogPost->post_title        = $blogPost['title'];
-        $newBlogPost->post_slug         = Str::slug($blogPost['title']);
-        $newBlogPost->post_content      = $blogPost['content'];
-        $newBlogPost->thumbnail_url     = $blogPost['coverImgUrl'];
-        $newBlogPost->thumbnail_text    = Str::substr($blogPost['content'], 1, 100);
-        $newBlogPost->admin_id          = 1;//Auth::user()->id;
-        $newBlogPost->is_published      = $blogPost['hasPublished'];
-        $newBlogPost->is_deleted        = 0;
-        $newBlogPost->published_at      = now();
-        $newBlogPost->deleted_at        = null;
-        $newBlogPost->created_at         = now();
-        $newBlogPost->updated_at        = now();
+        $blogPost->post_title        = $newBlogPost['title'];
+        $blogPost->post_slug         = Str::slug($newBlogPost['title']);
+        $blogPost->post_content      = $newBlogPost['content'];
+        $blogPost->thumbnail_url     = $newBlogPost['coverImgUrl'];
+        $blogPost->thumbnail_text    = Str::substr($newBlogPost['content'], 1, 100);
+        $blogPost->admin_id          = 1;//Auth::user()->id;
+        $blogPost->is_published      = $newBlogPost['hasPublished'];
+        $blogPost->is_deleted        = 0;
+        $blogPost->published_at      = now();
+        $blogPost->deleted_at        = null;
+        $blogPost->created_at        = now();
+        $blogPost->updated_at        = now();
 
-        return $newBlogPost->save();
+        return $blogPost->save();
 
     }
 

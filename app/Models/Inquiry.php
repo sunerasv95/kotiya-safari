@@ -13,4 +13,9 @@ class Inquiry extends Model
     {
         return $this->belongsTo(Guest::class);
     }
+
+    public function vass()
+    {
+        return $this->belongsToMany(VAS::class, "inquiry_value_added_service", "inquiry_id");
+    }
 }

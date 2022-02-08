@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Admin as ModelAdmin;
+use App\Models\Admin as RepoModel;
 use App\Repositories\Contracts\AdminRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,12 +11,12 @@ class AdminRepository implements AdminRepositoryInterface
 
     public function findAllAdminUsers()
     {
-        return ModelAdmin::get();
+        return RepoModel::get();
     }
 
     public function findAdminUserByEmail(string $email, $with=[])
     {
-        return ModelAdmin::where('email', $email)
+        return RepoModel::where('email', $email)
             ->when(!empty($with), function($q) use($with) {
                 return $q->with($with);
             })
@@ -25,19 +25,19 @@ class AdminRepository implements AdminRepositoryInterface
 
     public function saveAdminUser(array $newAdminUser)
     {
-        $newAdmin = new ModelAdmin();
+        $admin = new RepoModel();
 
-        $newAdmin->name               = $newAdminUser['name'];;
-        $newAdmin->email              = $newAdminUser['email'];
-        $newAdmin->admin_code         = "ADU".rand(1000, 9999);
-        $newAdmin->email_verified_at  = null;
-        $newAdmin->password           = Hash::make($newAdminUser['password']);
-        $newAdmin->remember_token     = null;
-        $newAdmin->status             = 0;
-        $newAdmin->create_at          = now();
-        $newAdmin->updated_at         = now();
+        $admin->name               = $newAdminUser['name'];;
+        $admin->email              = $newAdminUser['email'];
+        $admin->admin_code         = "ADU".rand(1000, 9999);
+        $admin->email_verified_at  = null;
+        $admin->password           = Hash::make($newAdminUser['password']);
+        $admin->remember_token     = null;
+        $admin->status             = 0;
+        $admin->create_at          = now();
+        $admin->updated_at         = now();
 
-        return $newAdmin->save();
+        return $admin->save();
 
     }
 

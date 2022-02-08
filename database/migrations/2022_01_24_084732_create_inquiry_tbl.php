@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class CreateInquiryTbl extends Migration
 {
@@ -17,13 +18,13 @@ class CreateInquiryTbl extends Migration
             $table->id();
             $table->string('inquiry_reference_no')->unique();
             $table->integer('guest_id')->unsigned();
-            $table->date('req_date_start');
-            $table->date('req_date_to');
-            $table->tinyInteger('boarding_plan_id')->unsigned();
-            $table->tinyInteger('no_adults');
-            $table->tinyInteger('no_kids');
-            $table->boolean('pickup_required')->default(false);
-            $table->tinyInteger('status');
+            $table->date('checkin_date');
+            $table->date('checkout_date');
+            $table->tinyInteger('no_adults')->default(1);
+            $table->tinyInteger('no_kids')->default(0);
+            $table->string("remark", 200)->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->ipAddress('ip_address')->nullable();
             $table->timestamps();
         });
     }
