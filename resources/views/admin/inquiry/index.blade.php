@@ -7,13 +7,15 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
     <h1 class="h2">Inquiries</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-            {{-- <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button> --}}
-        </div>
         <button type="button" class="btn btn-sm btn-success">
             New Inquiry
         </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @include('partial-views.alerts.alert-danger')
+        @include('partial-views.alerts.alert-success')
     </div>
 </div>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5">
@@ -42,20 +44,20 @@
             @if (!empty($inquiries))
             @foreach ($inquiries as $inquiry)
             <tr>
-                <td>{{ $inquiry['inq_reference_no'] }}</td>
-                <td>{{ $inquiry['customer_name'] }}</td>
-                <td>{{ $inquiry['customer_email'] }}</td>
+                <td>{{ $inquiry['inquiry_reference_no'] }}</td>
+                <td>{{ $inquiry['guest']['full_name'] }}</td>
+                <td>{{ $inquiry['guest']['full_name'] }}</td>
                 <td>{{ $inquiry['checkin_date'] }} - {{ $inquiry['checkout_date'] }}</td>
                 <td>
-                    @if ($inquiry['inq_status'] === 0)
+                    @if ($inquiry['status'] === 1)
                     <span class="badge bg-warning text-dark">Pending</span>
-                    @elseif($inquiry['inq_status'] === 1)
-                    <span class="badge bg-success text-dark">Booking approved</span>
+                    @elseif($inquiry['status'] === 2)
+                    <span class="badge bg-success text-light">Reservation Added</span>
                     @else
-                    <span class="badge bg-danger text-dark">Rejected</span>
+                    <span class="badge bg-danger text-light">Rejected</span>
                     @endif
                 <td>
-                    <a href="{{ route('view-inquiry', ['inquiryId'=> $inquiry['inq_reference_no']]) }}"
+                    <a href="{{ route('view-inquiry', ['inquiryId'=> $inquiry['inquiry_reference_no']]) }}"
                         class="btn btn-primary btn-sm">
                         View
                     </a>

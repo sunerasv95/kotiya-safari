@@ -3,38 +3,32 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">
-                    <span data-feather="home"></span>
+                    <i class="bi bi-house-door-fill"></i>
                     Dashboard
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('list-inquiries') }}">
-                    <span data-feather="file"></span>
+                    <i class="bi bi-layout-text-window-reverse"></i>
                     Inquiries
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('list-reservations') }}">
-                    <span data-feather="shopping-cart"></span>
+                    <i class="bi bi-bookmarks-fill"></i>
                     Reservations
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('list-blog-posts') }}">
-                    <span data-feather="users"></span>
+                    <i class="bi bi-file-post"></i>
                     Blog Posts
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <span data-feather="bar-chart-2"></span>
+                    <i class="bi bi-bar-chart-fill"></i>
                     Reports
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="layers"></span>
-                    Integrations
                 </a>
             </li>
         </ul>

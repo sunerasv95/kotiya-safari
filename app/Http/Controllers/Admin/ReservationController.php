@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\Contracts\ReservationServiceInterface;
+use App\Http\Requests\Reservation\CreateReservationOrderRequest;
+use App\Services\Contracts\ReservationOrderServiceInterface;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
     private $reservationService;
 
-    public function __construct(ReservationServiceInterface $reservationService)
+    public function __construct(ReservationOrderServiceInterface $reservationService)
     {
         $this->reservationService = $reservationService;
     }
@@ -18,24 +19,31 @@ class ReservationController extends Controller
     public function findAll()
     {
         $reservations = $this->reservationService->getAllReservations();
+        //dd($reservations);
         return view('admin.reservation.index', compact('reservations'));
     }
 
-    public function store()
+    public function store(CreateReservationOrderRequest $request)
     {
-        $reservations = $this->reservationService->getAllReservations();
-        return view('admin.reservation.index', compact('reservations'));
+        $validatedData = $request->validated();
+        $result = $this->reservationService->createReservationOrder($validatedData);
+
+        if($result['error']){
+            return redirect()->back()->with("errorMsg", $result['message']);
+        }else{
+            return redirect()->back()->with("successMsg", $result['message']);
+        }
     }
 
     public function findByReferenceNumber($referenceNumber)
     {
         $reservation = $this->reservationService->getReservationByBkRefNumber($referenceNumber);
+        //dd($reservation);
         if(!isset($reservation)){
-            return redirect()->back()->withErrors("Reservation is not found");
+            return redirect()->back()->with("errorMsg", "Reservation is not found");
         }else{
-            return view('admin.inquiry.show', compact('reservation'));
+            return view('admin.reservation.show', compact('reservation'));
         }
     }
 
-    
 }

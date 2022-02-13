@@ -31,12 +31,19 @@ class AuthController extends Controller
         $email      = $reqData['email'];
         $password   = $reqData['password'];
 
-        $loginResult = $this->authService->adminSignIn($email, $password);
-
-        if($loginResult['success']){
-            $request->session()->put('login_session', $loginResult['data']);
+        $res = $this->authService->adminSignIn($email, $password);
+        //dd($res);
+        if(!$res['error']){
             return redirect()->route('dashboard');
         }
-        return redirect()->back()->withErrors("msg", $loginResult['message']);
+
+        return redirect()->back()->with("errorMsg", $res['message']);
+    }
+
+    public function submitSignOut(Request $request)
+    {
+        $res = $this->authService->adminLogout();
+
+        return redirect()->route('admin-login')->with("successMsg", "You have been signed-out successfully!");
     }
 }

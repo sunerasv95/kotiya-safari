@@ -2,13 +2,21 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Models\Inquiry;
+
 interface InquiryRepositoryInterface
 {
     public function findAllInquiries();
 
     public function findAllValueAddedServices();
 
-    public function findInquiryByReferenceNumber(string $inquiryRefNumber);
+    public function findInquiryByReferenceNumber(string $inquiryRefNumber, $with=[]);
+
+    public function findInquiryById(int $inquiryId);
 
     public function saveInquiry(array $newInquiry);
+
+    public function updateInquiry(Inquiry $inquiry, array $updateInquiry);
+
+    public function updateInquiryStatus(Inquiry $inquiry, int $status=null);
 }

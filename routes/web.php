@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingInquiryController;
+use App\Http\Controllers\GuestBookingController;
+use App\Http\Controllers\GuestInquiryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+ *******************************************************************************
+ * **************** GUEST ROUTES ***********************************************
+ *******************************************************************************
+*/
+
 Route::get('/', [HomeController::class, "homePage"])->name('home');
 
 Route::prefix('blog')->group(function(){
@@ -30,25 +38,68 @@ Route::prefix('blog')->group(function(){
     Route::get('{postSlug}', [BlogController::class, "showPost"])->name('show-blog');
 });
 
-Route::prefix('reservations/request')->group(function(){
-    Route::get('/', [BookingInquiryController::class, "makeRequest"])->name('reservation-request');
+Route::prefix('inquiry')->group(function(){
+    Route::get('/', [GuestInquiryController::class, "inquiry"])
+        ->name('reservation-request');
 
-    Route::post("submit", [BookingInquiryController::class, "storeReservationRequest"])->name('submit-reservation-request');
+    Route::post("submitRequest", [GuestInquiryController::class, "storeInquiry"])
+        ->name('submit-reservation-request');
+});
+
+Route::prefix('reservations')->group(function(){
+    Route::get('activate', [GuestBookingController::class, "index"])
+        ->name('activate-reservation');
+    Route::get('verification', [GuestBookingController::class, "verifyCode"])
+        ->name('verify-reservation');
+    Route::get('summary', [GuestBookingController::class, "summary"])
+        ->name('reservation-summary');
+    Route::get('checkout/pid={checkoutSessId}', [GuestBookingController::class, "checkout"])
+        ->name('checkout-reservation');
+
+    Route::post("verifyEmail", [GuestBookingController::class, "verifyEmail"])
+        ->name('submit-verify-email');
+    Route::post("verifyReservation", [GuestBookingController::class, "verifyBooking"])
+        ->name('submit-verify-reservation');
+    Route::post("submitPayAmount", [GuestBookingController::class, "payAmount"])
+        ->name('submit-checkout');
 });
 
 
+/*
+ *******************************************************************************
+ * **************** ADMIN ROUTES ***********************************************
+ *******************************************************************************
+*/
+
+//***** PUBLIC ROUTES
+
 Route::prefix('/cn/admin')->group(function(){
     Route::get('/', [AuthController::class, "login"])->name('admin-login');
+    Route::post('auth/signIn', [AuthController::class, "submitSignIn"])->name('submit-signin');
+});
+
+//**** AUTHORIZED ROUTES
+
+Route::prefix('/cn/admin')->middleware('userCheck')->group(function(){
+
+    Route::get('auth/signOut', [AuthController::class, "submitSignOut"])->name('submit-signout');
+
     Route::get('dashboard', [DashboardController::class, "index"])->name('dashboard');
+
     Route::prefix('inquiries')->group(function(){
         Route::get('/', [InquiryController::class, "findAll"])->name('list-inquiries');
         Route::get('{inquiryId}', [InquiryController::class, "findByReferenceNumber"])->name('view-inquiry');
+
+        Route::post('updateInquiry', [InquiryController::class, "update"])->name('update-inquiry-submit');
     });
+
     Route::prefix('reservations')->group(function(){
         Route::get('/', [ReservationController::class, "findAll"])->name('list-reservations');
-        Route::get('create', [ReservationController::class, "findAll"])->name('create-reservation');
         Route::get('{bkRefId}', [ReservationController::class, "findByReferenceNumber"])->name('view-reservation');
+
+        Route::post('/', [ReservationController::class, "store"])->name('store-reservation-order');
     });
+
     Route::prefix('blog-posts')->group(function(){
         Route::get('/', [BlogPostController::class, "findAll"])->name('list-blog-posts');
         Route::get('create', [BlogPostController::class, "createPost"])->name('create-post');
@@ -61,7 +112,5 @@ Route::prefix('/cn/admin')->group(function(){
         Route::post('images/upload', [FileUploadController::class, "uploadImage"])->name('image-upload');
         Route::post('images/remove', [FileUploadController::class, "removeImage"])->name('remove-image');
     });
-
-    Route::post('/auth/signIn', [AuthController::class, "submitSignIn"])->name('submit-signin');
 });
 

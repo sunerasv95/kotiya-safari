@@ -7,11 +7,11 @@ use App\Services\BlogService;
 use App\Services\CommonService;
 use App\Services\ExternalApiCallsService;
 use App\Services\InquiryService;
-use App\Services\ReservationService;
+use App\Services\ReservationOrderService;
 use App\Services\StorageService;
 use App\Services\Contracts\AuthServiceInterface;
 use App\Services\Contracts\InquiryServiceInterface;
-use App\Services\Contracts\ReservationServiceInterface;
+use App\Services\Contracts\ReservationOrderServiceInterface;
 use App\Services\Contracts\BlogServiceInterface;
 use App\Services\Contracts\CommonServiceInterface;
 use App\Services\Contracts\ExternalApiCallsServiceInterface;
@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
         $this->app->bind(InquiryServiceInterface::class, InquiryService::class);
-        $this->app->bind(ReservationServiceInterface::class, ReservationService::class);
+        $this->app->bind(ReservationOrderServiceInterface::class, ReservationOrderService::class);
         $this->app->bind(BlogServiceInterface::class, BlogService::class);
 
         $this->app->bind(StorageServiceInterface::class, StorageService::class);

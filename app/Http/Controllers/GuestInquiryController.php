@@ -7,7 +7,7 @@ use App\Services\Contracts\CommonServiceInterface;
 use App\Services\Contracts\InquiryServiceInterface;
 use Illuminate\Http\Request;
 
-class BookingInquiryController extends Controller
+class GuestInquiryController extends Controller
 {
     private $commonService;
     private $inquiryService;
@@ -15,13 +15,12 @@ class BookingInquiryController extends Controller
     public function __construct(
         CommonServiceInterface $commonService,
         InquiryServiceInterface $inquiryService
-    )
-    {
+    ) {
         $this->commonService = $commonService;
         $this->inquiryService = $inquiryService;
     }
 
-    public function makeRequest()
+    public function inquiry()
     {
         $countries = $this->commonService->retrieveDataFromJsonFile("countries");
         $vas = $this->inquiryService->getAllValueAddedServices();
@@ -29,19 +28,19 @@ class BookingInquiryController extends Controller
         return view('inquiry.index', compact('countries', 'vas'));
     }
 
-    public function storeReservationRequest(BookingInquiryRequest $request)
+    public function storeInquiry(BookingInquiryRequest $request)
     {
         //dd($request->all());
-       $validatedData = $request->validated();
-       //dd($validatedData);
-       $result = $this->inquiryService->createInquiry($validatedData);
+        $validatedData = $request->validated();
+        //dd($validatedData);
+        $res = $this->inquiryService->createInquiry($validatedData);
 
-       if($result){
+        if (!$res['error']) {
             $successMsg = "Your request has been submited successfully. Please check your email to verify your email.";
             return redirect()->route('reservation-request')->with("successMsg", $successMsg);
-       }else{
+        } else {
             $errorMsg = "Please check following errors!";
-            return redirect()->back('reservation-request')->with("successMsg", $errorMsg);
-       }
+            return redirect()->back('reservation-request')->with("errorMsg", $errorMsg);
+        }
     }
 }

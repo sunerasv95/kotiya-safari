@@ -39,34 +39,40 @@ class Handler extends ExceptionHandler
         });
     }
 
-    // public function render($request, Throwable $exception)
-    // {
-    //     //dd($exception);
-    //     //retrive ex message -> $exception->getMessage()
-    //     // if (get_class($exception) === "Illuminate\Database\Eloquent\ModelNotFoundException") {
-    //     //     return $this->respondNotFound("Resource not found!", ErrorCodes::NOT_FOUND);
-    //     // }
+    public function render($request, Throwable $exception)
+    {
+        dd($exception);
+        //     //retrive ex message -> $exception->getMessage()
+        // if (get_class($exception) === "Illuminate\Database\Eloquent\ModelNotFoundException") {
+        //     $errorMsg = "Something went wrong!";
+        //     return redirect()->back()->with("errorMsg", $errorMsg);
+        // }
 
-    //     // if (get_class($exception) === "Illuminate\Database\QueryException") {
-    //     //     return $this->respondInternalError($exception, ErrorCodes::SERVER_ERROR);
-    //     // }
+        // if (get_class($exception) === "Illuminate\Database\QueryException") {
+        //     $errorMsg = "Something went wrong!";
+        //     return redirect()->back()->with("errorMsg", $errorMsg);
+        // }
 
-    //     // if (get_class($exception) === "Exception") {
-    //     //     return $this->respondInternalError("Something went wrong!", ErrorCodes::SERVER_ERROR);
-    //     // }
+        // if (get_class($exception) === "Exception") {
+        //     $errorMsg = "Something went wrong!";
+        //     return redirect()->back()->with("errorMsg", $errorMsg);
+        // }
 
-    //     // if (get_class($exception) === "Error") {
-    //     //     return $this->respondInternalError("Something went wrong!", ErrorCodes::SERVER_ERROR);
-    //     // }
+        // if (get_class($exception) === "Error") {
+        //     $errorMsg = "Something went wrong!";
+        //     return redirect()->back()->with("errorMsg", $errorMsg);
+        // }
 
-    //     if (get_class($exception) === "Illuminate\Validation\ValidationException") {
-    //         dd($exception);
-    //     }
+        // if (get_class($exception) === "Illuminate\Validation\ValidationException") {
+        //     $errorMsg = "Something went wrong!";
+        //     return redirect()->back()->with("errorMsg", $errorMsg);
+        // }
 
-    //     // if (get_class($exception) === "Illuminate\Auth\AuthenticationException") {
-    //     //     return $this->respondUnAuthorized('Unauthorized', ErrorCodes::INVALID_TOKEN);
-    //     // }
+        // if (get_class($exception) === "Illuminate\Auth\AuthenticationException") {
+        //     $errorMsg = "Something went wrong!";
+        //     return redirect()->back()->with("errorMsg", $errorMsg);
+        // }
 
-    //     return parent::render($request, $exception);
-    // }
+        return parent::render($request, $exception);
+    }
 }

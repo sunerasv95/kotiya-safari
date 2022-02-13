@@ -11,4 +11,6 @@ interface InquiryServiceInterface
     public function getInquiryByReferenceNumber(string $inquiryRefNumber);
 
     public function createInquiry(array $newInquiry);
+
+    public function updateInquiry(array $updateOrderData);
 }

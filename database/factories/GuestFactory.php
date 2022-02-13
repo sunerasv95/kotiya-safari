@@ -17,10 +17,13 @@ class GuestFactory extends Factory
             "guest_code"  => "GSU".rand(100000, 999999),
             "full_name"  => $this->faker->name('male'),
             "email" => $this->faker->email(),
-            "country_code" => 1100,
-            "ip_address" => $this->faker->ipv4(),
+            "is_email_verified" => 0,
+            "country_code" => "SL",
+            "last_login_ip" => $this->faker->ipv4(),
+            "status" => 1,
             "created_at" => now(),
-            "updated_at" => now()
+            "updated_at" => now(),
+            "email_verified_at" => null
         ];
     }
 }

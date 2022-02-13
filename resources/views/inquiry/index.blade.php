@@ -18,8 +18,12 @@
             @include('partial-views.alerts.alert-success')
             <div class="card border-0 shadow round p-2">
                 <div class="card-body">
-                    <form class="row g-3" id="reservationRequestForm" method="POST"
-                        action="{{ route('submit-reservation-request') }}">
+                    <form
+                        class="row g-3"
+                        id="reservationRequestForm"
+                        method="POST"
+                        action="{{ route('submit-verify-email') }}"
+                    >
                         @csrf
                         <div class="col-md-6">
                             <label for="fname" class="form-label">First Name</label>
@@ -106,7 +110,7 @@
                         <input type="hidden" name="serviceRequired" value="0">
                         <input type="hidden" name="selectedServicesArr" value="">
                         <div class="d-grid mt-5">
-                            <button type="submit" class="btn btn-warning btn-lg btn-block" form="reservationRequestForm"
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" form="reservationRequestForm"
                                 id="requestSubmitBtn">Submit Request</button>
                         </div>
                     </form>

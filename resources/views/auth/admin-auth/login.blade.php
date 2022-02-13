@@ -2,52 +2,76 @@
 
 @section('page-styles')
 <link href="{{ asset('dist/admin/css/signin.css') }}" rel="stylesheet">
-<style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
-    }
-</style>
 @endsection
 
 @section('main-content')
-<form
-    method="POST"
-    action="{{ route('submit-signin') }}"
->
-    @csrf
-    <img class="mb-4" src="https://i.pinimg.com/474x/aa/22/96/aa229629071d6d0e5612a18577cb6afc.jpg" alt="" width="72"
-        height="57">
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-    <div class="form-floating">
-        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
-        <label for="floatingInput">Email address</label>
+<div class="container login-container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            @include('partial-views.alerts.alert-danger')
+            @include('partial-views.alerts.alert-success')
+        </div>
     </div>
-    <div class="form-floating">
-        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-        <label for="floatingPassword">Password</label>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h2 class="display py-2">Login</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form
+                        id="loginForm"
+                        method="POST"
+                        action="{{ route('submit-signin') }}"
+                    >
+                        @csrf
+                        <div class="mb-3 text-start">
+                          <label for="emailId" class="form-label">Email address</label>
+                          <input
+                            type="email"
+                            class="form-control form-control-lg"
+                            id="emailId"
+                            name="email"
+                        >
+                        </div>
+                        <div class="mb-3 text-start">
+                          <label for="password" class="form-label">Password</label>
+                          <input
+                            type="password"
+                            class="form-control form-control-lg"
+                            id="password"
+                            name="password"
+                        >
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button
+                                class="btn btn-primary btn-lg"
+                                type="submit"
+                                id="loginBtn"
+                            >Login</button>
+                          </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-success" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2021-2022</p>
-</form>
+</div>
 @endsection
 
 @section('page-scripts')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script>
+    $(document).on("click", "#loginBtn", function(){
+        $("#loginForm").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true
+                }
+            }
+        });
+    });
+</script>
 @endsection

@@ -4,14 +4,14 @@ namespace App\Providers;
 
 use App\Repositories\Contracts\AdminRepositoryInterface;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
-use App\Repositories\Contracts\ReservationRepositoryInterface;
+use App\Repositories\Contracts\ReservationOrderRepositoryInterface;
 use App\Repositories\Contracts\BlogRepositoryInterface;
 use App\Repositories\Contracts\GuestRepositoryInterface;
 use App\Repositories\AdminRepository;
 use App\Repositories\BlogRepository;
 use App\Repositories\GuestRepository;
 use App\Repositories\InquiryRepository;
-use App\Repositories\ReservationRepository;
+use App\Repositories\ReservationOrderRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -25,7 +25,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
         $this->app->bind(InquiryRepositoryInterface::class, InquiryRepository::class);
-        $this->app->bind(ReservationRepositoryInterface::class, ReservationRepository::class);
+        $this->app->bind(ReservationOrderRepositoryInterface::class, ReservationOrderRepository::class);
         $this->app->bind(BlogRepositoryInterface::class, BlogRepository::class);
         $this->app->bind(GuestRepositoryInterface::class, GuestRepository::class);
 

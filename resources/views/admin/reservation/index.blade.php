@@ -30,11 +30,12 @@
     <table id="reservation-table" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Booking Reference</th>
                 <th scope="col">Inquiry ID</th>
+                <th scope="col">Guest Name</th>
+                <th scope="col">Guest Email</th>
                 <th scope="col">Verification Status</th>
-                <th scope="col">Booking Status</th>
+                <th scope="col">Reservation Status</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -42,19 +43,38 @@
             @if (!empty($reservations))
             @foreach ($reservations as $reservation)
             <tr>
-                <td>{{ $reservation['bk_reference_no'] }}</td>
-                <td>{{ $reservation['inq_reference_no'] }}</td>
-                <td>{{ $reservation['is_verified'] }}</td>
+                <td>{{ $reservation['order_reference_no'] }}</td>
                 <td>
-                    @if ($inquiry['status'] === 0)
-                    <span class="badge bg-warning text-dark">Payment Pending</span>
-                    @elseif($inquiry['status'] === 1)
-                    <span class="badge bg-success text-dark">Partial Payment Received</span>
+                    <a href="{{ route('view-inquiry', ['inquiryId'=> $reservation['inquiry']['inquiry_reference_no'] ])}}">
+                        {{ $reservation['inquiry']['inquiry_reference_no'] }}
+                        <i class="bi-sm bi-box-arrow-up-right mb-2"></i>
+                    </a>
+                </td>
+                <td>{{ $reservation['inquiry']['guest']['full_name'] }}</td>
+                <td>{{ $reservation['inquiry']['guest']['email'] }}</td>
+                <td>
+                    @if ($reservation['is_verified'] === 1)
+                        <span class="badge bg-success text-kight">Booking Verified</span>
                     @else
-                    <span class="badge bg-danger text-dark">Booking Canceled</span>
+                        <span class="badge bg-warning text-dark">Verification Pending</span>
+                    @endif
+                </td>
+                <td>
+                    @if ($reservation['status'] === "PENDING")
+                    <span class="badge bg-warning text-dark">Payment Pending</span>
+                    @elseif($reservation['status'] === "PAR_PAID")
+                    <span class="badge bg-secondary text-light">Partial Payment Received</span>
+                    @elseif($reservation['status'] === "COMPLETED")
+                    <span class="badge bg-success text-light">Completed</span>
+                    @elseif($reservation['status'] === "RE_SCHE")
+                    <span class="badge bg-dark text-light">Re-Scheduled</span>
+                    @elseif($reservation['status'] === "CANCELLED")
+                    <span class="badge bg-danger text-light">Cancelled</span>
+                    @else
+                    <span class="badge bg-light text-dark">N/A</span>
                     @endif
                 <td>
-                    <a href="{{ route('view-inquiry', ['inquiryId'=> $inquiry['bk_reference_no']]) }}"
+                    <a href="{{ route('view-reservation', ['bkRefId'=> $reservation['order_reference_no']]) }}"
                         class="btn btn-primary btn-sm">
                         View
                     </a>

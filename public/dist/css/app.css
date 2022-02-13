@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css);
 @charset "UTF-8";
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
@@ -11291,6 +11292,19 @@ body {
   left: 0;
   box-sizing: border-box;
   background-color: #ffffff;
+}
+
+/* BOOTSTRAP ICONS
+*/
+.bi {
+  font-size: 1.25rem;
+  margin: 0 3px;
+}
+
+.bi-sm::before {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  margin-left: 0.3rem;
 }
 
 /* JQUERY VALIDATE JS

@@ -9,6 +9,11 @@ class Inquiry extends Model
 {
     use HasFactory;
 
+    public function reservationOrder()
+    {
+        return $this->hasOne(ReservationOrder::class);
+    }
+
     public function guest()
     {
         return $this->belongsTo(Guest::class);

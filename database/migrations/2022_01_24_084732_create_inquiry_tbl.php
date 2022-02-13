@@ -23,7 +23,8 @@ class CreateInquiryTbl extends Migration
             $table->tinyInteger('no_adults')->default(1);
             $table->tinyInteger('no_kids')->default(0);
             $table->string("remark", 200)->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('is_deleted')->default(0);
             $table->ipAddress('ip_address')->nullable();
             $table->timestamps();
         });

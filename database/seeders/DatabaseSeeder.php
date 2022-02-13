@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             BlogPostSeeder::class,
             InquirySeeder::class,
-            VASSeeder::class
+            VASSeeder::class,
+            InquiryStatusSeeder::class,
+            ReservationStatusSeeder::class
         ]);
     }
 }

@@ -23,8 +23,10 @@ class InquiryService implements InquiryServiceInterface
 
     public function getAllInquiries()
     {
+        $with = [];
         try {
-            return $this->inquiryRepository->findAllInquiries()->toArray();
+            $with = ["guest"];
+            return $this->inquiryRepository->findAllInquiries($with)->toArray();
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -41,10 +43,20 @@ class InquiryService implements InquiryServiceInterface
 
     public function getInquiryByReferenceNumber(string $inquiryRefNumber)
     {
+        $with = ["guest", "reservationOrder"];
+        $nightsCount = 0;
         try {
-            return $this->inquiryRepository
-                ->findInquiryByReferenceNumber($inquiryRefNumber)
+            $iniquiryDetails = $this->inquiryRepository
+                ->findInquiryByReferenceNumber($inquiryRefNumber, $with)
                 ->toArray();
+
+            if(isset($iniquiryDetails['checkin_date']) && isset($iniquiryDetails['checkout_date'])){
+                $nightsCount = carbonParse($iniquiryDetails['checkout_date'])
+                    ->diffInDays(carbonParse($iniquiryDetails['checkin_date']));
+            }
+            $iniquiryDetails['total_nights'] = $nightsCount;
+            //dd($iniquiryDetails);
+            return $iniquiryDetails;
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -52,7 +64,11 @@ class InquiryService implements InquiryServiceInterface
 
     public function createInquiry(array $newInquiry)
     {
-        //dd("test",$newInquiry);
+        $result = [
+            "error" => true,
+            "message" => null
+        ];
+
         DB::beginTransaction();
         try {
             $inqData = array(
@@ -62,10 +78,10 @@ class InquiryService implements InquiryServiceInterface
                 "noKids" => $newInquiry['noKids'],
                 "reqServices" => $newInquiry["selectedServicesArr"]
             );
-            //dd($inqData);
-            $inquireEmail = $newInquiry['email'];
 
+            $inquireEmail = $newInquiry['email'];
             $guest = $this->guestRepository->findGuestByEmail($inquireEmail);
+
             if(isset($guest)){
                 $inqData['guestId'] = $guest->id;
             }else{
@@ -78,12 +94,43 @@ class InquiryService implements InquiryServiceInterface
                 $guest = $this->guestRepository->findGuestByEmail($inquireEmail);
                 $inqData['guestId'] = $guest->id;
             }
-            // dd($guest);
+
             $inquirySaved = $this->inquiryRepository->saveInquiry($inqData);
-            DB::commit();
-            return $inquirySaved;
+            if($inquirySaved){
+                DB::commit();
+                $result['error'] = false;
+                $result['message'] = "";
+            }
+
+            return $result;
         } catch (\Throwable $th) {
             DB::rollBack();
+            throw $th;
+        }
+    }
+
+    public function updateInquiry(array $updateOrderData)
+    {
+        $result = [
+            "error" => true,
+            "message"=> null
+        ];
+
+        try {
+            $inquiryRef = $updateOrderData['updInquiryId'];
+            $inquiry    = $this->inquiryRepository->findInquiryByReferenceNumber($inquiryRef);
+
+            if(!isset($inquiry)){
+                $result['message'] = "Inquiry is not found!";
+            }else{
+                $inquiryUpdated = $this->inquiryRepository->updateInquiry($inquiry, $updateOrderData);
+                if($inquiryUpdated){
+                    $result['error'] = false;
+                    $result['message'] = "Inquiry is updated successfully!";
+                }
+            }
+            return $result;
+        } catch (\Throwable $th) {
             throw $th;
         }
     }
