@@ -22,7 +22,7 @@
                         class="row g-3"
                         id="reservationRequestForm"
                         method="POST"
-                        action="{{ route('submit-verify-email') }}"
+                        action="{{ route('submit-reservation-request') }}"
                     >
                         @csrf
                         <div class="col-md-6">
