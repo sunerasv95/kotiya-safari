@@ -15,7 +15,7 @@ class AdminFactory extends Factory
     public function definition()
     {
         return [
-            "name" => $this->faker->name('male'),
+            "name" => "Admin",//$this->faker->name('male'),
             "email" => "test@app.com",
             "admin_code" => "ADU".rand(1000, 9999),
             "email_verified_at" => null,
