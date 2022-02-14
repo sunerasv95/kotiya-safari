@@ -22,9 +22,9 @@ class GuestInquiryController extends Controller
 
     public function inquiry()
     {
-        $countries = $this->commonService->retrieveDataFromJsonFile("countries");
+        $countries = $this->commonService->retriveCountryList();
         $vas = $this->inquiryService->getAllValueAddedServices();
-        //dd($vas);
+        //dd($countries);
         return view('inquiry.index', compact('countries', 'vas'));
     }
 
