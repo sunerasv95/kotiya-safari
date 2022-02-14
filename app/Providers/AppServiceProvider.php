@@ -16,6 +16,7 @@ use App\Services\Contracts\BlogServiceInterface;
 use App\Services\Contracts\CommonServiceInterface;
 use App\Services\Contracts\ExternalApiCallsServiceInterface;
 use App\Services\Contracts\StorageServiceInterface;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Schema::defaultStringLength(191);
+
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
         $this->app->bind(InquiryServiceInterface::class, InquiryService::class);
         $this->app->bind(ReservationOrderServiceInterface::class, ReservationOrderService::class);
