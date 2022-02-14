@@ -24,7 +24,7 @@ class CreateReservationOrdersTbl extends Migration
             $table->tinyInteger('is_verified')->default(0);
             $table->tinyInteger('is_rescheduled')->default(0);
             $table->timestamp('verified_at')->nullable();
-            $table->timestamp('verification_expired_at');
+            $table->timestamp('verification_expired_at')->default(null);
             $table->string('remark', 200)->nullable();
             $table->enum('status', $allowedArr)->default("PENDING");
             $table->tinyInteger('is_deleted')->default(0);
