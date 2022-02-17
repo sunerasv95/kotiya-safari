@@ -12,7 +12,7 @@
                 type="button"
                 class="btn btn-dark  px-3"
                 data-bs-target="#signedOutConfirmation"
-                data-bs-toggle="modal">Sign out</button>
+                data-bs-toggle="modal">Sign out <i class="bi bi-box-arrow-right"></i></button>
         </div>
     </div>
 </header>

@@ -102,4 +102,14 @@ class ReservationOrderRepository implements ReservationOrderRepositoryInterface
 
         return $resVerication->fresh()->toArray();
     }
+
+    public function reservationCountByStatus($status = null)
+    {
+        return RepoModel::where('status', $status)->get()->count();
+    }
+
+    public function reservationCountByVerificationStatus($verificationStatus = 0)
+    {
+        return RepoModel::where('is_verified', $verificationStatus)->get()->count();
+    }
 }

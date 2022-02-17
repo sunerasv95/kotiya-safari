@@ -11308,6 +11308,10 @@ body {
   margin-left: 0.3rem;
 }
 
+.bi-lg::before {
+  font-size: 2rem;
+}
+
 /* JQUERY VALIDATE JS
 -------------------------------------------------- */
 label.error {

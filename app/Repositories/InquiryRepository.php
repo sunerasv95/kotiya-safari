@@ -105,4 +105,9 @@ class InquiryRepository implements InquiryRepositoryInterface
         return VAS::active()->where("service_code", $vasCode)->select("id")->first()->id;
     }
 
+    public function inquiryCountByStatus($status = null)
+    {
+        return RepoModel::where('status', $status)->where('is_deleted', 0)->get()->count();
+    }
+
 }

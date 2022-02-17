@@ -17,4 +17,9 @@ interface ReservationOrderRepositoryInterface
     public function saveReservation(Inquiry $inquiry, array $orderData);
 
     public function saveVerification(string $guestCode, string $bkRefNo, string $bkCode, string $verificationCode);
+
+    public function reservationCountByStatus($status = null);
+
+    public function reservationCountByVerificationStatus($verificationStatus = 0);
+
 }

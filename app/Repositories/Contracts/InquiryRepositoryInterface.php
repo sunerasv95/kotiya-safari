@@ -19,4 +19,6 @@ interface InquiryRepositoryInterface
     public function updateInquiry(Inquiry $inquiry, array $updateInquiry);
 
     public function updateInquiryStatus(Inquiry $inquiry, string $status=null, string $remarkText = null, array $rejectData = []);
+
+    public function inquiryCountByStatus($status = null);
 }
