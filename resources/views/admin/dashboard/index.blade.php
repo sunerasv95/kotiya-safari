@@ -13,7 +13,7 @@
                 <div class="card text-light bg-primary bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 16rem;">
                     <div class="card-body d-flex justify-content-between">
                       <div class="flex-column align-items-center">
-                        <h2 class="card-title">Inquiries</i></h2>
+                        <h4 class="card-title pb-2">Inquiries</i></h4>
                         <h4>{{ $cardCounts['data']['inquiryCount'] }}</h4>
                       </div>
                       <i class="bi-lg bi-arrow-down-circle-fill align-self-center"></i>
@@ -22,7 +22,7 @@
                 <div class="card text-dark bg-warning bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 16rem;">
                     <div class="card-body d-flex justify-content-between">
                       <div class="flex-column align-items-center">
-                        <h2 class="card-title">Verify Req.</h2>
+                        <h4 class="card-title pb-2">Verifications</i></h4>
                         <h4>{{ $cardCounts['data']['pendingBookings'] }}</h4>
                       </div>
                       <i class="bi-lg bi-bookmark-check-fill align-self-center"></i>
@@ -31,7 +31,7 @@
                 <div class="card text-light bg-danger bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 16rem;">
                     <div class="card-body d-flex justify-content-between">
                       <div class="flex-column align-items-center">
-                        <h2 class="card-title">Payments</i></h2>
+                        <h4 class="card-title pb-2">Payments</i></h4>
                         <h4>{{ $cardCounts['data']['pendingPayments'] }}</h4>
                       </div>
                       <i class="bi-lg bi-hourglass-split align-self-center"></i>
@@ -40,7 +40,7 @@
                 <div class="card text-light bg-success bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 16rem;">
                     <div class="card-body d-flex justify-content-between">
                       <div class="flex-column align-items-center">
-                        <h2 class="card-title">Customers</i></h2>
+                        <h4 class="card-title pb-2">Customers</i></h4>
                         <h4>{{ $cardCounts['data']['customersCount'] }}</h4>
                       </div>
                       <i class="bi-lg bi-people-fill align-self-center"></i>
