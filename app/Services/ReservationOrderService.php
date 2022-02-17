@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\Repositories\AdminRepository;
+use App\Repositories\Contracts\AdminRepositoryInterface;
 use App\Repositories\Contracts\GuestRepositoryInterface;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
 use App\Repositories\Contracts\ReservationOrderRepositoryInterface;
 use App\Services\Contracts\ReservationOrderServiceInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReservationOrderService implements ReservationOrderServiceInterface
@@ -13,16 +16,20 @@ class ReservationOrderService implements ReservationOrderServiceInterface
     private $reservationRepository;
     private $inquiryRepository;
     private $guestRepository;
+    private $adminRepository;
 
     public function __construct(
         ReservationOrderRepositoryInterface $reservationRepository,
         InquiryRepositoryInterface $inquiryRepository,
-        GuestRepositoryInterface $guestRepository
+        GuestRepositoryInterface $guestRepository,
+        AdminRepositoryInterface $adminRepository
     )
     {
         $this->reservationRepository    = $reservationRepository;
         $this->inquiryRepository        = $inquiryRepository;
         $this->guestRepository          = $guestRepository;
+        $this->adminRepository          = $adminRepository;
+
     }
 
     public function getAllReservations()
@@ -111,8 +118,11 @@ class ReservationOrderService implements ReservationOrderServiceInterface
                     }elseif($inquiry['status'] == 2){
                         $result['message'] = "Inquiry is already processed!";
                     }else{
+                        $currentUser = retriveCurrentUserSession();
+                        //dd($currentUser);
+                        $orderData['adminId'] = $this->adminRepository->findAdminId($currentUser['_adminId']);
                         $orderSaved = $this->reservationRepository->saveReservation($inquiry, $orderData);
-                        $inquiryStatusUpdated = $this->inquiryRepository->updateInquiryStatus($inquiry, 2);
+                        $inquiryStatusUpdated = $this->inquiryRepository->updateInquiryStatus($inquiry, "RES_ADDED");
 
                         if($orderSaved && $inquiryStatusUpdated){
                             DB::commit();
@@ -156,6 +166,6 @@ class ReservationOrderService implements ReservationOrderServiceInterface
 
     public function verifyReservation(array $verificationData)
     {
-        
+
     }
 }

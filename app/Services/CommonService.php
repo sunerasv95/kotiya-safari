@@ -27,4 +27,14 @@ class CommonService implements CommonServiceInterface
             throw $th;
         }
     }
+
+    public function retriveInquiryStatus()
+    {
+        try {
+            $status = DB::table('inquiry_status')->get();
+            return json_decode($status, true);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

@@ -29,12 +29,14 @@
                         <h4>#{{ $inquiry['inquiry_reference_no'] }}</h4></span>
                     </div>
                     <div class="col-sm-9">
-                        @if ($inquiry['status'] === 1)
+                        @if ($inquiry['status'] === "PENDING")
                         <h5><span class="badge bg-warning text-dark">Pending</span></h5>
-                        @elseif($inquiry['status'] === 2)
+                        @elseif($inquiry['status'] === "RES_ADDED")
                         <h5><span class="badge bg-success">Reservation Added</span></h5>
-                        @else
+                        @elseif($inquiry['status'] === "REJECTED")
                         <h5><span class="badge bg-danger">Rejected</span></h5>
+                        @else
+                        <h5><span class="badge bg-secondary">N/A</span></h5>
                         @endif
                     </div>
                 </div>
@@ -61,17 +63,31 @@
                     <dt class="col-sm-3">Inquiry Created At</dt>
                     <dd class="col-sm-9">{{ $inquiry['created_at'] }}</dd>
 
+                    @if ($inquiry['remark'] != null)
                     <dt class="col-sm-3">Remark</dt>
-                    <dd class="col-sm-9">{{ $inquiry['remark'] ?? "-" }}</dd>
+                    <dd class="col-sm-9">{{ $inquiry['remark'] }}</dd>
+                    @endif
+
+                    @if ($inquiry['remark'] != null)
+                    <dt class="col-sm-3">Remark</dt>
+                    <dd class="col-sm-9">{{ $inquiry['remark'] }}</dd>
+                    @endif
+
+                    @if ($inquiry['remark'] != null)
+                    <dt class="col-sm-3">Remark</dt>
+                    <dd class="col-sm-9">{{ $inquiry['remark'] }}</dd>
+                    @endif
                 </dl>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div>
+            @if ($inquiry['status'] === "PENDING" || $inquiry['status'] === "RES_ADDED")
             <h5>Actions</h5>
+            @endif
             <div class="d-flex flex-column mb-3">
-                @if ($inquiry['status'] === 1)
+                @if ($inquiry['status'] === "PENDING")
                 <button type="button" class="btn btn-warning mb-1 mt-1" data-bs-toggle="modal"
                     data-bs-target="#updateInquiryModal">
                     <i class="bi bi-pencil-square"></i>
@@ -80,12 +96,13 @@
                     data-bs-target="#reservationGenModal">
                     <i class="bi bi-file-arrow-up"></i>
                     Generate a Reservation</button>
-                <button type="button" class="btn btn-outline-danger mb-1 mt-1">
+                <button type="button" class="btn btn-outline-danger mb-1 mt-1" data-bs-toggle="modal"
+                    data-bs-target="#rejectedConfirmation">
                     <i class="bi bi-x-octagon"></i>
                     Reject Inquiry</button>
                 @endif
 
-                @if ($inquiry['status'] === 2 && !empty($inquiry['reservation_order']))
+                @if ($inquiry['status'] === "RES_ADDED" && !empty($inquiry['reservation_order']))
                     <a href="{{ route('view-reservation', ['bkRefId'=> $inquiry['reservation_order']['order_reference_no']]) }}"
                         class="btn btn-info">
                         <i class="bi bi-box-arrow-in-up-right"></i>
@@ -124,7 +141,7 @@
                     </div>
                 </fieldset>
                 <form class="pt-1" id="reservationOrderForm" method="POST"
-                    action="{{ route('store-reservation-order') }}">
+                    action="{{ route('store-reservation-order-request') }}">
                     @csrf
                     <div class="mb-3">
                         <label for="campSite" class="form-label">Location</label>
@@ -209,24 +226,61 @@
     </div>
 </div>
 
+<!-- Reject inquiry modal -->
+<div class="modal fade" tabindex="-1" id="rejectedConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong>Confirmation</strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>This action can not be un-done. Are you sure to reject this inquiry?</p>
+                <form
+                    id="inquiryRejectForm"
+                    method="POST"
+                    action="{{ route('reject-inquiry-submit') }}"
+                >
+                    @csrf
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Reject Reason</label>
+                        <textarea class="form-control" id="rejectReason" name="rejectReason"></textarea>
+                    </div>
+                    <input type="hidden" name="rejectId" value="{{ $inquiry['inquiry_reference_no'] }}">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                    id="confirmRejectInquiryBtn"
+                    form="inquiryRejectForm"
+                >Yes, Reject this Inquiry</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection
 
 @section('page-scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script>
-    $(document).on("click", "#bookingGenerateBtn", function(){
+$(document).on("click", "#bookingGenerateBtn", function(){
     $("#reservationOrderForm").validate({
-        rules: {
-            campSiteId: {
-                required: true
-            },
-            tentId:{
-                required: true
-            },
-            remark: {
-                required: false
+            rules: {
+                campSiteId: {
+                    required: true
+                },
+                tentId:{
+                    required: true
+                },
+                remark: {
+                    required: false
+                }
             }
-        }
     });
 });
 
@@ -247,6 +301,18 @@ $(document).on("click", "#updateInquiryBtn", function(){
             },
             updRemark: {
                 required: false
+            }
+        }
+    });
+});
+
+$(document).on("click", "#confirmRejectInquiryBtn", function(){
+    $("#inquiryRejectForm").validate({
+        rules: {
+            rejectReason: {
+                required: true,
+                minlength: 2,
+                maxlength: 100
             }
         }
     });

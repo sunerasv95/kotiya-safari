@@ -8,6 +8,7 @@ use App\Models\ReservationOrderDetail;
 use App\Models\ReservationVerification;
 use App\Repositories\Contracts\ReservationOrderRepositoryInterface;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReservationOrderRepository implements ReservationOrderRepositoryInterface
@@ -58,6 +59,7 @@ class ReservationOrderRepository implements ReservationOrderRepositoryInterface
         $reservationOrder->verification_expired_at    = Carbon::now()->addDays(5);
         $reservationOrder->remark                     = $orderData['remark'];
         $reservationOrder->status                     = "PENDING";
+        $reservationOrder->generated_by               = $orderData['adminId'];
         $reservationOrder->is_deleted                 = 0;
         $reservationOrder->created_at                 = now();
         $reservationOrder->updated_at                 = now();

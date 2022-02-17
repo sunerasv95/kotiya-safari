@@ -8,5 +8,7 @@ interface AdminRepositoryInterface
 
     public function findAdminUserByEmail(string $email, $with=[]);
 
+    public function findAdminId(string $adminCode);
+
     public function saveAdminUser(array $newInquiry);
 }

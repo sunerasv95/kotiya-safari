@@ -23,6 +23,11 @@ class AdminRepository implements AdminRepositoryInterface
             ->first();
     }
 
+    public function findAdminId(string $adminCode)
+    {
+        return RepoModel::where('admin_code', $adminCode)->select('id')->first()->id;
+    }
+
     public function saveAdminUser(array $newAdminUser)
     {
         $admin = new RepoModel();

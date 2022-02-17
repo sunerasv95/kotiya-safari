@@ -23,7 +23,7 @@ class ReservationController extends Controller
         return view('admin.reservation.index', compact('reservations'));
     }
 
-    public function store(CreateReservationOrderRequest $request)
+    public function storeReservationRequest(CreateReservationOrderRequest $request)
     {
         $validatedData = $request->validated();
         $result = $this->reservationService->createReservationOrder($validatedData);

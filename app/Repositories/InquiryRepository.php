@@ -10,11 +10,16 @@ use App\Repositories\Contracts\InquiryRepositoryInterface;
 class InquiryRepository implements InquiryRepositoryInterface
 {
 
-    public function findAllInquiries($with=[])
+    public function findAllInquiries($with=[], $status= null)
     {
         return RepoModel::when(!empty($with), function($q)use($with){
             return $q->with($with);
-        })->get();
+        })
+        ->when($status != null && $status != "ALL" , function($q) use($status) {
+            return $q->where('status', $status);
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
     }
 
     public function findInquiryByReferenceNumber(string $inquiryRefNumber, $with=[])
@@ -36,14 +41,14 @@ class InquiryRepository implements InquiryRepositoryInterface
         //dd($newInquiry);
         $inquiry = new RepoModel();
 
-        $inquiry->inquiry_reference_no   = "KSQ" . rand(100000, 999999);
+        $inquiry->inquiry_reference_no   = rand(100000, 999999);
         $inquiry->guest_id               = $newInquiry['guestId'];
         $inquiry->checkin_date           = $newInquiry['checkinDate'];
         $inquiry->checkout_date          = $newInquiry['checkoutDate'];
         $inquiry->no_adults              = $newInquiry['noAdults'];
         $inquiry->no_kids                = $newInquiry['noKids'];
         $inquiry->ip_address             = rand(1000, 9999); //to-do: need to save real ip address
-        $inquiry->status                 = 1;
+        $inquiry->status                 = "PENDING";
         $inquiry->remark                 = null;
         $inquiry->created_at             = now();
         $inquiry->updated_at             = now();
@@ -70,14 +75,21 @@ class InquiryRepository implements InquiryRepositoryInterface
         return $inquiry->save();
     }
 
-    public function updateInquiryStatus(RepoModel $inquiry, int $status=null)
+    public function updateInquiryStatus(RepoModel $inquiry, string $status=null, string $remarkText = null, array $rejectData = [])
     {
-        $inquiry->status =$status;
+        $inquiry->status      = $status;
+        $inquiry->remark      = $remarkText;
+
+        if($status === "REJECTED"){
+            $inquiry->rejected_by = $rejectData['adminId'];
+            $inquiry->rejected_reason = $rejectData['rejectReason'];
+            $inquiry->rejected_at = now();
+        }
+
         return $inquiry->save();
     }
 
     //Value added Services
-
     public function findAllValueAddedServices()
     {
         return VAS::active()

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\Contracts\AdminRepositoryInterface;
 use App\Repositories\Contracts\GuestRepositoryInterface;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
 use App\Services\Contracts\InquiryServiceInterface;
@@ -11,22 +12,25 @@ class InquiryService implements InquiryServiceInterface
 {
     private $inquiryRepository;
     private $guestRepository;
+    private $adminRepository;
 
     public function __construct(
         InquiryRepositoryInterface $inquiryRepository,
-        GuestRepositoryInterface $guestRepository
+        GuestRepositoryInterface $guestRepository,
+        AdminRepositoryInterface $adminRepository
     )
     {
         $this->inquiryRepository = $inquiryRepository;
         $this->guestRepository = $guestRepository;
+        $this->adminRepository  = $adminRepository;
     }
 
-    public function getAllInquiries()
+    public function getAllInquiries($status = null)
     {
         $with = [];
         try {
             $with = ["guest"];
-            return $this->inquiryRepository->findAllInquiries($with)->toArray();
+            return $this->inquiryRepository->findAllInquiries($with, $status)->toArray();
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -126,7 +130,36 @@ class InquiryService implements InquiryServiceInterface
                 $inquiryUpdated = $this->inquiryRepository->updateInquiry($inquiry, $updateOrderData);
                 if($inquiryUpdated){
                     $result['error'] = false;
-                    $result['message'] = "Inquiry is updated successfully!";
+                    $result['message'] = "Inquiry has been updated!";
+                }
+            }
+            return $result;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function rejectInquiry(array $rejectData)
+    {
+        $result = [
+            "error" => true,
+            "message"=> null
+        ];
+
+        try {
+            $rejectRef  = $rejectData['rejectId'];
+            $inquiry    = $this->inquiryRepository->findInquiryByReferenceNumber($rejectRef);
+
+            if(!isset($inquiry)){
+                $result['message'] = "Inquiry is not found!";
+            }else{
+                $currentUser = retriveCurrentUserSession();
+                $rejectData['adminId'] = $this->adminRepository->findAdminId($currentUser['_adminId']);
+
+                $inquiryRejected = $this->inquiryRepository->updateInquiryStatus($inquiry, "REJECTED", null, $rejectData);
+                if($inquiryRejected){
+                    $result['error'] = false;
+                    $result['message'] = "Inquiry has been rejected!";
                 }
             }
             return $result;

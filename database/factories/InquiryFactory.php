@@ -21,7 +21,7 @@ class InquiryFactory extends Factory
             "no_adults" => rand(1, 5),
             "no_kids" => rand(1, 3),
             "remark" => null,
-            "status" => 1,
+            "status" => "PENDING",
             "is_deleted" => 0,
             "ip_address" => $this->faker->ipv4(),
             "created_at" => Carbon::now(),

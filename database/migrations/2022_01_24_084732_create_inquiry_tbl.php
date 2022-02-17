@@ -14,7 +14,9 @@ class CreateInquiryTbl extends Migration
      */
     public function up()
     {
-        Schema::create('inquiries', function (Blueprint $table) {
+        $allowedArr = ["PENDING", "RES_ADDED", "REJECTED"];
+
+        Schema::create('inquiries', function (Blueprint $table) use($allowedArr) {
             $table->id();
             $table->string('inquiry_reference_no')->unique();
             $table->integer('guest_id')->unsigned();
@@ -23,7 +25,7 @@ class CreateInquiryTbl extends Migration
             $table->tinyInteger('no_adults')->default(1);
             $table->tinyInteger('no_kids')->default(0);
             $table->string("remark", 200)->nullable();
-            $table->tinyInteger('status')->default(1);
+            $table->enum('status', $allowedArr)->default("PENDING");
             $table->tinyInteger('is_deleted')->default(0);
             $table->ipAddress('ip_address')->nullable();
             $table->timestamps();

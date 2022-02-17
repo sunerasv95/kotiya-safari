@@ -13,8 +13,8 @@ if(!function_exists('storeCurrentUserSession')){
         if(session()->has('_amToken')){
             session()->forget('_amToken');
         }
-        $encryptedData = encrypt($loginData);
-        session()->put('_amToken', (array)$encryptedData);
+        $encryptedData = encrypt((array)$loginData);
+        session()->put('_amToken', $encryptedData);
     }
 }
 

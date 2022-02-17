@@ -14,7 +14,7 @@ interface ReservationOrderRepositoryInterface
 
     public function findReservationByInquiryId($inquiryId);
 
-    public function saveReservation(Inquiry $inquiry , array $orderData);
+    public function saveReservation(Inquiry $inquiry, array $orderData);
 
     public function saveVerification(string $guestCode, string $bkRefNo, string $bkCode, string $verificationCode);
 }

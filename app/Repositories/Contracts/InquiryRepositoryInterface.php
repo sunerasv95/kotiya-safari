@@ -6,7 +6,7 @@ use App\Models\Inquiry;
 
 interface InquiryRepositoryInterface
 {
-    public function findAllInquiries();
+    public function findAllInquiries($with=[], $status= null);
 
     public function findAllValueAddedServices();
 
@@ -18,5 +18,5 @@ interface InquiryRepositoryInterface
 
     public function updateInquiry(Inquiry $inquiry, array $updateInquiry);
 
-    public function updateInquiryStatus(Inquiry $inquiry, int $status=null);
+    public function updateInquiryStatus(Inquiry $inquiry, string $status=null, string $remarkText = null, array $rejectData = []);
 }
