@@ -10,7 +10,7 @@
 <section>
         <div class="row py-3">
             <div class="col-md-12 d-flex justify-content-between flex-wrap">
-                <div class="card text-light bg-primary bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 18rem;">
+                <div class="card text-light bg-primary bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 16rem;">
                     <div class="card-body d-flex justify-content-between">
                       <div class="flex-column align-items-center">
                         <h2 class="card-title">Inquiries</i></h2>
@@ -19,7 +19,7 @@
                       <i class="bi-lg bi-arrow-down-circle-fill align-self-center"></i>
                     </div>
                 </div>
-                <div class="card text-dark bg-warning bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 18rem;">
+                <div class="card text-dark bg-warning bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 16rem;">
                     <div class="card-body d-flex justify-content-between">
                       <div class="flex-column align-items-center">
                         <h2 class="card-title">Verify Req.</h2>
@@ -28,7 +28,7 @@
                       <i class="bi-lg bi-bookmark-check-fill align-self-center"></i>
                     </div>
                 </div>
-                <div class="card text-light bg-danger bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 18rem;">
+                <div class="card text-light bg-danger bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 16rem;">
                     <div class="card-body d-flex justify-content-between">
                       <div class="flex-column align-items-center">
                         <h2 class="card-title">Payments</i></h2>
@@ -37,7 +37,7 @@
                       <i class="bi-lg bi-hourglass-split align-self-center"></i>
                     </div>
                 </div>
-                <div class="card text-light bg-success bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 18rem;">
+                <div class="card text-light bg-success bg-gradient mb-3 mx-1 shadow p-1 rounded" style="min-width: 16rem;">
                     <div class="card-body d-flex justify-content-between">
                       <div class="flex-column align-items-center">
                         <h2 class="card-title">Customers</i></h2>
