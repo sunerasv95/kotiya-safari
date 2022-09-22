@@ -14,14 +14,18 @@ class VASSeeder extends Seeder
      */
     public function run()
     {
-        $path = storage_path(). "\app\data\\vas.json";
-        $serviceContent = json_decode(file_get_contents($path), true);
+       $services = [
+            "Wild Life Photography",
+            "Safari",
+            "Boat Rides"
+      ];
 
-        foreach($serviceContent as $service){
+        foreach($services as $k=> $service){
+            $k++;
             DB::table('value_added_services')->insert([
-                "service_name" => $service["serviceName"],
+                "service_name" => $service,
                 "service_description" => "test description",
-                "service_code" => $service["serviceCode"],
+                "service_code" => "VAS000".$k,
                 "status" => 1,
                 "created_at" => now(),
                 "updated_at" => now()

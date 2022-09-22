@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class CountrySeeder extends Seeder
 {
@@ -14,8 +15,8 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        $path = storage_path(). "\app\data\\countries.json";
-        $countriesContent = json_decode(file_get_contents($path), true);
+        $json = File::get('database/data/countries.json');
+        $countriesContent = json_decode($json, true);
 
         foreach($countriesContent as $country){
             DB::table('countries')->insert([
@@ -26,4 +27,6 @@ class CountrySeeder extends Seeder
             ]);
         }
     }
+
+    
 }
