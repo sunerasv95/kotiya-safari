@@ -8,7 +8,7 @@
 </div>
 <div class="row my-2">
     <div class="col-md-12">
-        <a href="{{ route('list-inquiries') }}" class="btn  btn-light">
+        <a href="{{ route('admin.inquiries') }}" class="btn  btn-light">
             <i class="bi bi-arrow-left-circle"></i>
             Back to List
         </a>
@@ -154,7 +154,7 @@
                 @endif
 
                 @if ($inquiry['status'] === 2)
-                <a href="{{ route('view-reservation', ['bkRefId'=> 1]) }}" class="btn btn-info" data-bs-toggle="modal"
+                <a href="{{ route('admin.reservations.view', ['bkRefId'=> 1]) }}" class="btn btn-info" data-bs-toggle="modal"
                     data-bs-target="#rescheduleModal">
                     <i class="bi bi-box-arrow-in-up-right"></i>
                     Go-to Reservation</a>
@@ -245,7 +245,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="inquiryUpdateForm" action="{{ route('update-inquiry-submit') }}" method="POST">
+                <form id="inquiryUpdateForm" action="{{ route('admin.inquiries.update.submit') }}" method="POST">
                     @csrf
                     <div class=" row mb-3">
                         <div class="col">

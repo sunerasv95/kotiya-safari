@@ -21,7 +21,7 @@
                     <form
                         id="loginForm"
                         method="POST"
-                        action="{{ route('submit-signin') }}"
+                        action="{{ route('admin.login.submit') }}"
                     >
                         @csrf
                         <div class="mb-3 text-start">

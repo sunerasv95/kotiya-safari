@@ -37,10 +37,10 @@ class GuestInquiryController extends Controller
 
         if (!$res['error']) {
             $successMsg = "Your request has been submited successfully. Please check your email to verify your email.";
-            return redirect()->route('reservation-request')->with("successMsg", $successMsg);
+            return redirect()->route('guest.inquiries.request')->with("successMsg", $successMsg);
         } else {
             $errorMsg = "Please check following errors!";
-            return redirect()->back('reservation-request')->with("errorMsg", $errorMsg);
+            return redirect()->back('guest.inquiries.request')->with("errorMsg", $errorMsg);
         }
     }
 }

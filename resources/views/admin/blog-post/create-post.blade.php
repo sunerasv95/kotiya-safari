@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-8">
             <form id="createBlogForm" class="my-2" enctype="multipart/form-data" method="POST"
-                action="{{ route('store-post') }}">
+                action="{{ route('admin.blogs.create.submit') }}">
                 @csrf
                 <div class="mb-3">
                     <input
@@ -174,7 +174,7 @@
         return new Promise(function(resolve, reject){
             $.ajax({
                 headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')},
-                url: "{{ route('image-upload') }}",
+                url: "{{ route('admin.uploads.images.submit') }}",
                 type: "POST",
                 data,
                 cache:false,
@@ -195,7 +195,7 @@
         return new Promise(function(resolve, reject){
             $.ajax({
                 headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')},
-                url: "{{ route('remove-image') }}",
+                url: "{{ route('admin.uploads.images.remove') }}",
                 type: "POST",
                 data,
                 success: function(res){

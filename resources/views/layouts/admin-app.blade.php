@@ -44,7 +44,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <a href="{{ route('submit-signout') }}" class="btn btn-danger">Yes, Sign me Out</a>
+              <a href="{{ route('admin.auth.signout.submit') }}" class="btn btn-danger">Yes, Sign me Out</a>
             </div>
           </div>
         </div>

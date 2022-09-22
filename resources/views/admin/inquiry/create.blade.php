@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-6">
             <form class="row g-3" id="inquiryCreateForm" method="POST"
-                action="{{ route('create-inquiry-submit') }}">
+                action="{{ route('admin.inquiries.create.submit') }}">
                 @csrf
                 <div class="col-12">
                     <div id="note" class="form-text pb-1"><strong>Note:</strong>

@@ -31,20 +31,20 @@ use Illuminate\Support\Facades\Route;
  *******************************************************************************
 */
 
-Route::get('/', [HomeController::class, "homePage"])->name('home');
+Route::get('/', [HomeController::class, "homePage"])
+    ->name('home');
 
-Route::prefix('blog')->group(function () {
-    Route::get('/', [BlogController::class, "fetchAllPosts"])->name('blog');
-    Route::get('{postSlug}', [BlogController::class, "showPost"])->name('show-blog');
-});
+Route::get('/blogs', [BlogController::class, "fetchAllPosts"])
+    ->name('guest.blogs');
 
-Route::prefix('inquiry')->group(function () {
-    Route::get('/', [GuestInquiryController::class, "inquiry"])
-        ->name('reservation-request');
+Route::get('/blogs/{postSlug}', [BlogController::class, "showPost"])
+    ->name('guest.blogs.show');
 
-    Route::post("submitRequest", [GuestInquiryController::class, "storeInquiry"])
-        ->name('submit-reservation-request');
-});
+Route::get('inquiries', [GuestInquiryController::class, "inquiry"])
+        ->name('guest.inquiries.request');
+
+Route::post("inquiries/submitRequest", [GuestInquiryController::class, "storeInquiry"])
+        ->name('guest.inquiries.request.submit');
 
 Route::prefix('reservations')->group(function () {
     Route::get('activate', [GuestBookingController::class, "index"])
@@ -74,47 +74,87 @@ Route::prefix('reservations')->group(function () {
 //***** PUBLIC ROUTES
 
 Route::prefix('/cn/admin')->group(function () {
-    Route::get('/', [AuthController::class, "login"])->name('admin-login');
-    Route::post('auth/signIn', [AuthController::class, "submitSignIn"])->name('submit-signin');
+
+    Route::get('/', [AuthController::class, "login"])
+        ->name('admin.login');
+
+    Route::post('auth/signIn', [AuthController::class, "submitSignIn"])
+        ->name('admin.login.submit');
+
 });
 
 //**** AUTHORIZED ROUTES
+
 Route::prefix('/cn/admin')
     //->middleware('userCheck')
     ->group(function () {
 
-        Route::get('auth/signOut', [AuthController::class, "submitSignOut"])->name('submit-signout');
+        Route::get('auth/signOut', [AuthController::class, "submitSignOut"])
+            ->name('admin.auth.signout.submit');
 
-        Route::get('dashboard', [DashboardController::class, "index"])->name('dashboard');
+        Route::get('dashboard', [DashboardController::class, "index"])
+            ->name('admin.dashboard');
 
         Route::prefix('inquiries')->group(function () {
-            Route::get('/', [InquiryController::class, "findAll"])->name('list-inquiries');
-            Route::get('filter/{status?}', [InquiryController::class, "findAllByStatus"])->name('filter-inquiries');
-            Route::get('create', [InquiryController::class, "createInquiry"])->name('create-inquiry');
-            Route::get('{inquiryId}', [InquiryController::class, "findByReferenceNumber"])->name('view-inquiry');
 
-            Route::post('createInquiry', [InquiryController::class, "saveInquiry"])->name('create-inquiry-submit');
-            Route::post('updateInquiry', [InquiryController::class, "update"])->name('update-inquiry-submit');
-            Route::post('rejectInquiry', [InquiryController::class, "reject"])->name('reject-inquiry-submit');
+            Route::get('/', [InquiryController::class, "findAll"])
+                ->name('admin.inquiries');
+
+            Route::get('filter/{status?}', [InquiryController::class, "findAllByStatus"])
+                ->name('admin.inquiries.filter');
+
+            Route::get('create', [InquiryController::class, "createInquiry"])
+                ->name('admin.inquiries.create');
+
+            Route::get('{inquiryId}', [InquiryController::class, "findByReferenceNumber"])
+                ->name('admin.inquiries.view');
+
+            Route::post('createInquiry', [InquiryController::class, "saveInquiry"])
+                ->name('admin.inquiries.create.submit');
+
+            Route::post('updateInquiry', [InquiryController::class, "update"])
+                ->name('admin.inquiries.update.submit');
+
+            Route::post('rejectInquiry', [InquiryController::class, "reject"])
+                ->name('admin.inquiries.reject.submit');
+
         });
 
         Route::prefix('reservations')->group(function () {
-            Route::get('/', [ReservationController::class, "findAll"])->name('list-reservations');
-            Route::get('{bkRefId}', [ReservationController::class, "findByReferenceNumber"])->name('view-reservation');
 
-            Route::post('inquiryRequest', [ReservationController::class, "storeReservationRequest"])->name('store-reservation-order-request');
+            Route::get('/', [ReservationController::class, "findAll"])
+                ->name('admin.reservations');
+
+            Route::get('{bkRefId}', [ReservationController::class, "findByReferenceNumber"])
+                ->name('admin.reservations.view');
+
+            Route::post('inquiryRequest', [ReservationController::class, "storeReservationRequest"])
+                ->name('store-reservation-order-request');
         });
 
         Route::prefix('blog-posts')->group(function () {
-            Route::get('/', [BlogPostController::class, "findAll"])->name('list-blog-posts');
-            Route::get('create', [BlogPostController::class, "createPost"])->name('create-post');
 
-            Route::post('store', [BlogPostController::class, "storePost"])->name('store-post');
-            // Route::get('create', [ReservationController::class, "findAll"])->name('create-reservation');
-            // Route::get('{bkRefId}', [ReservationController::class, "findByReferenceNumber"])->name('view-reservation');
+            Route::get('/', [BlogPostController::class, "findAll"])
+                ->name('admin.blogs');
+
+            Route::get('create', [BlogPostController::class, "createPost"])
+                ->name('admin.blogs.create');
+
+            Route::post('store', [BlogPostController::class, "storePost"])
+                ->name('admin.blogs.create.submit');
+            
         });
+
         Route::prefix('files')->group(function () {
-            Route::post('images/upload', [FileUploadController::class, "uploadImage"])->name('image-upload');
-            Route::post('images/remove', [FileUploadController::class, "removeImage"])->name('remove-image');
+            Route::prefix('images')->group(function(){
+
+                Route::post('upload', [FileUploadController::class, "uploadImage"])
+                    ->name('admin.uploads.images.submit');
+
+                Route::post('remove', [FileUploadController::class, "removeImage"])
+                    ->name('admin.uploads.images.remove');
+
+            });
+           
         });
     });

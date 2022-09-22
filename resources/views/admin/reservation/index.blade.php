@@ -45,7 +45,7 @@
             <tr>
                 <td>{{ $reservation['order_reference_no'] }}</td>
                 <td>
-                    <a href="{{ route('view-inquiry', ['inquiryId'=> $reservation['inquiry']['inquiry_reference_no'] ])}}">
+                    <a href="{{ route('admin.inquiries.view', ['inquiryId'=> $reservation['inquiry']['inquiry_reference_no'] ])}}">
                         {{ $reservation['inquiry']['inquiry_reference_no'] }}
                         <i class="bi-sm bi-box-arrow-up-right mb-2"></i>
                     </a>
@@ -74,7 +74,7 @@
                     <span class="badge bg-light text-dark">N/A</span>
                     @endif
                 <td>
-                    <a href="{{ route('view-reservation', ['bkRefId'=> $reservation['order_reference_no']]) }}"
+                    <a href="{{ route('admin.reservations.view', ['bkRefId'=> $reservation['order_reference_no']]) }}"
                         class="btn btn-primary btn-sm">
                         View
                     </a>

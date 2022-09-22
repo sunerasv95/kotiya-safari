@@ -7,7 +7,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
     <h1 class="h2">Inquiries</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
-        <a href="{{ route('create-inquiry') }}" class="btn btn-success">
+        <a href="{{ route('admin.inquiries.create') }}" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Add New Inquiry
         </a>
     </div>
@@ -84,7 +84,7 @@
                     <span class="badge bg-secondary text-light">N/A</span>
                     @endif
                 <td>
-                    <a href="{{ route('view-inquiry', ['inquiryId'=> $inquiry['inquiry_reference_no']]) }}"
+                    <a href="{{ route('admin.inquiries.view', ['inquiryId'=> $inquiry['inquiry_reference_no']]) }}"
                         class="btn btn-primary btn-sm">
                         View
                     </a>
@@ -148,7 +148,7 @@
         return new Promise(function(resolve, reject){
             $.ajax({
                 headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')},
-                url: "{{ route('filter-inquiries') }}" + "/"+ status,
+                url: "{{ route('admin.inquiries.filter') }}" + "/"+ status,
                 dataType: "JSON",
                 type: "GET",
                 success: function(res){

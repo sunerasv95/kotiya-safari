@@ -12,7 +12,7 @@
     <div class="col-md-6 px-0">
       <h1 class="display-4">{{ $featuredPost['post_title'] }}</h1>
       <p class="lead my-3">{!! $featuredPost['thumbnail_text'] !!}</p>
-      <p class="lead mb-0"><a href="{{ route('show-blog', ['postSlug'=> $featuredPost['post_slug'] ]) }}" class="text-white fw-bold">Continue reading...</a></p>
+      <p class="lead mb-0"><a href="{{ route('guest.blogs.show', ['postSlug'=> $featuredPost['post_slug'] ]) }}" class="text-white fw-bold">Continue reading...</a></p>
     </div>
   </div>
 </div>
@@ -28,7 +28,7 @@
           <h3 class="mb-0">{{ $post['post_title'] }}</h3>
           <div class="mb-1 text-muted">{{ \Carbon\Carbon::parse($post['published_at'])->isoFormat('MMM Do YY'); }}</div>
           <p class="card-text mb-auto">{!! $post['thumbnail_text'] !!}</p>
-          <a href="{{ route('show-blog', ['postSlug'=> $post['post_slug'] ]) }}" class="stretched-link">Continue reading</a>
+          <a href="{{ route('guest.blogs.show', ['postSlug'=> $post['post_slug'] ]) }}" class="stretched-link">Continue reading</a>
         </div>
         <div class="col-auto d-none d-lg-block">
           <img src="{{ $post['thumbnail_url'] }}" class="img-fluid" alt="{{ $post['post_title'] }}" style="width: 260px;">

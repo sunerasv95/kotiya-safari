@@ -8,19 +8,19 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('list-inquiries') }}">
+                <a class="nav-link" href="{{ route('admin.inquiries') }}">
                     <i class="bi bi-layout-text-window-reverse"></i>
                     Inquiries
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('list-reservations') }}">
+                <a class="nav-link" href="{{ route('admin.reservations') }}">
                     <i class="bi bi-bookmarks-fill"></i>
                     Reservations
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('list-blog-posts') }}">
+                <a class="nav-link" href="{{ route('admin.blogs') }}">
                     <i class="bi bi-file-post"></i>
                     Blog Posts
                 </a>

@@ -22,7 +22,7 @@
                         class="row g-3"
                         id="reservationRequestForm"
                         method="POST"
-                        action="{{ route('submit-reservation-request') }}"
+                        action="{{ route('guest.inquiries.request.submit') }}"
                     >
                         @csrf
                         <div class="col-md-6">

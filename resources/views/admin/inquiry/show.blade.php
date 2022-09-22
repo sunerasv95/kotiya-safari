@@ -8,7 +8,7 @@
 </div>
 <div class="row my-2">
     <div class="col-md-12">
-        <a href="{{ route('list-inquiries') }}" class="btn  btn-light">
+        <a href="{{ route('admin.inquiries') }}" class="btn  btn-light">
             <i class="bi bi-arrow-left-circle"></i>
             Back to List
         </a>
@@ -103,7 +103,7 @@
                 @endif
 
                 @if ($inquiry['status'] === "RES_ADDED" && !empty($inquiry['reservation_order']))
-                    <a href="{{ route('view-reservation', ['bkRefId'=> $inquiry['reservation_order']['order_reference_no']]) }}"
+                    <a href="{{ route('admin.reservations.view', ['bkRefId'=> $inquiry['reservation_order']['order_reference_no']]) }}"
                         class="btn btn-info">
                         <i class="bi bi-box-arrow-in-up-right"></i>
                         Go-to Reservation
@@ -195,7 +195,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="inquiryUpdateForm" action="{{ route('update-inquiry-submit') }}" method="POST">
+                <form id="inquiryUpdateForm" action="{{ route('admin.inquiries.update.submit') }}" method="POST">
                     @csrf
                     <div class=" row mb-3">
                         <div class="col">
@@ -239,7 +239,7 @@
                 <form
                     id="inquiryRejectForm"
                     method="POST"
-                    action="{{ route('reject-inquiry-submit') }}"
+                    action="{{ route('admin.inquiries.reject.submit') }}"
                 >
                     @csrf
                     <div class="mb-3">

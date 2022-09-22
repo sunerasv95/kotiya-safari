@@ -72,7 +72,7 @@ class InquiryController extends Controller
 
         if (!$res['error']) {
             $successMsg = "Inquiry has been created successfully.";
-            return redirect()->route('list-inquiries')->with("successMsg", $successMsg);
+            return redirect()->route('admin.inquiries')->with("successMsg", $successMsg);
         } else {
             $errorMsg = "Please check following errors!";
             return redirect()->back()->with("errorMsg", $errorMsg);
@@ -89,7 +89,7 @@ class InquiryController extends Controller
             return redirect()->back()->with("errorMsg", $result['message']);
         }else{
             return redirect()
-                ->route('view-inquiry', ['inquiryId' => $validatedData['updInquiryId']])
+                ->route('admin.inquiries.view', ['inquiryId' => $validatedData['updInquiryId']])
                 ->with("successMsg", $result['message']);
         }
     }
@@ -108,7 +108,7 @@ class InquiryController extends Controller
             return redirect()->back()->with("errorMsg", $result['message']);
         }else{
             return redirect()
-                ->route('view-inquiry', ['inquiryId' => $validatedData['rejectId']])
+                ->route('admin.inquiries.view', ['inquiryId' => $validatedData['rejectId']])
                 ->with("successMsg", $result['message']);
         }
     }
