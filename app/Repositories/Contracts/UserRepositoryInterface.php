@@ -17,7 +17,7 @@ interface UserRepositoryInterface
 
     public function findId(string $attribute, string $value);
 
-    public function save(array $userData= [], int $userType);
+    public function save(array $userData= []);
 
     public function update(User $user, array $updateData = []);
 

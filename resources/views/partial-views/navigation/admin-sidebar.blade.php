@@ -31,6 +31,12 @@
                     Reports
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.roles') }}">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    Roles
+                </a>
+            </li>
         </ul>
 
         {{-- <h6

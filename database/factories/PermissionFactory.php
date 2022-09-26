@@ -16,6 +16,7 @@ class PermissionFactory extends Factory
     {
         return [
             "permission_name"   => "Dashboard",
+            "permission_code"   => $this->faker->uuid(),
             "permission_slug"   => Str::slug("Dashboard"),
             "status"            => 1,
             "created_at"        => now(),

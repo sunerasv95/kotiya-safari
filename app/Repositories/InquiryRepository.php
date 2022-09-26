@@ -3,12 +3,10 @@
 namespace App\Repositories;
 
 use App\Constants\StatusTypes;
-use App\Models\Guest;
 use App\Models\Inquiry;
+use App\Models\User;
 use App\Models\VAS;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
-
-const PENDING = StatusTypes::PENDING;
 
 class InquiryRepository implements InquiryRepositoryInterface
 {
@@ -39,20 +37,20 @@ class InquiryRepository implements InquiryRepositoryInterface
         return Inquiry::find($inquiryId);
     }
 
-    public function save(array $newInquiry, Guest $guest)
+    public function save(array $newInquiry)
     {
         //dd($newInquiry);
         $inquiry = new Inquiry();
 
-        $inquiry->inquiry_reference_no   = rand(100000, 999999);
-        $inquiry->guest_id               = $guest->id;
+        $inquiry->inquiry_reference_no   = $newInquiry['reference_no'];
+        $inquiry->guest_id               = $newInquiry['user_id'];
         $inquiry->checkin_date           = $newInquiry['checkin_date'];
         $inquiry->checkout_date          = $newInquiry['checkout_date'];
         $inquiry->no_adults              = $newInquiry['no_adults'];
         $inquiry->no_kids                = $newInquiry['no_kids'];
-        $inquiry->ip_address             = rand(1000, 9999); //to-do: need to save real ip address
-        $inquiry->status                 = PENDING;
-        $inquiry->remark                 = null;
+        $inquiry->ip_address             = $newInquiry['ip_address']; //to-do: need to save real ip address
+        $inquiry->status                 = $newInquiry['status'];
+        $inquiry->remark                 = $newInquiry['remark'];
         $inquiry->created_at             = now();
         $inquiry->updated_at             = now();
 

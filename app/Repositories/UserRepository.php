@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Constants\UserTypes;
 use App\Models\User;
+use App\Models\UserType;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,6 +27,7 @@ class UserRepository implements UserRepositoryInterface
             ->when(!empty($with), function($q) use($with) {
                 return $q->with($with);
             })
+            ->where('user_type', $userType)
             ->first();
     }
 
@@ -58,19 +60,21 @@ class UserRepository implements UserRepositoryInterface
         ->select('id')->first()->id;
     }
 
-    public function save(array $userData= [], int $userType)
+    public function save(array $userData= [])
     {
         $user = new User();
 
-        $user->name                 = $userData['name'];;
+        $user->name                 = $userData['full_name'];;
         $user->email                = $userData['email'];
         $user->username             = $userData['email'];
-        $user->password             = Hash::make($userData['password']);
-        $user->role_id              = $userType === UserTypes::ADMIN ? UserTypes::ADMIN_TYPE : UserTypes::GUEST_TYPE;
+        $user->password             = $userData['password'];
+        $user->role_id              = $userData['role_id'];;
+        $user->user_type            = $userData['user_type'];
+        $user->country_id           = $userData['country_id'];
         $user->activated            = 1;
         $user->disabled             = 0;
         $user->email_verified_at    = null;
-        $user->create_at            = now();
+        $user->created_at           = now();
         $user->updated_at           = now();
 
         $user->save();

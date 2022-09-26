@@ -16,19 +16,19 @@ class BlogPostSeeder extends Seeder
      */
     public function run()
     {
-        $admin = Admin::find(1);
+        // $admin = Admin::find(1);
 
-        BlogPost::factory()
-            ->count(5)
-            ->for($admin)
-            ->has(BlogPostImage::factory()->count(3))
-            ->create(["is_featured" => 0]);
+        // BlogPost::factory()
+        //     ->count(5)
+        //     ->for($admin)
+        //     ->has(BlogPostImage::factory()->count(3))
+        //     ->create(["is_featured" => 0]);
 
-        BlogPost::factory()
-            ->count(2)
-            ->for($admin)
-            ->has(BlogPostImage::factory()->count(2))
-            ->create(["is_featured" => 1]);
+        // BlogPost::factory()
+        //     ->count(2)
+        //     ->for($admin)
+        //     ->has(BlogPostImage::factory()->count(2))
+        //     ->create(["is_featured" => 1]);
 
 
     }

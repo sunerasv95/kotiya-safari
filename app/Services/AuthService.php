@@ -24,7 +24,7 @@ class AuthService implements AuthServiceInterface
         ];
 
         try {
-            $adminUser = $this->userRepository->findByEmail($username, ["role", "permissions"], UserTypes::ADMIN_TYPE);
+            $adminUser = $this->userRepository->findByEmail($username, ["role"], UserTypes::ADMIN_TYPE);
 
             if(!isset($adminUser)){
                 return [
@@ -33,8 +33,7 @@ class AuthService implements AuthServiceInterface
                 ];
             }
 
-            $hashedPassword = Hash::make($password);
-            if ($adminUser->password !== $hashedPassword) {
+            if (!Hash::check($password, $adminUser->password)) {
                 return [
                     "error" => true,
                     "message" => "Invalid Password"

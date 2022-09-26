@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermissionTbl extends Migration
+class CreateUserTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePermissionTbl extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('user_types', function (Blueprint $table) {
             $table->id();
-            $table->uuid('permission_code');
-            $table->string('permission_name', 20);
-            $table->string('permission_slug', 20);
-            $table->tinyInteger('status')->default(0);
+            $table->string('user_type');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreatePermissionTbl extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('user_types');
     }
 }

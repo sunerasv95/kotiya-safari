@@ -14,6 +14,15 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        //Role::factory()->create();
+        $userTypes = ["Super Administrator", "Accountant", "Editor"];
+
+        //create roles
+        foreach($userTypes as $type){
+            Role::factory()->create([
+                "role_name" => $type
+            ]);
+        }
+
+        
     }
 }

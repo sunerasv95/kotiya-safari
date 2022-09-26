@@ -2,8 +2,8 @@
 
 namespace App\Repositories\Contracts;
 
-use App\Models\Guest;
 use App\Models\Inquiry;
+use App\Models\User;
 
 interface InquiryRepositoryInterface
 {
@@ -15,7 +15,7 @@ interface InquiryRepositoryInterface
 
     public function findInquiryById(int $inquiryId);
 
-    public function save(array $newInquiry, Guest $guest);
+    public function save(array $newInquiry);
 
     public function updateInquiry(Inquiry $inquiry, array $updateInquiry);
 

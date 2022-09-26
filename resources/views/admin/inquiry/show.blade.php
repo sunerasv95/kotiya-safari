@@ -43,7 +43,7 @@
 
                 <dl class="row">
                     <dt class="col-sm-3">Customer Name</dt>
-                    <dd class="col-sm-9">{{ $inquiry['guest']['full_name'] }}</dd>
+                    <dd class="col-sm-9">{{ $inquiry['guest']['name'] }}</dd>
 
                     <dt class="col-sm-3">Customer Email</dt>
                     <dd class="col-sm-9">{{ $inquiry['guest']['email'] }}</dd>

@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Constants\NotificationTypes;
+use App\Constants\StatusTypes;
+use App\Constants\UserTypes;
 use App\Repositories\Contracts\save;
 use App\Repositories\Contracts\GuestRepositoryInterface;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
@@ -10,6 +12,7 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\Contracts\InquiryServiceInterface;
 use App\Services\Contracts\NotificationServiceInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class InquiryService implements InquiryServiceInterface
 {
@@ -71,37 +74,43 @@ class InquiryService implements InquiryServiceInterface
 
     public function createInquiry(array $newInquiry)
     {
-
         DB::beginTransaction();
 
         try {
-            $inqData = array(
+            //check guest is already exists
+            $email = $newInquiry['email'];
+            $guest = $this->userRepository->findByEmail($email, [], UserTypes::GUEST_TYPE);
+            //dd($guest);
+            if(!isset($guest)){
+                $guestData = array(
+                    "full_name" => $newInquiry['firstName']. " ". $newInquiry['lastName'],
+                    "email" => $email,
+                    "password" => null,
+                    "role_id" => null,
+                    "user_type" => UserTypes::GUEST_TYPE,
+                    "country_id" => findCountryIdByCode($newInquiry['country']) 
+                );
+                $guest = $this->userRepository->save($guestData);
+            }
+
+            $newInquiryData = array(
+                "reference_no" => rand(1000000, 9999999),
+                "user_id" => $guest->id,
                 "checkin_date" => $newInquiry['checkInDate'],
                 "checkout_date" => $newInquiry['checkInDate'],
                 "no_adults" => $newInquiry['noAdults'],
                 "no_kids" => $newInquiry['noKids'],
-                "vas_services" => $newInquiry["selectedServicesArr"]
+                "ip_address" => $newInquiry['ip_address'], //to-do: dynamic ip
+                "status" => StatusTypes::PENDING,
+                "vas_services" => $newInquiry["selectedServicesArr"],
+                "remark" => null
             );
 
-            //check guest is already exists
-            $inquireEmail = $newInquiry['email'];
-            $guest = $this->guestRepository->findByEmail($inquireEmail);
-
-            if(!isset($guest)){
-                $guestData = array(
-                    "full_name" => $newInquiry['firstName']. " ". $newInquiry['lastName'],
-                    "email" => $inquireEmail,
-                    "country" => $newInquiry['country']
-                );
-                $guest = $this->guestRepository->save($guestData);
-            }
-
-            $savedInquiry = $this->inquiryRepository->save($inqData, $guest);
+            //save inquiry
+            $this->inquiryRepository->save($newInquiryData);
 
             //send notification to the guest user
-            $this->notificationService
-                ->notifyGuestByEmail(NotificationTypes::GUEST_ACKNOWLEDGEMENT_EMAIL, $guest);
-
+            $this->notificationService->sendInquiryPlaced($guest);
 
             DB::commit();
         } catch (\Throwable $th) {

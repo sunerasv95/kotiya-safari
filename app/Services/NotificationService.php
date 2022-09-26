@@ -24,7 +24,11 @@ class NotificationService implements NotificationServiceInterface
     public function sendNewInquiryReceived(User $admin)
     {
         try {
+            //to-do: 
+            //check admin permissions who has permission to receive inquiry alerts
+            //for those who has permissions, sent this notification
 
+            //for now, sending to super admin
             $admin->notify(new NewInquiryNotification());
             
         } catch (\Throwable $th) {

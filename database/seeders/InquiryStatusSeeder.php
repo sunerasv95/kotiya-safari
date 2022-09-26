@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Constants\StatusTypes;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,15 +16,15 @@ class InquiryStatusSeeder extends Seeder
     public function run()
     {
         $status = [
-            0 => ['status' => "PENDING", 'dname' => "Pending"],
-            1 => ['status' => "RESERVATIONS", 'dname' => "Reservation Added"],
-            2 => ['status' => "REJECTED", 'dname' => "Rejected"]
+            StatusTypes::PENDING,
+            StatusTypes::RESERVED,
+            StatusTypes::REJECTED
         ];
 
-        foreach($status as $i){
+        foreach($status as $s){
             DB::table('inquiry_status')->insert([
-                "status_name" => $i['status'],
-                "display_name" => $i['dname'],
+                "status_name" => $s,
+                "display_name" => ucfirst($s),
                 "created_at" => now(),
                 "updated_at" => now()
             ]);

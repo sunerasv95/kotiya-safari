@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inquiry\BookingInquiryRequest;
-use App\Models\Guest;
-use App\Notifications\Guest\InquiryPlaced;
 use App\Services\Contracts\CommonServiceInterface;
 use App\Services\Contracts\InquiryServiceInterface;
-use Illuminate\Http\Request;
 
 class InquiryController extends Controller
 {
@@ -34,7 +31,7 @@ class InquiryController extends Controller
     public function storeInquiry(BookingInquiryRequest $request)
     {
         $validatedData = $request->validated();
-
+        
         $result = $this->inquiryService->createInquiry($validatedData);
 
         if ($result['error'] === false) {

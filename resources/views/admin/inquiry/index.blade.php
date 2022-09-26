@@ -81,8 +81,8 @@
             @foreach ($inquiries as $inquiry)
             <tr>
                 <td>{{ $inquiry['inquiry_reference_no'] }}</td>
-                <td>{{ $inquiry['guest']['full_name'] }}</td>
-                <td>{{ $inquiry['guest']['full_name'] }}</td>
+                <td>{{ $inquiry['guest']['name'] }}</td>
+                <td>{{ $inquiry['guest']['email'] }}</td>
                 <td>{{ $inquiry['checkin_date'] }} - {{ $inquiry['checkout_date'] }}</td>
                 <td>
                     @if ($inquiry['status'] === "PENDING")
@@ -139,7 +139,7 @@
 
                         let dataRow = [
                             inquiry.inquiry_reference_no,
-                            inquiry.guest.full_name,
+                            inquiry.guest.name,
                             inquiry.guest.email,
                             inquiry.checkin_date + " - " + inquiry.checkout_date,
                             badge,

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FileUploadController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ReservationController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingInquiryController;
 use App\Http\Controllers\Guest\BookingController as GuestBookingController;
@@ -96,6 +97,23 @@ Route::prefix('/cn/admin')
 
         Route::get('dashboard', [DashboardController::class, "index"])
             ->name('admin.dashboard');
+
+
+        Route::prefix('roles')->group(function(){
+            Route::get('/', [RoleController::class, "findAll"])
+                ->name('admin.roles');
+
+            Route::get('{roleCode}', [RoleController::class, "findByCode"])
+                ->name('admin.roles.view');
+
+            Route::get('create', [RoleController::class, "createRole"])
+                ->name('admin.roles.create');
+
+            Route::post('createRole', [RoleController::class, "save"])
+                ->name('admin.roles.create.submit');
+
+        });
+
 
         Route::prefix('inquiries')->group(function () {
 

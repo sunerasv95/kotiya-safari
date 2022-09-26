@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\UserTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +17,7 @@ class Inquiry extends Model
 
     public function guest()
     {
-        return $this->belongsTo(Guest::class);
+        return $this->belongsTo(User::class)->where('user_type', UserTypes::GUEST_TYPE);
     }
 
     public function vass()

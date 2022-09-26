@@ -15,7 +15,7 @@ class RoleFactory extends Factory
     {
         return [
             "role_name" => "Super Administrator",
-            "role_code" => "RC12345",
+            "role_code" => $this->faker->uuid(),
             "status"    => 1,
             "created_at"=> now(),
             "updated_at"=> now()

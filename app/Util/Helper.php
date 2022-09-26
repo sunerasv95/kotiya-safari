@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 if(!function_exists('carbonParse')){
     function carbonParse($dateTime){
@@ -32,6 +33,12 @@ if(!function_exists('removeCurrentUserSession')){
         if(session()->has('_amToken')){
             session()->forget('_amToken');
         }
+    }
+}
+
+if(!function_exists('findCountryIdByCode')){
+    function findCountryIdByCode($countryCode){
+        return DB::table('countries')->where('abbreviation', $countryCode)?->first()->id;
     }
 }
 

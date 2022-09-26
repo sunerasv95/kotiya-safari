@@ -13,9 +13,10 @@ class BookingInquiryRequest extends FormRequest
         if(isset($this->selectedServicesArr)){
             $serviceArr = $this->setServicesAttributes($this->selectedServicesArr);
         }
-        
+        // dd(request()->ip);
         $this->merge([
             'selectedServicesArr' => $serviceArr,
+            'ip_address' => $this->ip ?? "127.0.0.1"
         ]);
     }
     /**
@@ -45,7 +46,8 @@ class BookingInquiryRequest extends FormRequest
             "noKids"                => "required|integer",
             "country"               => "required",
             "serviceRequired"       => "required|boolean",
-            "selectedServicesArr"   => "nullable"
+            "selectedServicesArr"   => "nullable",
+            "ip_address"            => "required|ip"
         ];
     }
 

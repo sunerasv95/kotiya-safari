@@ -2,13 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Guest;
-use App\Models\Inquiries;
-use App\Models\Inquiry;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class InquirySeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,6 +14,10 @@ class InquirySeeder extends Seeder
      */
     public function run()
     {
-       
+
+        User::factory()->create([
+            "role_id" => 1,
+            "user_type" => 1
+        ]);
     }
 }
