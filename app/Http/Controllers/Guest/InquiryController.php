@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guest;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Inquiry\BookingInquiryRequest;
+use App\Models\Guest;
+use App\Notifications\Guest\InquiryPlaced;
 use App\Services\Contracts\CommonServiceInterface;
 use App\Services\Contracts\InquiryServiceInterface;
 use Illuminate\Http\Request;
 
-class GuestInquiryController extends Controller
+class InquiryController extends Controller
 {
     private $commonService;
     private $inquiryService;
@@ -30,16 +33,15 @@ class GuestInquiryController extends Controller
 
     public function storeInquiry(BookingInquiryRequest $request)
     {
-        //dd($request->all());
         $validatedData = $request->validated();
-        //dd($validatedData);
-        $res = $this->inquiryService->createInquiry($validatedData);
 
-        if (!$res['error']) {
-            $successMsg = "Your request has been submited successfully. Please check your email to verify your email.";
+        $result = $this->inquiryService->createInquiry($validatedData);
+
+        if ($result['error'] === false) {
+            $successMsg = $result['message'];
             return redirect()->route('guest.inquiries.request')->with("successMsg", $successMsg);
         } else {
-            $errorMsg = "Please check following errors!";
+            $errorMsg = "Something went wrong!";
             return redirect()->back('guest.inquiries.request')->with("errorMsg", $errorMsg);
         }
     }

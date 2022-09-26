@@ -2,13 +2,10 @@
 
 namespace App\Services;
 
-use App\Repositories\AdminRepository;
-use App\Repositories\Contracts\AdminRepositoryInterface;
-use App\Repositories\Contracts\GuestRepositoryInterface;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
 use App\Repositories\Contracts\ReservationOrderRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\Contracts\ReservationOrderServiceInterface;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReservationOrderService implements ReservationOrderServiceInterface
@@ -17,18 +14,17 @@ class ReservationOrderService implements ReservationOrderServiceInterface
     private $inquiryRepository;
     private $guestRepository;
     private $adminRepository;
+    private $userRepository;
 
     public function __construct(
         ReservationOrderRepositoryInterface $reservationRepository,
         InquiryRepositoryInterface $inquiryRepository,
-        GuestRepositoryInterface $guestRepository,
-        AdminRepositoryInterface $adminRepository
+        UserRepositoryInterface $userRepository
     )
     {
         $this->reservationRepository    = $reservationRepository;
         $this->inquiryRepository        = $inquiryRepository;
-        $this->guestRepository          = $guestRepository;
-        $this->adminRepository          = $adminRepository;
+        $this->userRepository           = $userRepository;
 
     }
 
@@ -63,7 +59,7 @@ class ReservationOrderService implements ReservationOrderServiceInterface
             "data" => []
         ];
         try {
-            $guest = $this->guestRepository->findGuestByEmail($guestEmail);
+            $guest = $this->guestRepository->findByEmail($guestEmail);
             if($guest){
                 $guestCode = $guest->guest_code;
                 $reservationFound = $this->reservationRepository->findReservationForGuest($guestCode);
@@ -120,9 +116,9 @@ class ReservationOrderService implements ReservationOrderServiceInterface
                     }else{
                         $currentUser = retriveCurrentUserSession();
                         //dd($currentUser);
-                        $orderData['adminId'] = $this->adminRepository->findAdminId($currentUser['_adminId']);
+                        $orderData['adminId'] = $this->userRepository->findId("username", $currentUser['_username']);
                         $orderSaved = $this->reservationRepository->saveReservation($inquiry, $orderData);
-                        $inquiryStatusUpdated = $this->inquiryRepository->updateInquiryStatus($inquiry, "RES_ADDED");
+                        $inquiryStatusUpdated = $this->inquiryRepository->updateInquiryStatus($inquiry, "RESERVATIONS");
 
                         if($orderSaved && $inquiryStatusUpdated){
                             DB::commit();

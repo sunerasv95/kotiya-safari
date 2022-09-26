@@ -64,7 +64,7 @@ class InquiryController extends Controller
         }
     }
 
-    public function saveInquiry(CreateInquiryRequest $request)
+    public function save(CreateInquiryRequest $request)
     {
         //dd($request->all());
         $reqData = $request->validated();

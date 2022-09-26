@@ -2,16 +2,18 @@
 
 namespace App\Services;
 
-use App\Repositories\Contracts\AdminRepositoryInterface;
+use App\Constants\UserTypes;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\Contracts\AuthServiceInterface;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService implements AuthServiceInterface
 {
-    private $adminRepository;
+    private $userRepository;
 
-    public function __construct(AdminRepositoryInterface $adminRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        $this->adminRepository = $adminRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function adminSignIn($username, $password)
@@ -22,31 +24,35 @@ class AuthService implements AuthServiceInterface
         ];
 
         try {
-            $adminUser = $this->adminRepository->findAdminUserByEmail($username, ['role', 'role.permissions']);
-            if (isset($adminUser)) {
-                $hashedPassword = hash(env('HASHING_METHOD'), $password);
-                if ($adminUser->password === $hashedPassword) {
-                    $data['full_name']  = $adminUser->name;
-                    $data['role']       = $adminUser->role->role_name;
-                    $data['_adminId']   = $adminUser->admin_code;
-                    $data['_roleId']    = $adminUser->admin_code;
-                    $data['_permissions'] = $adminUser->role->permissions->map(function ($permission) {
-                        return $permission->permission_slug;
-                    })->toArray();
+            $adminUser = $this->userRepository->findByEmail($username, ["role", "permissions"], UserTypes::ADMIN_TYPE);
 
-                    //store user in session
-                    storeCurrentUserSession($data);
-
-                    $result['error'] = false;
-                    $result['message'] = "Login Success!";
-                } else {
-                    $result['error'] = true;
-                    $result['message'] = "Invalid username or password!";
-                }
-            } else {
-                $result['error'] = true;
-                $result['message'] = "Invalid username or password!";
+            if(!isset($adminUser)){
+                return [
+                    "error" => true,
+                    "message" => "Invalid User or Password"
+                ];
             }
+
+            $hashedPassword = Hash::make($password);
+            if ($adminUser->password !== $hashedPassword) {
+                return [
+                    "error" => true,
+                    "message" => "Invalid Password"
+                ];
+            }
+
+            $data['_username']      = $adminUser->username;
+            $data['_roleId']        = $adminUser->role_id;
+            $data['_permissions']   = $adminUser->role->permissions->map(function ($permission) {
+                return $permission->permission_slug;
+            })->toArray();
+
+            //store user in session
+            storeCurrentUserSession($data);
+
+            $result['error'] = false;
+            $result['message'] = "Login Success!";
+
             return $result;
         } catch (\Throwable $th) {
             throw $th;

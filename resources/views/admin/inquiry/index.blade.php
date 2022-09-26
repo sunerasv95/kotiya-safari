@@ -21,32 +21,43 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5">
     <div class="row">
         <div class="col-md-12">
-            <span class="mr-3"><i class="bi bi-funnel"></i>Filters by Status</span>
+            <span class="mr-3"></i>Filters by Status</span>
         </div>
         <div class="col-md-12 mt-2">
             @if (!empty($status))
-        <input
-            type="radio"
-            class="btn-check mx-1"
-            name="status-filter"
-            id="ALL-outlined"
-            autocomplete="off"
-            value="ALL">
-        <label
-            class="btn btn-outline-secondary btn-sm mx-1"
-            for="ALL-outlined">All Inquiries
-        </label>
+            <input
+                type="radio"
+                class="btn-check mr-1"
+                name="status-filter"
+                id="ALL-outlined"
+                autocomplete="off"
+                value="ALL">
+            <label
+                class="btn btn-outline-secondary btn-sm ml-0"
+                for="ALL-outlined">All
+            </label>
             @foreach ($status as $item)
+                @php
+                    $status = $item['status_name'];
+                    $statusName = $item['display_name'];
+                @endphp
                 <input
                     type="radio"
                     class="btn-check mx-1"
                     name="status-filter"
-                    id="{{ $item['status_name'] }}-outlined"
+                    id="{{ $status }}-outlined"
                     autocomplete="off"
-                    value="{{ $item['status_name'] }}">
+                    value="{{ $status }}">
                 <label
-                    class="btn btn-outline-secondary btn-sm mx-1"
-                    for="{{ $item['status_name'] }}-outlined">{{ $item['display_name'] }} Inquiries
+                    @class([
+                        'btn', 
+                        'btn-sm', 
+                        'mx-1', 
+                        'btn-warning' => $status === "PENDING",
+                        'btn-success' => $status === "RESERVATIONS",
+                        'btn-danger' => $status === "REJECTED"
+                    ])
+                    for="{{ $status }}-outlined">{{ $statusName }} Inquiries
                 </label>
             @endforeach
         @endif
@@ -76,7 +87,7 @@
                 <td>
                     @if ($inquiry['status'] === "PENDING")
                     <span class="badge bg-warning text-dark">Pending</span>
-                    @elseif($inquiry['status'] === "RES_ADDED")
+                    @elseif($inquiry['status'] === "RESERVATIONS")
                     <span class="badge bg-success text-light">Reservation Added</span>
                     @elseif($inquiry['status'] === "REJECTED")
                     <span class="badge bg-danger text-light">Rejected</span>
@@ -116,7 +127,7 @@
                         let badge, viewBtn = null;
                         if(inquiry.status === "PENDING"){
                             badge = `<span class='badge bg-warning text-dark'>Pending</span>`;
-                        }else if(inquiry.status === "RES_ADDED"){
+                        }else if(inquiry.status === "RESERVATIONS"){
                             badge =  `<span class='badge bg-success text-light'>Reservation Added</span>`;
                         }else if(inquiry.status === "REJECTED"){
                             badge = `<span class='badge bg-danger text-light'>Rejected</span>`;

@@ -16,7 +16,7 @@ class InquiryStatusSeeder extends Seeder
     {
         $status = [
             0 => ['status' => "PENDING", 'dname' => "Pending"],
-            1 => ['status' => "RES_ADDED", 'dname' => "Reservation Added"],
+            1 => ['status' => "RESERVATIONS", 'dname' => "Reservation Added"],
             2 => ['status' => "REJECTED", 'dname' => "Rejected"]
         ];
 

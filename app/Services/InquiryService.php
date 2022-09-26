@@ -2,27 +2,30 @@
 
 namespace App\Services;
 
-use App\Repositories\Contracts\AdminRepositoryInterface;
+use App\Constants\NotificationTypes;
+use App\Repositories\Contracts\save;
 use App\Repositories\Contracts\GuestRepositoryInterface;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\Contracts\InquiryServiceInterface;
+use App\Services\Contracts\NotificationServiceInterface;
 use Illuminate\Support\Facades\DB;
 
 class InquiryService implements InquiryServiceInterface
 {
     private $inquiryRepository;
-    private $guestRepository;
-    private $adminRepository;
+    private $userRepository;
+    private $notificationService;
 
     public function __construct(
         InquiryRepositoryInterface $inquiryRepository,
-        GuestRepositoryInterface $guestRepository,
-        AdminRepositoryInterface $adminRepository
+        UserRepositoryInterface $userRepository,
+        NotificationServiceInterface $notificationService
     )
     {
         $this->inquiryRepository = $inquiryRepository;
-        $this->guestRepository = $guestRepository;
-        $this->adminRepository  = $adminRepository;
+        $this->userRepository = $userRepository;
+        $this->notificationService = $notificationService;
     }
 
     public function getAllInquiries($status = null)
@@ -68,49 +71,49 @@ class InquiryService implements InquiryServiceInterface
 
     public function createInquiry(array $newInquiry)
     {
-        $result = [
-            "error" => true,
-            "message" => null
-        ];
 
         DB::beginTransaction();
+
         try {
             $inqData = array(
-                "checkinDate" => $newInquiry['checkInDate'],
-                "checkoutDate" => $newInquiry['checkInDate'],
-                "noAdults" => $newInquiry['noAdults'],
-                "noKids" => $newInquiry['noKids'],
-                "reqServices" => $newInquiry["selectedServicesArr"]
+                "checkin_date" => $newInquiry['checkInDate'],
+                "checkout_date" => $newInquiry['checkInDate'],
+                "no_adults" => $newInquiry['noAdults'],
+                "no_kids" => $newInquiry['noKids'],
+                "vas_services" => $newInquiry["selectedServicesArr"]
             );
 
+            //check guest is already exists
             $inquireEmail = $newInquiry['email'];
-            $guest = $this->guestRepository->findGuestByEmail($inquireEmail);
+            $guest = $this->guestRepository->findByEmail($inquireEmail);
 
-            if(isset($guest)){
-                $inqData['guestId'] = $guest->id;
-            }else{
+            if(!isset($guest)){
                 $guestData = array(
-                    "fullName" => $newInquiry['firstName']. " ". $newInquiry['lastName'],
+                    "full_name" => $newInquiry['firstName']. " ". $newInquiry['lastName'],
                     "email" => $inquireEmail,
                     "country" => $newInquiry['country']
                 );
-                $this->guestRepository->saveGuest($guestData);
-                $guest = $this->guestRepository->findGuestByEmail($inquireEmail);
-                $inqData['guestId'] = $guest->id;
+                $guest = $this->guestRepository->save($guestData);
             }
 
-            $inquirySaved = $this->inquiryRepository->saveInquiry($inqData);
-            if($inquirySaved){
-                DB::commit();
-                $result['error'] = false;
-                $result['message'] = "";
-            }
+            $savedInquiry = $this->inquiryRepository->save($inqData, $guest);
 
-            return $result;
+            //send notification to the guest user
+            $this->notificationService
+                ->notifyGuestByEmail(NotificationTypes::GUEST_ACKNOWLEDGEMENT_EMAIL, $guest);
+
+
+            DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
         }
+
+        return [
+            "error" => false,
+            "message" => "Your request has been submited successfully"
+        ];
+
     }
 
     public function updateInquiry(array $updateOrderData)
@@ -154,7 +157,7 @@ class InquiryService implements InquiryServiceInterface
                 $result['message'] = "Inquiry is not found!";
             }else{
                 $currentUser = retriveCurrentUserSession();
-                $rejectData['adminId'] = $this->adminRepository->findAdminId($currentUser['_adminId']);
+                $rejectData['adminId'] = $this->userRepository->findId("username",$currentUser['_username']);
 
                 $inquiryRejected = $this->inquiryRepository->updateInquiryStatus($inquiry, "REJECTED", null, $rejectData);
                 if($inquiryRejected){

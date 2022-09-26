@@ -2,17 +2,20 @@
 
 namespace App\Repositories;
 
-use App\Models\Inquiry as RepoModel;
+use App\Constants\StatusTypes;
+use App\Models\Guest;
 use App\Models\Inquiry;
 use App\Models\VAS;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
+
+const PENDING = StatusTypes::PENDING;
 
 class InquiryRepository implements InquiryRepositoryInterface
 {
 
     public function findAllInquiries($with=[], $status= null)
     {
-        return RepoModel::when(!empty($with), function($q)use($with){
+        return Inquiry::when(!empty($with), function($q)use($with){
             return $q->with($with);
         })
         ->when($status != null && $status != "ALL" , function($q) use($status) {
@@ -24,7 +27,7 @@ class InquiryRepository implements InquiryRepositoryInterface
 
     public function findInquiryByReferenceNumber(string $inquiryRefNumber, $with=[])
     {
-        return RepoModel::where('inquiry_reference_no', $inquiryRefNumber)
+        return Inquiry::where('inquiry_reference_no', $inquiryRefNumber)
             ->when(!empty($with), function($q) use($with){
                 return $q->with($with);
             })
@@ -33,32 +36,32 @@ class InquiryRepository implements InquiryRepositoryInterface
 
     public function findInquiryById(int $inquiryId)
     {
-        return RepoModel::find($inquiryId);
+        return Inquiry::find($inquiryId);
     }
 
-    public function saveInquiry(array $newInquiry)
+    public function save(array $newInquiry, Guest $guest)
     {
         //dd($newInquiry);
-        $inquiry = new RepoModel();
+        $inquiry = new Inquiry();
 
         $inquiry->inquiry_reference_no   = rand(100000, 999999);
-        $inquiry->guest_id               = $newInquiry['guestId'];
-        $inquiry->checkin_date           = $newInquiry['checkinDate'];
-        $inquiry->checkout_date          = $newInquiry['checkoutDate'];
-        $inquiry->no_adults              = $newInquiry['noAdults'];
-        $inquiry->no_kids                = $newInquiry['noKids'];
+        $inquiry->guest_id               = $guest->id;
+        $inquiry->checkin_date           = $newInquiry['checkin_date'];
+        $inquiry->checkout_date          = $newInquiry['checkout_date'];
+        $inquiry->no_adults              = $newInquiry['no_adults'];
+        $inquiry->no_kids                = $newInquiry['no_kids'];
         $inquiry->ip_address             = rand(1000, 9999); //to-do: need to save real ip address
-        $inquiry->status                 = "PENDING";
+        $inquiry->status                 = PENDING;
         $inquiry->remark                 = null;
         $inquiry->created_at             = now();
         $inquiry->updated_at             = now();
 
         $inquiry->save();
 
-        if(isset($newInquiry['reqServices']) && !empty($newInquiry['reqServices'])){
+        if(isset($newInquiry['vas_services']) && !empty($newInquiry['vas_services'])){
             $serviceIds = array_map(function($code){
                 return $this->findValueAddedServiceIdByCode($code);
-            }, $newInquiry['reqServices']);
+            }, $newInquiry['vas_services']);
             $inquiry->vass()->attach($serviceIds, ["created_at"=> now(), "updated_at" => now()]);
         }
 
@@ -75,7 +78,7 @@ class InquiryRepository implements InquiryRepositoryInterface
         return $inquiry->save();
     }
 
-    public function updateInquiryStatus(RepoModel $inquiry, string $status=null, string $remarkText = null, array $rejectData = [])
+    public function updateInquiryStatus(Inquiry $inquiry, string $status=null, string $remarkText = null, array $rejectData = [])
     {
         $inquiry->status      = $status;
         $inquiry->remark      = $remarkText;
@@ -107,7 +110,7 @@ class InquiryRepository implements InquiryRepositoryInterface
 
     public function inquiryCountByStatus($status = null)
     {
-        return RepoModel::where('status', $status)->where('is_deleted', 0)->get()->count();
+        return Inquiry::where('status', $status)->where('is_deleted', 0)->get()->count();
     }
 
 }

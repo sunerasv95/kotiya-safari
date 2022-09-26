@@ -8,9 +8,9 @@ use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingInquiryController;
-use App\Http\Controllers\GuestBookingController;
-use App\Http\Controllers\GuestInquiryController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Guest\BookingController as GuestBookingController;
+use App\Http\Controllers\Guest\InquiryController as GuestInquiryController;
+use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +31,10 @@ use Illuminate\Support\Facades\Route;
  *******************************************************************************
 */
 
-Route::get('/', [HomeController::class, "homePage"])
+Route::get('notify', [GuestHomeController::class, "testnotify"]);
+
+
+Route::get('/', [GuestHomeController::class, "homePage"])
     ->name('home');
 
 Route::get('/blogs', [BlogController::class, "fetchAllPosts"])
@@ -41,10 +44,10 @@ Route::get('/blogs/{postSlug}', [BlogController::class, "showPost"])
     ->name('guest.blogs.show');
 
 Route::get('inquiries', [GuestInquiryController::class, "inquiry"])
-        ->name('guest.inquiries.request');
+    ->name('guest.inquiries.request');
 
 Route::post("inquiries/submitRequest", [GuestInquiryController::class, "storeInquiry"])
-        ->name('guest.inquiries.request.submit');
+    ->name('guest.inquiries.request.submit');
 
 Route::prefix('reservations')->group(function () {
     Route::get('activate', [GuestBookingController::class, "index"])
@@ -80,7 +83,6 @@ Route::prefix('/cn/admin')->group(function () {
 
     Route::post('auth/signIn', [AuthController::class, "submitSignIn"])
         ->name('admin.login.submit');
-
 });
 
 //**** AUTHORIZED ROUTES
@@ -109,7 +111,7 @@ Route::prefix('/cn/admin')
             Route::get('{inquiryId}', [InquiryController::class, "findByReferenceNumber"])
                 ->name('admin.inquiries.view');
 
-            Route::post('createInquiry', [InquiryController::class, "saveInquiry"])
+            Route::post('createInquiry', [InquiryController::class, "save"])
                 ->name('admin.inquiries.create.submit');
 
             Route::post('updateInquiry', [InquiryController::class, "update"])
@@ -117,7 +119,6 @@ Route::prefix('/cn/admin')
 
             Route::post('rejectInquiry', [InquiryController::class, "reject"])
                 ->name('admin.inquiries.reject.submit');
-
         });
 
         Route::prefix('reservations')->group(function () {
@@ -142,19 +143,18 @@ Route::prefix('/cn/admin')
 
             Route::post('store', [BlogPostController::class, "storePost"])
                 ->name('admin.blogs.create.submit');
-            
         });
 
         Route::prefix('files')->group(function () {
-            Route::prefix('images')->group(function(){
+            Route::prefix('images')->group(function () {
 
                 Route::post('upload', [FileUploadController::class, "uploadImage"])
                     ->name('admin.uploads.images.submit');
 
                 Route::post('remove', [FileUploadController::class, "removeImage"])
                     ->name('admin.uploads.images.remove');
-
             });
-           
         });
     });
+
+

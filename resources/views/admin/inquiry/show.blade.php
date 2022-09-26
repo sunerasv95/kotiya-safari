@@ -31,7 +31,7 @@
                     <div class="col-sm-9">
                         @if ($inquiry['status'] === "PENDING")
                         <h5><span class="badge bg-warning text-dark">Pending</span></h5>
-                        @elseif($inquiry['status'] === "RES_ADDED")
+                        @elseif($inquiry['status'] === "RESERVATIONS")
                         <h5><span class="badge bg-success">Reservation Added</span></h5>
                         @elseif($inquiry['status'] === "REJECTED")
                         <h5><span class="badge bg-danger">Rejected</span></h5>
@@ -83,7 +83,7 @@
     </div>
     <div class="col-md-4">
         <div>
-            @if ($inquiry['status'] === "PENDING" || $inquiry['status'] === "RES_ADDED")
+            @if ($inquiry['status'] === "PENDING" || $inquiry['status'] === "RESERVATIONS")
             <h5>Actions</h5>
             @endif
             <div class="d-flex flex-column mb-3">
@@ -102,7 +102,7 @@
                     Reject Inquiry</button>
                 @endif
 
-                @if ($inquiry['status'] === "RES_ADDED" && !empty($inquiry['reservation_order']))
+                @if ($inquiry['status'] === "RESERVATIONS" && !empty($inquiry['reservation_order']))
                     <a href="{{ route('admin.reservations.view', ['bkRefId'=> $inquiry['reservation_order']['order_reference_no']]) }}"
                         class="btn btn-info">
                         <i class="bi bi-box-arrow-in-up-right"></i>

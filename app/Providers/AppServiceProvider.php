@@ -16,8 +16,10 @@ use App\Services\Contracts\BlogServiceInterface;
 use App\Services\Contracts\CommonServiceInterface;
 use App\Services\Contracts\DashboardServiceInterface;
 use App\Services\Contracts\ExternalApiCallsServiceInterface;
+use App\Services\Contracts\NotificationServiceInterface;
 use App\Services\Contracts\StorageServiceInterface;
 use App\Services\DashboardService;
+use App\Services\NotificationService;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -40,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BlogServiceInterface::class, BlogService::class);
 
         $this->app->bind(StorageServiceInterface::class, StorageService::class);
+        $this->app->bind(NotificationServiceInterface::class, NotificationService::class);
 
         $this->app->bind(ExternalApiCallsServiceInterface::class, ExternalApiCallsService::class);
         $this->app->bind(CommonServiceInterface::class, CommonService::class);

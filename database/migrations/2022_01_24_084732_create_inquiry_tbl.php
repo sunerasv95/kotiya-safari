@@ -14,7 +14,7 @@ class CreateInquiryTbl extends Migration
      */
     public function up()
     {
-        $allowedArr = ["PENDING", "RES_ADDED", "REJECTED"];
+        $allowedArr = ["PENDING", "RESERVATIONS", "REJECTED"];
 
         Schema::create('inquiries', function (Blueprint $table) use($allowedArr) {
             $table->id();

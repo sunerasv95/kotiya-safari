@@ -2,7 +2,7 @@
     <div class="position-sticky pt-5">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">
+                <a class="nav-link active" aria-current="page" href="{{ route('admin.dashboard') }}">
                     <i class="bi bi-house-door-fill"></i>
                     Dashboard
                 </a>

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guest;
 
+use App\Http\Controllers\Controller;
 use App\Services\Contracts\ReservationOrderServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class GuestBookingController extends Controller
+class BookingController extends Controller
 {
     private $reservationService;
 

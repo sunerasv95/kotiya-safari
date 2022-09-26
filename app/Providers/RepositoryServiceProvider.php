@@ -2,16 +2,14 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\AdminRepositoryInterface;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
 use App\Repositories\Contracts\ReservationOrderRepositoryInterface;
 use App\Repositories\Contracts\BlogRepositoryInterface;
-use App\Repositories\Contracts\GuestRepositoryInterface;
-use App\Repositories\AdminRepository;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\BlogRepository;
-use App\Repositories\GuestRepository;
 use App\Repositories\InquiryRepository;
 use App\Repositories\ReservationOrderRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -23,11 +21,10 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(InquiryRepositoryInterface::class, InquiryRepository::class);
         $this->app->bind(ReservationOrderRepositoryInterface::class, ReservationOrderRepository::class);
         $this->app->bind(BlogRepositoryInterface::class, BlogRepository::class);
-        $this->app->bind(GuestRepositoryInterface::class, GuestRepository::class);
 
     }
 
