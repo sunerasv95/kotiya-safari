@@ -13,59 +13,24 @@
         @include('partial-views.alerts.alert-success')
     </div>
 </div>
-<div class="container">
+<div class="container m-0 p-0">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <form class="row g-3" id="roleCreateForm" method="POST"
-                action="{{ route('admin.role.create.submit') }}">
+                action="{{ route('admin.roles.create.submit') }}">
                 @csrf
                
-                <div class="col-md-6">
-                    <label for="fname" class="form-label">First Name</label>
-                    <input type="text" class=" form-control" id="fname" name="firstName"
-                        placeholder="John">
+                <div class="col-md-12">
+                    <label for="fname" class="form-label">Role Name</label>
+                    <input type="text" class=" form-control" id="role-name" name="role_name"
+                        placeholder="Ex: Super Administrator">
                 </div>
                 <div class="col-md-6">
-                    <label for="lname" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lname" name="lastName"
-                        placeholder="Doe">
-                </div>
-                <div class="col-12">
-                    <label for="email" class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="email" name="email"
-                        placeholder="example@app.com">
-                </div>
-                <div class="col-6">
-                    <label for="checkin" class="form-label">Check-in Date</label>
-                    <input type="date" class="form-control" id="checkinDate" name="checkInDate"
-                        placeholder="check-in">
-                </div>
-                <div class="col-6">
-                    <label for="checkout" class="form-label">Check-out Date</label>
-                    <input type="date" class="form-control" id="checkoutDate" name="checkOutDate"
-                        placeholder="check-out">
-                </div>
-                <div class="col-md-6">
-                    <label for="noAdults" class="form-label">Number of Adults</label>
-                    <select id="noAdults" name="noAdults" class="form-select">
-                        <option selected value>Choose Number</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="noKids" class="form-label">Number of Kids</label>
-                    <select id="noKids" name="noKids" class="form-select">
-                        <option selected value>Choose Number</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                    <label for="active" class="form-label">Select Role Status</label>
+                    <select id="active" name="active" class="form-select">
+                        <option selected value>Select Role Status</option>
+                        <option value="1">Active</option>
+                        <option value="0">Deactive</option>
                     </select>
                 </div>
                 <div class="col-md-12">
@@ -79,8 +44,8 @@
                         @endif
                     </select>
                 </div>
-                <div class="col-12" id="valueAddedServiceContainer">
-                    <p class="h6"><strong>Value added Services</strong></p>
+                <div class="col-12" id="role-permisssions">
+                    <p class="h6"><strong>Permissions</strong></p>
                     @if (!empty($vas))
                     @foreach ($vas as $k => $item)
                     <div class="form-check">

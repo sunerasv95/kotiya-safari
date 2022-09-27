@@ -17,9 +17,11 @@ use App\Services\Contracts\CommonServiceInterface;
 use App\Services\Contracts\DashboardServiceInterface;
 use App\Services\Contracts\ExternalApiCallsServiceInterface;
 use App\Services\Contracts\NotificationServiceInterface;
+use App\Services\Contracts\RoleServiceInterface;
 use App\Services\Contracts\StorageServiceInterface;
 use App\Services\DashboardService;
 use App\Services\NotificationService;
+use App\Services\RoleService;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -36,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         $this->app->bind(AuthServiceInterface::class, AuthService::class);
+        $this->app->bind(RoleServiceInterface::class, RoleService::class);
+
         $this->app->bind(DashboardServiceInterface::class, DashboardService::class);
         $this->app->bind(InquiryServiceInterface::class, InquiryService::class);
         $this->app->bind(ReservationOrderServiceInterface::class, ReservationOrderService::class);

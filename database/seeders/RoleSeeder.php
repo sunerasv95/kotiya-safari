@@ -14,7 +14,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $userTypes = ["Super Administrator", "Accountant", "Editor"];
+        $userTypes = ["Super Administrator", "Accountant", "Editor", "Content Manager", "Supervisor"];
 
         //create roles
         foreach($userTypes as $type){

@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\FileUploadController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Guest\BlogController as GuestBlogController;
 use App\Http\Controllers\BookingInquiryController;
 use App\Http\Controllers\Guest\BookingController as GuestBookingController;
 use App\Http\Controllers\Guest\InquiryController as GuestInquiryController;
@@ -38,10 +38,10 @@ Route::get('notify', [GuestHomeController::class, "testnotify"]);
 Route::get('/', [GuestHomeController::class, "homePage"])
     ->name('home');
 
-Route::get('/blogs', [BlogController::class, "fetchAllPosts"])
+Route::get('/blogs', [GuestBlogController::class, "fetchAllPosts"])
     ->name('guest.blogs');
 
-Route::get('/blogs/{postSlug}', [BlogController::class, "showPost"])
+Route::get('/blogs/{postSlug}', [GuestBlogController::class, "showPost"])
     ->name('guest.blogs.show');
 
 Route::get('inquiries', [GuestInquiryController::class, "inquiry"])
@@ -100,14 +100,22 @@ Route::prefix('/cn/admin')
 
 
         Route::prefix('roles')->group(function(){
-            Route::get('/', [RoleController::class, "findAll"])
-                ->name('admin.roles');
-
-            Route::get('{roleCode}', [RoleController::class, "findByCode"])
-                ->name('admin.roles.view');
 
             Route::get('create', [RoleController::class, "createRole"])
                 ->name('admin.roles.create');
+
+            Route::get('{roleCode}', [RoleController::class, "showRole"])
+                ->name('admin.roles.view');
+
+            Route::get('{roleCode}/edit', [RoleController::class, "editRole"])
+                ->name('admin.roles.edit');
+
+            Route::get('/{roleCode}/permissions', [RoleController::class, "getRole"])
+                ->name('admin.roles.permissions');
+
+            Route::get('/', [RoleController::class, "findAll"])
+                ->name('admin.roles');
+            
 
             Route::post('createRole', [RoleController::class, "save"])
                 ->name('admin.roles.create.submit');
