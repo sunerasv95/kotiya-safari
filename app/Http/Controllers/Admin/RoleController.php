@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Role\RoleCreateRequest;
+use App\Http\Requests\Role\RoleUpdateRequest;
 use App\Services\Contracts\RoleServiceInterface;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class RoleController extends Controller
         $data = [];
 
         $roles = $this->roleService->getAllRoles();
-        
+
         $data = compact('roles');
         return view('admin.role.index', $data);
     }
@@ -30,37 +31,59 @@ class RoleController extends Controller
     {
         $role = $this->roleService->getRoleByCode($roleCode);
 
-        if($request->ajax()){
-            return response()->json(["data" => $role ]);
+        if ($request->ajax()) {
+            return response()->json(["data" => $role]);
         }
-    }
-
-    public function showRole($roleCode)
-    {
-        dd($roleCode);
     }
 
     public function createRole()
     {
-        //dd('rrr');
-        return view('admin.role.create');
+        $data = [];
+
+        $permissions = $this->roleService->getAllPermissions();
+        
+        $data = compact('permissions');
+        return view('admin.role.create', $data);
     }
 
     public function editRole($roleCode)
     {
-        //dd('rrr');
-        return view('admin.role.create');
+        $data = [];
+
+        $role = $this->roleService->getRoleByCode($roleCode);
+        $permissions = $this->roleService->getAllPermissions();
+        
+        $data = compact('permissions', 'role');
+        //dd($data);
+        return view('admin.role.edit', $data);
     }
 
     public function save(RoleCreateRequest $request)
     {
-        
+        $validated = $request->validated();
+
+        $result = $this->roleService->saveRole($validated);
+
+        if($result['error']){
+            return redirect()->back()->with("errorMsg", $result['message']);
+        }else{
+            return redirect()->route('admin.roles')->with("successMsg", $result['message']);
+        }
     }
 
-    public function update(RoleCreateRequest $request)
+    public function update(RoleUpdateRequest $request)
     {
-        
+        //dd($request->all());
+        $validated = $request->validated();
+
+        $roleCode = $validated['role_code'];
+
+        $result = $this->roleService->updateRole($roleCode, $validated);
+
+        if($result['error']){
+            return redirect()->back()->with("errorMsg", $result['message']);
+        }else{
+            return redirect()->route('admin.roles')->with("successMsg", $result['message']);
+        }
     }
-
-
 }

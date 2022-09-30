@@ -30,25 +30,31 @@
                                 <small>Created: {{$role->created_at }}</small>
                                 <small>Modified: {{$role->updated_at }}</small>
                             </div>
-                            <a href="{{ route('admin.roles.edit', ['roleCode'=> $role->role_code]) }}" 
-                                class="card-link">
-                                Edit
-                            </a>
+                            @if ($role->role_slug !== "super-administrator" && $role->level !== 1)
+                                <a href="{{ route('admin.roles.edit', ['roleCode'=> $role->role_code]) }}" 
+                                    class="card-link">
+                                    Edit
+                                </a>
+                            @endif
+                            
                             <a class="card-link" data-bs-toggle="modal" data-bs-target="#role-permissions-modal" 
                                 id="view-permissions-btn" data-rid="{{ $role->role_code }}">
                                 Permissions
                             </a>
-                            @if ($role->status === 1)
-                                <a href="{{ route('admin.roles.edit', ['roleCode'=> $role->role_code]) }}" 
-                                    class="card-link float-end text-danger fw-bold">
-                                    Deactivate
-                                </a>
-                            @else
-                                <a href="{{ route('admin.roles.edit', ['roleCode'=> $role->role_code]) }}" 
-                                    class="card-link float-end text-success fw-bold">
-                                    Activate
-                                </a>
+                            @if ($role->role_slug !== "super-administrator" && $role->level !== 1)
+                                @if ($role->status === 1)
+                                    <a href="{{ route('admin.roles.edit', ['roleCode'=> $role->role_code]) }}" 
+                                        class="card-link float-end text-danger fw-bold">
+                                        Deactivate
+                                    </a>
+                                @else
+                                    <a href="{{ route('admin.roles.edit', ['roleCode'=> $role->role_code]) }}" 
+                                        class="card-link float-end text-success fw-bold">
+                                        Activate
+                                    </a>
+                                @endif
                             @endif
+                           
                            
                         </div>
                     </div>

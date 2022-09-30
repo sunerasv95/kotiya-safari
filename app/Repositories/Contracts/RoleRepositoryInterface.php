@@ -10,6 +10,8 @@ interface RoleRepositoryInterface
 
     public function findByCode(string $code, $with = []);
 
+    public function findBySlug(string $slug, $with = []);
+
     public function findId(string $attribute, string $value);
 
     public function save(array $roleData= []);

@@ -15,9 +15,11 @@ class CreateRoleTbl extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->uuid('role_code');
+            $table->uuid('role_code')->unique();
             $table->string('role_name', 20);
+            $table->string('role_slug', 20)->unique();
             $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('level');
             $table->timestamps();
         });
     }

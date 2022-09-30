@@ -120,6 +120,9 @@ Route::prefix('/cn/admin')
             Route::post('createRole', [RoleController::class, "save"])
                 ->name('admin.roles.create.submit');
 
+            Route::post('updateRole', [RoleController::class, "update"])
+                ->name('admin.roles.update.submit');
+
         });
 
 

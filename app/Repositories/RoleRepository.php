@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\Repositories\Contracts\RoleRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,15 @@ class RoleRepository implements RoleRepositoryInterface
     public function findByCode(string $code, $with = [])
     {
         return Role::where('role_code', $code)
+            ->when(!empty($with), function($q) use($with) {
+                return $q->with($with);
+            })
+            ->first();
+    }
+
+    public function findBySlug(string $slug, $with = [])
+    {
+        return Role::where('role_slug', $slug)
             ->when(!empty($with), function($q) use($with) {
                 return $q->with($with);
             })
@@ -48,23 +58,44 @@ class RoleRepository implements RoleRepositoryInterface
 
         $role->role_name            = $roleData['role_name'];;
         $role->role_code            = $roleData['role_code'];
-        $role->status               = 1;
+        $role->role_slug            = $roleData['role_slug'];
+        $role->status               = $roleData['role_status'];
+        $role->level                = 2;
         $role->created_at           = now();
         $role->updated_at           = now();
 
         $role->save();
 
+        $permissionIds = array_map(function($i){
+            return Permission::where('permission_code', $i)->first()->id;
+        }, $roleData['role_permissions']);
+
+        $role->permissions()->attach($permissionIds, ['created_at' => now(), "updated_at" => now()]);
         return $role;
     }
 
     public function update(Role $role, array $updateData = [])
     {
-        return $role->update([
-            "role" => $updateData['name'],
-            "email" => $updateData['email'],
-            "username" => $updateData['username'],
-            "role_id" => $updateData['role_id']
-        ]);
+        $updated = false;
+
+        if(isset($updateData['role_name'])){
+            $role->role_name = $updateData['role_name'];
+            $role->role_slug = $updateData['role_slug'];
+
+            $role->save();
+            $updated = true;
+        }   
+       
+        if(!empty($updateData['role_permissions'])){
+            $permissionIds = array_map(function($i){
+                return Permission::where('permission_code', $i)->first()->id;
+            }, $updateData['role_permissions']);
+
+            $role->permissions()->sync($permissionIds, ["updated_at" => now()]);
+            $updated = true;
+        }   
+
+        return $updated;
     }
 
     public function disable(Role $role)

@@ -8,11 +8,13 @@ interface RoleServiceInterface
 {
     public function getAllRoles();
 
+    public function getAllPermissions();
+
     public function getRoleByCode(string $rolCode);
 
     public function saveRole(array $roleData);
 
-    public function updateRole(array $roleData);
+    public function updateRole(string $roleCode, array $roleData);
 
     public function deactiveRole(Role $role);
 
