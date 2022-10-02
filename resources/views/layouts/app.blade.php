@@ -22,9 +22,11 @@
 <body>
     <div id="app">
         @include('partial-views.navigation.header')
-        <main class="py-4">
+        <main>
             @yield('page-content')
-            @include('partial-views.navigation.footer')
+            <div class="bg--gray">
+                @include('partial-views.navigation.footer')
+            </div>
         </main>
     </div>
     <!-- Scripts -->

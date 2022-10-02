@@ -1,21 +1,159 @@
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+//Variables
+@import "variables";
+
+//Bootstrap
+@import "~bootstrap/scss/bootstrap";
 
 //Bootstrap Icons
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
-// Variables
-@import "variables";
+//Fonts
+@font-face {
+    font-family: $primary-font-regular;
+    src: url('./../fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: 500;
+}
 
-// Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@font-face {
+    font-family: $primary-font-semi-bold;
+    src: url('./../fonts/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+
+@font-face {
+    font-family: $primary-font-bold;
+    src: url('./../fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: $primary-font-extra-bold;
+    src: url('./../fonts/Poppins-ExtraBold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: $secondary-font-regular;
+    src: url('./../fonts/PlayfairDisplay-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: $secondary-font-bold;
+    src: url('./../fonts/PlayfairDisplay-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
 
 body{
     top: 0;
     left: 0;
     box-sizing: border-box;
-    background-color: #ffffff;
+    background-color: $white-color;
+    font-family: $primary-font-regular;
 }
+
+//background
+.bg{
+    &--baige{
+        background-color: $baige-color;
+    }
+
+    &--dark-green{
+        background-color: $dark-green-color
+    }
+
+    &--black{
+        background-color: $black-color;
+    }
+
+    &--gray{
+        background-color: $gray-color;
+    }
+}
+
+//text
+.text{
+    &--dark-green{
+        color: $dark-green-color;
+    }
+
+    &--green{
+        color: $green-color;
+    }
+}
+
+.fw{
+    &--400{
+        font-weight: 400;
+    }
+
+    &--500{
+        font-weight: 500;
+    }
+
+    &--600{
+        font-weight: 600;
+    }
+
+    &--700{
+        font-weight: 700;
+    }
+
+    &--800{
+        font-weight: 800;
+    }
+
+    &--900{
+        font-weight: 900;
+    }
+
+    &--bold{
+        font-weight: bold;
+    }
+
+    &--bolder{
+        font-weight: bolder;
+    }
+}
+
+.fs{
+    &--smaller{
+        font-size: $font-size-smaller;
+    }
+
+    &--small{
+        font-size: $font-size-small;
+    }
+
+    &--regular{
+        font-size: $font-size-regular;
+    }
+
+    &--large{
+        font-size: $font-size-large;
+    }
+
+    &--larger{
+        font-size: $font-size-larger;
+    }
+}
+
+//buttons
+.btn-silver{
+    background-color: $silver-color;
+    color:$white-color;
+}
+
+#footer-container{
+    //background-image: url('/dist/images/footer-backdrop.svg');
+    // background-position:center;
+    // background-attachment: scroll;
+    //background-size:cover;
+    // background-repeat: repeat;
+    background-color: $gray-color;
+}
+
 
 /* BOOTSTRAP ICONS
 */
@@ -38,30 +176,8 @@ label.error{
     font-size: 12px;
 }
 
-/* CUSTOMIZE THE CAROUSEL
--------------------------------------------------- */
 
-/* Carousel base class */
-.carousel {
-    margin-bottom: 4rem;
-}
-/* Since positioning the image, we need to help out the caption */
-.carousel-caption {
-    bottom: 3rem;
-    z-index: 10;
-}
 
-/* Declare heights because of positioning of img element */
-.carousel-item {
-    height: 32rem;
-}
-.carousel-item > img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    height: 32rem;
-}
 
 /* MARKETING CONTENT
   -------------------------------------------------- */
