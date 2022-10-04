@@ -13,10 +13,10 @@ const mix = require('laravel-mix');
 
 mix
     .js('resources/js/app.js', 'public/dist/js')
-        .minify('resources/js/app.js', 'public/dist/js/app.js')
+        // .minify('resources/js/app.js', 'public/dist/js/app.js')
 
     .js('resources/js/admin/admin-app.js', 'public/dist/admin/js')
-        .minify('resources/js/admin/admin-app.js', 'public/dist/admin/js/admin-app.js')
+        // .minify('resources/js/admin/admin-app.js', 'public/dist/admin/js/admin-app.js')
 
     .js('resources/js/admin/reservations.js', 'public/dist/admin/js')
 
@@ -24,6 +24,7 @@ mix
 
     .sass('resources/sass/app.scss', 'public/dist/css')
     .sass('resources/sass/home.scss', 'public/dist/css')
+    .sass('resources/sass/packages.scss', 'public/dist/css')
     .sass('resources/sass/blog.scss', 'public/dist/css')
 
     .sass('resources/sass/admin/admin-app.scss', 'public/dist/admin/css')

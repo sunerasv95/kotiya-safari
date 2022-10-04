@@ -44,7 +44,7 @@ class BlogPostController extends Controller
 
     public function createPost()
     {
-        return view('admin.blog-post.admin.blogs.create');
+        return view('admin.blog-post.create-post');
     }
 
     public function storePost(CreateBlogPostRequest $request)

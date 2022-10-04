@@ -3,11 +3,11 @@
     "/dist/admin/js/admin-app.js": "/dist/admin/js/admin-app.js",
     "/dist/admin/js/reservations.js": "/dist/admin/js/reservations.js",
     "/dist/admin/css/admin-app.css": "/dist/admin/css/admin-app.css",
-    "/dist/admin/css/signin.css": "/dist/admin/css/signin.css",
+    "/dist/css/app.css": "/dist/css/app.css",
     "/dist/css/blog.css": "/dist/css/blog.css",
+    "/dist/css/packages.css": "/dist/css/packages.css",
     "/dist/css/home.css": "/dist/css/home.css",
-    "/resources/js/app.min.js": "/resources/js/app.min.js",
-    "/resources/js/admin/admin-app.min.js": "/resources/js/admin/admin-app.min.js",
+    "/dist/admin/css/signin.css": "/dist/admin/css/signin.css",
     "/dist/fonts/OFL.txt": "/dist/fonts/OFL.txt",
     "/dist/fonts/PlayfairDisplay-Bold.ttf": "/dist/fonts/PlayfairDisplay-Bold.ttf",
     "/dist/fonts/PlayfairDisplay-Medium.ttf": "/dist/fonts/PlayfairDisplay-Medium.ttf",
@@ -28,6 +28,5 @@
     "/dist/fonts/Poppins-SemiBold.ttf": "/dist/fonts/Poppins-SemiBold.ttf",
     "/dist/fonts/Poppins-SemiBoldItalic.ttf": "/dist/fonts/Poppins-SemiBoldItalic.ttf",
     "/dist/fonts/Poppins-Thin.ttf": "/dist/fonts/Poppins-Thin.ttf",
-    "/dist/fonts/Poppins-ThinItalic.ttf": "/dist/fonts/Poppins-ThinItalic.ttf",
-    "/dist/css/app.css": "/dist/css/app.css"
+    "/dist/fonts/Poppins-ThinItalic.ttf": "/dist/fonts/Poppins-ThinItalic.ttf"
 }

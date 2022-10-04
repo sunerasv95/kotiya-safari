@@ -11366,6 +11366,7 @@ body {
   font-weight: bold;
 }
 .fw--bolder {
+  font-family: "Poppins Bold";
   font-weight: bolder;
 }
 
@@ -11376,13 +11377,13 @@ body {
   font-size: 0.675rem;
 }
 .fs--regular {
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 .fs--large {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 .fs--larger {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .btn-silver {

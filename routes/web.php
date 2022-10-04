@@ -7,12 +7,9 @@ use App\Http\Controllers\Admin\FileUploadController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Guest\BlogController as GuestBlogController;
-use App\Http\Controllers\BookingInquiryController;
 use App\Http\Controllers\Guest\BookingController as GuestBookingController;
 use App\Http\Controllers\Guest\InquiryController as GuestInquiryController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,19 +33,31 @@ Route::get('notify', [GuestHomeController::class, "testnotify"]);
 
 
 Route::get('/', [GuestHomeController::class, "homePage"])
-    ->name('home');
+    ->name('guest.home');
 
-Route::get('/blogs', [GuestBlogController::class, "fetchAllPosts"])
+Route::get('gallery', [GuestHomeController::class, "galleryPage"])
+    ->name('guest.gallery');
+
+Route::get('packages', [GuestHomeController::class, "packagesPage"])
+    ->name('guest.packages');
+
+Route::get('contact', [GuestHomeController::class, "contactUsPage"])
+    ->name('guest.contact');
+    
+Route::get('journals', [GuestHomeController::class, "blogsPage"])
     ->name('guest.blogs');
 
-Route::get('/blogs/{postSlug}', [GuestBlogController::class, "showPost"])
+Route::get('journals/{postSlug}', [GuestHomeController::class, "showPost"])
     ->name('guest.blogs.show');
 
 Route::get('inquiries', [GuestInquiryController::class, "inquiry"])
     ->name('guest.inquiries.request');
 
+
 Route::post("inquiries/submitRequest", [GuestInquiryController::class, "storeInquiry"])
     ->name('guest.inquiries.request.submit');
+
+
 
 Route::prefix('reservations')->group(function () {
     Route::get('activate', [GuestBookingController::class, "index"])

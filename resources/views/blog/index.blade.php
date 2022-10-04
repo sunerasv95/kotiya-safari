@@ -1,48 +1,43 @@
 @extends('layouts.app')
 
 @section('page-styles')
-
+    <link href="{{ asset('dist/css/blog.css') }}" rel="stylesheet">
 @endsection
 
 @section('page-content')
+    <div class="page-container mt-5 py-5">
+        <x-page-header page-title="Journals"
+            sub-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapien augue sit orci, vestibulum nulla. Eu cras augue mi, sed molestie cursus sed." />
 
-<div class="container pt-5">
-  <div class="p-4 p-md-5 mb-4 text-white rounded"
-    style="background-image: url('{{ $featuredPost['thumbnail_url'] }}');background-repeat: no-repeat;background-attachment: fixed;background-size: cover;opacity:0.9">
-    <div class="col-md-6 px-0">
-      <h1 class="display-4">{{ $featuredPost['post_title'] }}</h1>
-      <p class="lead my-3">{!! $featuredPost['thumbnail_text'] !!}</p>
-      <p class="lead mb-0"><a href="{{ route('guest.blogs.show', ['postSlug'=> $featuredPost['post_slug'] ]) }}" class="text-white fw-bold">Continue reading...</a></p>
-    </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row mb-2">
-    <div class="col-md-8">
-      @if (!empty($posts))
-      @foreach ($posts as $post)
-      <div class="row g-0 overflow-hidden flex-md-row mb-4 shadow mb-2 bg-body rounded h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">Wildlife</strong>
-          <h3 class="mb-0">{{ $post['post_title'] }}</h3>
-          <div class="mb-1 text-muted">{{ \Carbon\Carbon::parse($post['published_at'])->isoFormat('MMM Do YY'); }}</div>
-          <p class="card-text mb-auto">{!! $post['thumbnail_text'] !!}</p>
-          <a href="{{ route('guest.blogs.show', ['postSlug'=> $post['post_slug'] ]) }}" class="stretched-link">Continue reading</a>
+        <div class="container">
+            <div class="row">
+                @forelse ($posts as $post)
+                    <div class="col-md-4">
+                        <x-blog.blog-post 
+                          :post-title="$post['post_title']"
+                          :post-content="$post['post_slug']"
+                          :post-thumbnail="$post['thumbnail_url']"
+                          :post-published-at="$post['published_at']"
+                          :post-route="route('guest.blogs.show', ['postSlug' => $post['post_slug']])"
+                        />
+                    </div>
+                @empty
+                    <div class="col-md-12">
+                        <p class="text-center py-5">No Posts found!</p>
+                    </div>
+                @endforelse
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p class="text-center py-5 mx-auto">
+                  <button class="btn btn-link fs--regular">Load more posts..</button>
+                </p>
+              </div>
+            </div>
         </div>
-        <div class="col-auto d-none d-lg-block">
-          <img src="{{ $post['thumbnail_url'] }}" class="img-fluid" alt="{{ $post['post_title'] }}" style="width: 260px;">
-        </div>
-      </div>
-      @endforeach
-      @endif
     </div>
-    <div class="col-md-5"></div>
-  </div>
-</div>
-
+    </div>
 @endsection
 
 @section('page-scripts')
-
 @endsection

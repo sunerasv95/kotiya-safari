@@ -113,6 +113,7 @@ body{
     }
 
     &--bolder{
+        font-family: $primary-font-bold;
         font-weight: bolder;
     }
 }
@@ -152,6 +153,10 @@ body{
     //background-size:cover;
     // background-repeat: repeat;
     background-color: $gray-color;
+}
+
+.page-container{
+    
 }
 
 

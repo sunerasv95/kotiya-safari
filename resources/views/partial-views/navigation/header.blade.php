@@ -7,28 +7,25 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
                     <li class="nav-item px-2">
-                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('guest.home') }}">Home</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link " aria-current="page" href="{{ route('home') }}">Accomadation</a>
+                        <a class="nav-link " aria-current="page" href="{{ route('guest.home') }}">Accomadation</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" aria-current="page" href="{{ route('home') }}">Packages & Rates</a>
+                        <a class="nav-link" aria-current="page" href="{{ route('guest.packages') }}">Packages & Rates</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" aria-current="page" href="{{ route('home') }}">Offers</a>
-                    </li>
-                    <li class="nav-item px-2">
-                        <a class="nav-link" aria-current="page" href="{{ route('home') }}">Gallery</a>
+                        <a class="nav-link" aria-current="page" href="{{ route('guest.gallery') }}">Gallery</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" aria-current="page" href="{{ route('guest.blogs') }}">Journal</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link" aria-current="page" href="{{ route('guest.blogs') }}">Contact Us</a>
+                        <a class="nav-link" aria-current="page" href="{{ route('guest.contact') }}">Contact Us</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a href="{{ route('guest.inquiries.request') }}" class="btn bg--baige text-white px-3 py-2">
+                        <a class="btn bg--baige text-white px-3 py-2" data-bs-toggle="modal" data-bs-target="#checkAvailabilityModal">
                             Check Availabiity
                         </a>
                     </li>
