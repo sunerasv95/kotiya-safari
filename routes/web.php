@@ -35,6 +35,15 @@ Route::get('notify', [GuestHomeController::class, "testnotify"]);
 Route::get('/', [GuestHomeController::class, "homePage"])
     ->name('guest.home');
 
+Route::get('accommodations', [GuestHomeController::class, "accommmadationPage"])
+    ->name('guest.accommodations');
+
+Route::get('aboutus', [GuestHomeController::class, "aboutusPage"])
+    ->name('guest.aboutus');
+
+Route::get('/', [GuestHomeController::class, "homePage"])
+->name('guest.home');
+
 Route::get('gallery', [GuestHomeController::class, "galleryPage"])
     ->name('guest.gallery');
 
@@ -43,17 +52,32 @@ Route::get('packages', [GuestHomeController::class, "packagesPage"])
 
 Route::get('contact', [GuestHomeController::class, "contactUsPage"])
     ->name('guest.contact');
-    
+
 Route::get('journals', [GuestHomeController::class, "blogsPage"])
     ->name('guest.blogs');
 
 Route::get('journals/{postSlug}', [GuestHomeController::class, "showPost"])
     ->name('guest.blogs.show');
 
+Route::get('learn/about-park', [GuestHomeController::class, "learnAboutParkPage"])
+    ->name('guest.learn.about-park');
+
 Route::get('inquiries', [GuestInquiryController::class, "inquiry"])
     ->name('guest.inquiries.request');
 
+Route::get('terms-and-conditions', [GuestHomeController::class, "termsCondtionsPage"])
+    ->name('guest.terms-conditions');
 
+Route::get('acknowledgement/{param}', [GuestHomeController::class, "acknowledgement"])
+    ->name('guest.acknowledgement');
+
+//requests
+
+//get
+Route::get('guest/countries', [GuestHomeController::class, "getCountries"])
+    ->name('guest.countries.fetch');
+
+//post
 Route::post("inquiries/submitRequest", [GuestInquiryController::class, "storeInquiry"])
     ->name('guest.inquiries.request.submit');
 
@@ -124,7 +148,7 @@ Route::prefix('/cn/admin')
 
             Route::get('/', [RoleController::class, "findAll"])
                 ->name('admin.roles');
-            
+
 
             Route::post('createRole', [RoleController::class, "save"])
                 ->name('admin.roles.create.submit');

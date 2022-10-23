@@ -18,10 +18,15 @@ class CommonService implements CommonServiceInterface
         }
     }
 
-    public function retriveCountryList()
+    public function retrieveCountryList()
     {
         try {
-            $countries = DB::table('countries')->get();
+            $countries = DB::table('countries')
+                ->get([
+                    'country', 
+                    'abbreviation',
+                    'dial_code'
+                ]);
             return json_decode($countries, true);
         } catch (\Throwable $th) {
             throw $th;

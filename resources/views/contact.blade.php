@@ -128,9 +128,11 @@
                                 <div class="d-flex flex-row justify-content start">
                                     <select class="form-select me-2" aria-label="Dial codes" id="inquiry-dial-code"
                                         name="inquiry_dial_code" style="width:20%;">
-                                        <option value="1">+94</option>
-                                        <option value="2">+989</option>
-                                        <option value="3">+21</option>
+                                        @forelse ($countries as $country)
+                                            <option value="{{$country['dial_code']}}">{{ $country['dial_code'] }}</option>
+                                        @empty
+                                            <option value="0">No dial codes found</option>
+                                        @endforelse
                                     </select>
                                     <input type="text" class="form-control" id="inquiry-mobile" name="inquiry_mobile"
                                         placeholder="Mobile Number">
@@ -139,9 +141,11 @@
                             <div class="mb-3">
                                 <select class="form-select" aria-label="Countries" id="inquiry-country" name="inquiry_country">
                                     <option selected>Select your country</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    @forelse ($countries as $country)
+                                        <option value="{{$country['abbreviation']}}">{{ $country['country'] }}</option>
+                                    @empty
+                                        <option value="0">No dial codes found</option>
+                                    @endforelse
                                 </select>
                             </div>
                             <div class="mb-3">

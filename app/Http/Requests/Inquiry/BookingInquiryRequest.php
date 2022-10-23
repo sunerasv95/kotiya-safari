@@ -8,22 +8,13 @@ class BookingInquiryRequest extends FormRequest
 {
     protected function prepareForValidation()
     {
-        //dd("eee", $this->selectedServicesArr);
-        $serviceArr = [];
-        if(isset($this->selectedServicesArr)){
-            $serviceArr = $this->setServicesAttributes($this->selectedServicesArr);
-        }
-        // dd(request()->ip);
         $this->merge([
-            'selectedServicesArr' => $serviceArr,
+            'flexible_dates' => !$this->has('flexible_dates') || $this->flexible_dates === "off" ? 0 : 1,
+            'tc_agreed' => $this->has('tc_agreed') && $this->tc_agreed === "on" ? 1 : 0,
             'ip_address' => $this->ip ?? "127.0.0.1"
         ]);
     }
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+
     public function authorize()
     {
         return true;
@@ -37,26 +28,16 @@ class BookingInquiryRequest extends FormRequest
     public function rules()
     {
         return [
-            "firstName"             => "required|string",
-            "lastName"              => "required|string",
-            "email"                 => "required|email",
-            "checkInDate"           => "required|date",
-            "checkOutDate"          => "required|date",
-            "noAdults"              => "required|integer|min:1",
-            "noKids"                => "required|integer",
-            "country"               => "required",
-            "serviceRequired"       => "required|boolean",
-            "selectedServicesArr"   => "nullable",
-            "ip_address"            => "required|ip"
+            "full_name"         => "required|string",
+            "email"             => "required|email",
+            "check_in"          => "required|date",
+            "check_out"         => "required|date",
+            "flexible_dates"    => "required|boolean",
+            "no_adults"         => "required|integer|min:1",
+            "no_kids"           => "required|integer",
+            "country"           => "required",
+            "tc_agreed"         => "required|boolean",
+            "ip_address"        => "required|ip"
         ];
-    }
-
-    private function setServicesAttributes($stringifyArr)
-    {
-        $str = trim($stringifyArr);
-        $str = str_replace(["[", "]", "\""], "", $str);
-        $str = explode(",", $str);
-        //dd($str);
-        return $str;
     }
 }

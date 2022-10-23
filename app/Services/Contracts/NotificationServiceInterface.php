@@ -4,6 +4,7 @@ namespace App\Services\Contracts;
 
 use App\Models\Admin;
 use App\Models\Guest;
+use App\Models\Inquiry;
 use App\Models\User;
 
 interface NotificationServiceInterface
@@ -12,7 +13,7 @@ interface NotificationServiceInterface
 
     // public function notifyAdminByEmail($type, Admin $admin = null, array $data = []);
 
-    public function sendInquiryPlaced(User $guest);
+    public function sendInquiryAcknowledgementViaEmail(User $guest, Inquiry $inquiry);
 
     public function sendNewInquiryReceived(User $admin);
 

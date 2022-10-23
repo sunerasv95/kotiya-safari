@@ -78,50 +78,53 @@ class InquiryService implements InquiryServiceInterface
 
         try {
             //check guest is already exists
-            $email = $newInquiry['email'];
-            $guest = $this->userRepository->findByEmail($email, [], UserTypes::GUEST_TYPE);
-            //dd($guest);
+            $guest = $this->userRepository
+                ->findByEmail($newInquiry['email'], [], UserTypes::GUEST_TYPE);
+
             if(!isset($guest)){
                 $guestData = array(
-                    "full_name" => $newInquiry['firstName']. " ". $newInquiry['lastName'],
-                    "email" => $email,
-                    "password" => null,
-                    "role_id" => null,
-                    "user_type" => UserTypes::GUEST_TYPE,
-                    "country_id" => findCountryIdByCode($newInquiry['country']) 
+                    "full_name"     => $newInquiry['full_name'],
+                    "email"         => $newInquiry['email'],
+                    "password"      => null,
+                    "role_id"       => null,
+                    "user_type"     => UserTypes::GUEST_TYPE,
+                    "country_id"    => findCountryIdByCode($newInquiry['country'])
                 );
                 $guest = $this->userRepository->save($guestData);
             }
 
             $newInquiryData = array(
-                "reference_no" => rand(1000000, 9999999),
-                "user_id" => $guest->id,
-                "checkin_date" => $newInquiry['checkInDate'],
-                "checkout_date" => $newInquiry['checkInDate'],
-                "no_adults" => $newInquiry['noAdults'],
-                "no_kids" => $newInquiry['noKids'],
-                "ip_address" => $newInquiry['ip_address'], //to-do: dynamic ip
-                "status" => StatusTypes::PENDING,
-                "vas_services" => $newInquiry["selectedServicesArr"],
-                "remark" => null
+                "reference_no"      => rand(1000000, 9999999),
+                "user_id"           => $guest->id,
+                "checkin_date"      => $newInquiry['check_in'],
+                "checkout_date"     => $newInquiry['check_out'],
+                "flexible_dates"    => $newInquiry['flexible_dates'],
+                "no_adults"         => $newInquiry['no_adults'],
+                "no_kids"           => $newInquiry['no_kids'],
+                "ip_address"        => $newInquiry['ip_address'], //to-do: dynamic ip
+                "status"            => StatusTypes::PENDING,
+                'tc_agreed'         => $newInquiry['tc_agreed'],
+                "remark"            => null
             );
 
             //save inquiry
-            $this->inquiryRepository->save($newInquiryData);
-
+            $savedInquiry = $this->inquiryRepository->save($newInquiryData);
             //send notification to the guest user
-            $this->notificationService->sendInquiryPlaced($guest);
+            $this->notificationService->sendInquiryAcknowledgementViaEmail($guest, $savedInquiry);
 
             DB::commit();
+
+            return [
+                "error" => false,
+                "data" => [
+                    "callback_url" => route('guest.acknowledgement', ["param" => encrypt($savedInquiry['inquiry_reference_no'])])
+                ],
+                "message" => "Your request has been submited successfully"
+            ];
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
         }
-
-        return [
-            "error" => false,
-            "message" => "Your request has been submited successfully"
-        ];
 
     }
 

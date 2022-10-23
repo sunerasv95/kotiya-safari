@@ -19,9 +19,11 @@ class CountrySeeder extends Seeder
         $countriesContent = json_decode($json, true);
 
         foreach($countriesContent as $country){
+            //dd($country);
             DB::table('countries')->insert([
                 "country" => $country["country"],
                 "abbreviation" => $country['abbreviation'],
+                "dial_code" => $country['dial_code'],
                 "created_at" => now(),
                 "updated_at" => now()
             ]);

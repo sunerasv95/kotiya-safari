@@ -39,29 +39,23 @@ class InquiryRepository implements InquiryRepositoryInterface
 
     public function save(array $newInquiry)
     {
-        //dd($newInquiry);
         $inquiry = new Inquiry();
 
         $inquiry->inquiry_reference_no   = $newInquiry['reference_no'];
         $inquiry->guest_id               = $newInquiry['user_id'];
         $inquiry->checkin_date           = $newInquiry['checkin_date'];
         $inquiry->checkout_date          = $newInquiry['checkout_date'];
+        $inquiry->dates_flexible         = $newInquiry['flexible_dates'];
         $inquiry->no_adults              = $newInquiry['no_adults'];
         $inquiry->no_kids                = $newInquiry['no_kids'];
         $inquiry->ip_address             = $newInquiry['ip_address']; //to-do: need to save real ip address
         $inquiry->status                 = $newInquiry['status'];
+        $inquiry->tc_agreed              = $newInquiry['tc_agreed'];
         $inquiry->remark                 = $newInquiry['remark'];
         $inquiry->created_at             = now();
         $inquiry->updated_at             = now();
 
         $inquiry->save();
-
-        if(isset($newInquiry['vas_services']) && !empty($newInquiry['vas_services'])){
-            $serviceIds = array_map(function($code){
-                return $this->findValueAddedServiceIdByCode($code);
-            }, $newInquiry['vas_services']);
-            $inquiry->vass()->attach($serviceIds, ["created_at"=> now(), "updated_at" => now()]);
-        }
 
         return $inquiry;
     }

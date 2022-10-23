@@ -1,5 +1,5 @@
 <div class="container">
-    <footer class="pt-5 pb-2">
+    <footer class="footer mt-auto pt-5 pb-2">
       <div class="row">
         <div class="col-2">
          <img class="mx-auto" src="{{ asset('dist/images/logo-green-bg-lg.svg') }}" alt="footer-logo">
@@ -7,18 +7,18 @@
         <div class="col-2">
           <h5 class="text-white">Information</h5>
           <ul class="nav flex-column py-3">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white fs--small">Contact</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white fs--small">About us</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white fs--small">FAQs</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white fs--small">terms & Conditions</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white"><small>Contact</small></a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white"><small>About us</small></a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white"><small>FAQs</small></a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white"><small>Terms & Conditions</small></a></li>
           </ul>
         </div>
         <div class="col-2">
           <h5 class="text-white">Reservations</h5>
           <ul class="nav flex-column py-3">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white fs--small">Accomadation</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white fs--small">Packages & Rates</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white fs--small">Offers</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white"><small>Accomadation</small></a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white"><small>Packages & Rates</small></a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-white"><small>Offers</small></a></li>
           </ul>
         </div>
         <div class="col-2">
@@ -58,9 +58,9 @@
           </form>
         </div>
       </div>
-      <div class="d-flex justify-content-between py-4 my-5 border-top">
-        <p class="text-white">&copy; 2022 Leopard Glamping. All rights reserved.</p>
-        <p class="text-white">Design & Developed By Creatin</p>
+      <div class="d-flex justify-content-between pt-4 mt-5 border-top">
+        <p class="text-white fs--small">&copy; 2022 Leopard Glamping. All rights reserved.</p>
+        <p class="text-white fs--small">Design & Developed By Creatin</p>
       </div>
     </footer>
   </div>

@@ -16,7 +16,8 @@ class CreateCountriesTbl extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('country', 50);
-            $table->char('abbreviation', 10);
+            $table->char('abbreviation', 5);
+            $table->char('dial_code', 5);
             $table->timestamps();
         });
     }

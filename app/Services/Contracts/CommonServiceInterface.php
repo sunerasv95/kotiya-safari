@@ -6,7 +6,7 @@ interface CommonServiceInterface
 {
     public function retrieveDataFromJsonFile($fileName);
 
-    public function retriveCountryList();
+    public function retrieveCountryList();
 
     public function retriveInquiryStatus();
 }

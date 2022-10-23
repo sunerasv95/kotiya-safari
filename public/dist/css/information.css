@@ -1,0 +1,17 @@
+:root {
+  --bs-baige: #c7681f;
+  --bs-baige-rgb: rgb(199, 104, 31);
+}
+
+dl dt {
+  color: #ffffff;
+  font-family: "Poppins Semi";
+  font-size: 1rem;
+  padding: 0.875rem 0;
+}
+dl dd {
+  color: #ffffff;
+  font-family: "Poppins";
+  font-size: 1rem;
+  padding: 0.875rem 0;
+}

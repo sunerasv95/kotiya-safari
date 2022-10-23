@@ -1,3 +1,8 @@
+:root {
+  --bs-baige: #c7681f;
+  --bs-baige-rgb: rgb(199, 104, 31);
+}
+
 .carousel {
   margin-bottom: 0;
 }

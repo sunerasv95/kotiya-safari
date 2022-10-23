@@ -1,0 +1,18 @@
+@import "variables";
+
+dl{
+    dt{
+        color: $white-color;
+        font-family: $primary-font-semi-bold;
+        font-size: $font-size-regular;
+        padding: .875rem 0;
+    }
+
+    dd{
+        color: $white-color;
+        font-family: $primary-font-regular;
+        font-size: $font-size-regular;
+        padding: .875rem 0;
+
+    }
+}

@@ -47,7 +47,7 @@ class InquiryController extends Controller
 
     public function createInquiry()
     {
-        $countries = $this->commonService->retriveCountryList();
+        $countries = $this->commonService->retrieveCountryList();
         $vas = $this->inquiryService->getAllValueAddedServices();
 
         return view('admin.inquiry.create', compact('countries', 'vas'));

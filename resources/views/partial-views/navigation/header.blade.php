@@ -10,7 +10,7 @@
                         <a class="nav-link active" aria-current="page" href="{{ route('guest.home') }}">Home</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="nav-link " aria-current="page" href="{{ route('guest.home') }}">Accomadation</a>
+                        <a class="nav-link " aria-current="page" href="{{ route('guest.accommodations') }}">Accomadation</a>
                     </li>
                     <li class="nav-item px-2">
                         <a class="nav-link" aria-current="page" href="{{ route('guest.packages') }}">Packages & Rates</a>
@@ -25,7 +25,7 @@
                         <a class="nav-link" aria-current="page" href="{{ route('guest.contact') }}">Contact Us</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="btn bg--baige text-white px-3 py-2" data-bs-toggle="modal" data-bs-target="#checkAvailabilityModal">
+                        <a class="btn btn-cs-baige px-3 py-2" data-bs-toggle="modal" data-bs-target="#reservationInquiryModal">
                             Check Availabiity
                         </a>
                     </li>

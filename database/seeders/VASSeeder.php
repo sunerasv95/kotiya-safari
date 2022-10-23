@@ -15,6 +15,7 @@ class VASSeeder extends Seeder
     public function run()
     {
        $services = [
+            "Airport-pickup",
             "Wild Life Photography",
             "Safari",
             "Boat Rides"

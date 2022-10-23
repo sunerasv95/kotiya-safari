@@ -22,7 +22,7 @@ class InquiryController extends Controller
 
     public function inquiry()
     {
-        $countries = $this->commonService->retriveCountryList();
+        $countries = $this->commonService->retrieveCountryList();
         $vas = $this->inquiryService->getAllValueAddedServices();
         //dd($countries);
         return view('inquiry.index', compact('countries', 'vas'));
@@ -30,16 +30,28 @@ class InquiryController extends Controller
 
     public function storeInquiry(BookingInquiryRequest $request)
     {
-        $validatedData = $request->validated();
-        
-        $result = $this->inquiryService->createInquiry($validatedData);
+        try {
+            $validated = $request->validated();
+            $result = $this->inquiryService->createInquiry($validated);
 
-        if ($result['error'] === false) {
-            $successMsg = $result['message'];
-            return redirect()->route('guest.inquiries.request')->with("successMsg", $successMsg);
-        } else {
-            $errorMsg = "Something went wrong!";
-            return redirect()->back('guest.inquiries.request')->with("errorMsg", $errorMsg);
+            if($request->ajax()){
+                return response()->json($result);
+                // if($result['error'] == false){
+
+                // }else{
+                //     return response()->json($result, 500);
+                // }
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
+
+        // if ($result['error'] === false) {
+        //     $successMsg = $result['message'];
+        //     return redirect()->route('guest.inquiries.request')->with("successMsg", $successMsg);
+        // } else {
+        //     $errorMsg = "Something went wrong!";
+        //     return redirect()->back('guest.inquiries.request')->with("errorMsg", $errorMsg);
+        // }
     }
 }

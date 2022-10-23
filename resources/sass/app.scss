@@ -1,11 +1,6 @@
-//Variables
 @import "variables";
-
-//Bootstrap
 @import "~bootstrap/scss/bootstrap";
-
-//Bootstrap Icons
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+@import '~bootstrap-icons/font/bootstrap-icons';
 
 //Fonts
 @font-face {
@@ -19,7 +14,6 @@
     src: url('./../fonts/Poppins-SemiBold.ttf') format('truetype');
     font-weight: 700;
 }
-
 
 @font-face {
     font-family: $primary-font-bold;
@@ -48,6 +42,8 @@
 body{
     top: 0;
     left: 0;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     background-color: $white-color;
     font-family: $primary-font-regular;
@@ -76,6 +72,10 @@ body{
 .text{
     &--dark-green{
         color: $dark-green-color;
+    }
+
+    &--baige{
+        color: $baige-color;
     }
 
     &--green{
@@ -141,27 +141,20 @@ body{
 }
 
 //buttons
-.btn-silver{
-    background-color: $silver-color;
-    color:$white-color;
+.btn-cs-baige {
+    --bs-btn-font-weight: 500;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bs-baige);
+    --bs-btn-border-color: var(--bd-violet);
+    --bs-btn-border-radius: .5rem;
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: #{shade-color($baige-color, 10%)};
+    --bs-btn-hover-border-color: #{shade-color($baige-color, 10%)};
+    --bs-btn-focus-shadow-rgb: var(--bs-baige-rgb);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #{shade-color($baige-color, 20%)};
+    --bs-btn-active-border-color: #{shade-color($baige-color, 20%)};
 }
-
-#footer-container{
-    //background-image: url('/dist/images/footer-backdrop.svg');
-    // background-position:center;
-    // background-attachment: scroll;
-    //background-size:cover;
-    // background-repeat: repeat;
-    background-color: $gray-color;
-}
-
-.page-container{
-    
-}
-
-
-/* BOOTSTRAP ICONS
-*/
 
 .bi{
     font-size: 1.25rem;
@@ -174,14 +167,21 @@ body{
     margin-left: 0.3rem;
 }
 
-/* JQUERY VALIDATE JS
--------------------------------------------------- */
-label.error{
-    color: #FF0000;
-    font-size: 12px;
+//errors
+label{
+    &.error{
+        color: #FF0000;
+        font-size: 12px;
+    }
+
+    &.form-label{
+        font-weight: 600;
+    }
 }
 
-
+.invalid-feedback{
+    font-size: .675rem;
+}
 
 
 /* MARKETING CONTENT

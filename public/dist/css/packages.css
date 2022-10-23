@@ -1,3 +1,8 @@
+:root {
+  --bs-baige: #c7681f;
+  --bs-baige-rgb: rgb(199, 104, 31);
+}
+
 .pack {
   background-color: #ffffff;
   cursor: pointer;
@@ -34,4 +39,7 @@
 }
 .pack:hover .pack--desc > * {
   color: #ffffff;
+}
+.pack:hover button {
+  background-color: #305315;
 }

@@ -15,7 +15,7 @@
                     <div class="card mb-4 p-3 shadow p-3 mb-5 rounded border-0 pack">
                         <div class="card-body">
                             <h4 class="pack--name">Package 01</h4>
-                            <h4 class="pack--price-tag">USD. 200</h4>
+                            <h4 class="pack--price-tag">USD 200</h4>
                             <ul class="mt-3 mb-4 ms-0 ps-3 pack--list">
                                 <li>Accomodation</li>
                                 <li>All Meals</li>
@@ -39,7 +39,7 @@
                     <div class="card mb-4 p-3 shadow p-3 mb-5 rounded border-0 pack">
                         <div class="card-body">
                             <h4 class="pack--name">Package 02</h4>
-                            <h4 class="pack--price-tag">USD. 400</h4>
+                            <h4 class="pack--price-tag">USD 400</h4>
                             <ul class="mt-3 mb-4 ms-0 ps-3 pack--list">
                                 <li>Accomodation</li>
                                 <li>All Meals</li>
@@ -63,7 +63,7 @@
                     <div class="card mb-4 p-3 shadow p-3 mb-5 rounded border-0 pack">
                         <div class="card-body">
                             <h4 class="pack--name">Package 03</h4>
-                            <h4 class="pack--price-tag">USD. 800</h4>
+                            <h4 class="pack--price-tag">USD 800</h4>
                             <ul class="mt-3 mb-4 ms-0 ps-3 pack--list">
                                 <li>Accomodation</li>
                                 <li>All Meals</li>
