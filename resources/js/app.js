@@ -1,6 +1,8 @@
-require('bootstrap');
+// require('bootstrap');
+$(function(){
+    var checkInDatePicker = $('#check-in-datepicker');
+    var checkOutDatePicker = $('#check-out-datepicker');
 
-(function () {
     setTimeout(() => {
         if ($(".alert-danger").hasClass("show")) {
             $(".alert-danger").removeClass("show").addClass("fade").remove();
@@ -8,10 +10,21 @@ require('bootstrap');
         if ($(".alert-success").hasClass("show")) {
             $(".alert-success").removeClass("show").addClass("fade").remove();
         }
-    }, 5000);
-});
+    }, 8000);
 
-var inquiryModal = document.getElementById('reservationInquiryModal');
+    checkInDatePicker.datepicker({
+        format: 'mm/dd/yyyy',
+        startDate: "-1d",
+    });
+
+    checkOutDatePicker.datepicker({
+        format: 'mm/dd/yyyy'
+    });
+
+    console.log('on load');
+})
+
+var inquiryModal = document.getElementById('reservation-inquiry-modal');
 
 inquiryModal.addEventListener('show.bs.modal', function (event) {
     fetchCountries()
@@ -48,13 +61,13 @@ inquiryModal.addEventListener('hidden.bs.modal', function (event) {
     //         console.log('err', err);
     //     });
     console.log('closed');
-    var validator = $('#reservationRequestForm').validate();
+    var validator = $('#inquiry-form').validate();
     validator.resetForm();
 });
 
 
 $(document).on('click', '#inquiry-submit', function () {
-    $('#reservationRequestForm').validate({
+    $('#inquiry-form').validate({
         rules: {
             full_name: {
                 required: true
@@ -88,22 +101,28 @@ $(document).on('click', '#inquiry-submit', function () {
             }
         },
         submitHandler: function (form) {
+            var button = $('#inquiry-submit');
+            showButtonSpinner(button);
             submitInquiry(form)
                 .then(function(res){
                     console.log("inquiry res", res);
                     if(!res?.error){
-                        $('#reservationInquiryModal').modal('toggle');
-                        if(res?.data?.callback_url) location.href = res?.data?.callback_url;
+                        setTimeout(function(){
+                            hideButtonSpinner(button, "Submit Inquiry");
+                            $('#reservation-inquiry-modal').modal('toggle');
+                            if(res?.data?.callback_url) location.href = res?.data?.callback_url;
+                        }, 1500);
                     }
                 })
                 .catch(function(err){
+                    hideButtonSpinner(button, "Submit Inquiry");
                     if(err?.responseJSON?.errors){
                         var validatorErrors = {};
                         var es = err?.responseJSON?.errors;
                         Object.entries(es).forEach((e, i) => {
                             validatorErrors[e[0]] = e[1][0];
                         });
-                        var validator = $( "#reservationRequestForm" ).validate();
+                        var validator = $( "#inquiry-form" ).validate();
                         validator.showErrors(validatorErrors);
                     }
                 });
@@ -118,6 +137,22 @@ $(document).on('click', '#inquiry-submit', function () {
 });
 
 
+function showButtonSpinner(btnElement){
+    if(btnElement.length){
+        btnElement
+            .attr("disable", "disable")
+            .html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span><span class='px-1'>Submiting...</span>");
+    }
+}
+
+function hideButtonSpinner(btnElement, btnText){
+    if(btnElement.length){
+        btnElement
+            .removeAttr("disable", "disable")
+            .empty()
+            .text(btnText);
+    }
+}
 
 function fetchCountries() {
     return new Promise(function (resolve, reject) {
@@ -138,7 +173,6 @@ function fetchCountries() {
     });
 }
 
-
 function submitInquiry(form){
     return new Promise(function (resolve, reject) {
         $.ajax({
@@ -148,7 +182,7 @@ function submitInquiry(form){
             url: "/inquiries/submitRequest",
             dataType: "JSON",
             type: "POST",
-            data: $("#reservationRequestForm").serialize(),
+            data: $("#inquiry-form").serialize(),
             success: function (res) {
                 resolve(res);
             },

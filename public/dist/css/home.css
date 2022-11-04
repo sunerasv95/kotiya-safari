@@ -1,6 +1,12 @@
 :root {
   --bs-baige: #c7681f;
+  --bs-deep-sky-blue: #00BFFF;
+  --bs-trquoise: #40E0D0;
+  --bs-light-salmon: #FFA07A;
   --bs-baige-rgb: rgb(199, 104, 31);
+  --bs-deep-sky-blue-rgb: rgb(0, 191, 255);
+  --bs-trquoise-rgb: rgb(64, 224, 208);
+  --bs-light-salmon-rgb: rgb(255, 160, 122);
 }
 
 .carousel {
@@ -32,7 +38,7 @@
 
 #home-section-one {
   height: 250px;
-  background-color: #305315;
+  background-color: rgb(48, 83, 21);
   padding: 2rem 0;
   display: flex;
   justify-content: center;
@@ -64,6 +70,5 @@
   text-anchor: middle;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
-      user-select: none;
+  user-select: none;
 }

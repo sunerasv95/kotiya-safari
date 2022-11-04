@@ -15,18 +15,18 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('username')->unique();
-            $table->string('password')->nullable();
-            $table->integer('role_id')->unsigned()->nullable();
-            $table->integer('user_type')->unsigned();
-            $table->integer('country_id')->unsigned()->nullable();
-            $table->tinyInteger('activated')->default(1);
-            $table->tinyInteger('disabled')->default(0);
-            $table->ipAddress('last_login_from')->default(0);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->timestamp('last_login_at')->nullable();
+            // $table->string('name');
+            // $table->string('email')->unique();
+            // $table->string('username')->unique();
+            // $table->string('password')->nullable();
+            // $table->integer('role_id')->unsigned()->nullable();
+            // $table->integer('user_type')->unsigned();
+            // $table->integer('country_id')->unsigned()->nullable();
+            // $table->tinyInteger('activated')->default(1);
+            // $table->tinyInteger('disabled')->default(0);
+            // $table->ipAddress('last_login_from')->default(0);
+            // $table->timestamp('email_verified_at')->nullable();
+            // $table->timestamp('last_login_at')->nullable();
             $table->timestamps();
         });
     }

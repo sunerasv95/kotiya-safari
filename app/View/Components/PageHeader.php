@@ -13,7 +13,10 @@ class PageHeader extends Component
      *
      * @return void
      */
-    public function __construct($pageTitle, $subTitle)
+    public function __construct(
+        $pageTitle, 
+        $subTitle
+    )
     {
         $this->pageTitle = $pageTitle;
         $this->subTitle = $subTitle;

@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-4 offset-md-4">
             <h2 class="display py-2">Login</h2>
-            <div class="card">
+            <div class="card border-0 ">
                 <div class="card-body">
                     <form
                         id="loginForm"

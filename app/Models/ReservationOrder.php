@@ -4,18 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ReservationOrder extends Model
 {
     use HasFactory;
 
-    public function inquiry()
+    public function inquiry(): BelongsTo
     {
         return $this->belongsTo(Inquiry::class);
     }
 
-    public function reservationOrderDetails()
+    public function guest(): BelongsTo
     {
-        return $this->hasOne(ReservationOrderDetail::class, "order_reference_no", "order_reference_no");
+        return $this->belongsTo(Guest::class)->with('country');
+    }
+
+    public function remarks()
+    {
+        return $this->morphMany(Remark::class, 'remarkable');
     }
 }

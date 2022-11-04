@@ -2,16 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Constants\StatusTypes;
 use App\Models\Inquiry;
-use App\Models\User;
 use App\Models\VAS;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
 
 class InquiryRepository implements InquiryRepositoryInterface
 {
 
-    public function findAllInquiries($with=[], $status= null)
+    public function findAll($with=[], $status= null)
     {
         return Inquiry::when(!empty($with), function($q)use($with){
             return $q->with($with);
@@ -23,18 +21,23 @@ class InquiryRepository implements InquiryRepositoryInterface
         ->get();
     }
 
-    public function findInquiryByReferenceNumber(string $inquiryRefNumber, $with=[])
+    public function findOne(string $attribute, string $value, $with=[])
     {
-        return Inquiry::where('inquiry_reference_no', $inquiryRefNumber)
-            ->when(!empty($with), function($q) use($with){
-                return $q->with($with);
-            })
-            ->first();
-    }
+        return Inquiry::when(isset($attribute), function($q) use($attribute, $value){
+            switch($attribute){
+                case "inquiry_reference_no":
+                    $q->where("inquiry_reference_no", $value);
+                break;
 
-    public function findInquiryById(int $inquiryId)
-    {
-        return Inquiry::find($inquiryId);
+                default:
+                    $q->where("inquiry_reference_no", $value);
+            }
+            return $q;
+        })
+        ->when(!empty($with), function($q) use($with){
+            return $q->with($with);
+        })
+        ?->first();
     }
 
     public function save(array $newInquiry)
@@ -42,16 +45,15 @@ class InquiryRepository implements InquiryRepositoryInterface
         $inquiry = new Inquiry();
 
         $inquiry->inquiry_reference_no   = $newInquiry['reference_no'];
+        $inquiry->request_type	         = $newInquiry['request_type'];
         $inquiry->guest_id               = $newInquiry['user_id'];
         $inquiry->checkin_date           = $newInquiry['checkin_date'];
         $inquiry->checkout_date          = $newInquiry['checkout_date'];
         $inquiry->dates_flexible         = $newInquiry['flexible_dates'];
         $inquiry->no_adults              = $newInquiry['no_adults'];
         $inquiry->no_kids                = $newInquiry['no_kids'];
-        $inquiry->ip_address             = $newInquiry['ip_address']; //to-do: need to save real ip address
         $inquiry->status                 = $newInquiry['status'];
         $inquiry->tc_agreed              = $newInquiry['tc_agreed'];
-        $inquiry->remark                 = $newInquiry['remark'];
         $inquiry->created_at             = now();
         $inquiry->updated_at             = now();
 
@@ -60,49 +62,16 @@ class InquiryRepository implements InquiryRepositoryInterface
         return $inquiry;
     }
 
-    public function updateInquiry(Inquiry $inquiry, array $updateInquiry)
+    public function update(Inquiry $inquiry, array $updateInquiry)
     {
-        $inquiry->no_adults = $updateInquiry['updNoAdults'];
-        $inquiry->no_kids   = $updateInquiry['updNoKids'];
-        if(isset($updateInquiry['updRemark'])){
-            $inquiry->remark = $updateInquiry['updRemark'];
-        }
-        return $inquiry->save();
+        return $inquiry->update($updateInquiry);
     }
 
-    public function updateInquiryStatus(Inquiry $inquiry, string $status=null, string $remarkText = null, array $rejectData = [])
+    public function updateStatus(Inquiry $inquiry, string $status)
     {
-        $inquiry->status      = $status;
-        $inquiry->remark      = $remarkText;
-
-        if($status === "REJECTED"){
-            $inquiry->rejected_by = $rejectData['adminId'];
-            $inquiry->rejected_reason = $rejectData['rejectReason'];
-            $inquiry->rejected_at = now();
-        }
-
-        return $inquiry->save();
-    }
-
-    //Value added Services
-    public function findAllValueAddedServices()
-    {
-        return VAS::active()
-        ->select([
-            "service_name",
-            "service_code",
-            "service_description"
-        ])->get();
-    }
-
-    public function findValueAddedServiceIdByCode(string $vasCode)
-    {
-        return VAS::active()->where("service_code", $vasCode)->select("id")->first()->id;
-    }
-
-    public function inquiryCountByStatus($status = null)
-    {
-        return Inquiry::where('status', $status)->where('is_deleted', 0)->get()->count();
+        $inquiry->status = $status;
+        $inquiry->save();
+        return $inquiry;
     }
 
 }

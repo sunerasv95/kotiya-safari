@@ -9,4 +9,6 @@ interface CommonServiceInterface
     public function retrieveCountryList();
 
     public function retriveInquiryStatus();
+
+    public function retriveReservationStatus();
 }

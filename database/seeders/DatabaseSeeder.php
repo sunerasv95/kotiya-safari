@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            VASSeeder::class,
             CountrySeeder::class,
             InquiryStatusSeeder::class,
             ReservationStatusSeeder::class,
@@ -22,9 +21,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             RolePermissionSeeder::class,
-            UserSeeder::class,
-            //BlogPostSeeder::class,
-            //InquirySeeder::class,
+            AdminSeeder::class
         ]);
     }
 }

@@ -49,30 +49,139 @@ body{
     font-family: $primary-font-regular;
 }
 
-/* BOOTSTRAP ICONS
-*/
+//background
+.bg{
+    &--baige{
+        background-color: $baige-color;
+    }
 
-.bi{
-    font-size: 1.25rem;
-    margin: 0 3px;
+    &--dark-green{
+        background-color: $dark-green-color
+    }
+
+    &--black{
+        background-color: $black-color;
+    }
+
+    &--gray{
+        background-color: $gray-color;
+    }
 }
 
-.bi-sm::before{
-    font-size: 0.8rem;
-    margin-bottom: 0.3rem;
-    margin-left: 0.3rem;
+//text
+.text{
+    &--dark-green{
+        color: $dark-green-color;
+    }
+
+    &--baige{
+        color: $baige-color;
+    }
+
+    &--green{
+        color: $green-color;
+    }
 }
 
-.bi-lg::before{
-    font-size: 2rem;
-}
-/* JQUERY VALIDATE JS
--------------------------------------------------- */
-label.error{
-    color: #FF0000;
-    font-size: 12px;
+.fw{
+    &--400{
+        font-weight: 400;
+    }
+
+    &--500{
+        font-weight: 500;
+    }
+
+    &--600{
+        font-weight: 600;
+    }
+
+    &--700{
+        font-weight: 700;
+    }
+
+    &--800{
+        font-weight: 800;
+    }
+
+    &--900{
+        font-weight: 900;
+    }
+
+    &--bold{
+        font-weight: bold;
+    }
+
+    &--bolder{
+        font-family: $primary-font-bold;
+        font-weight: bolder;
+    }
 }
 
+.fs{
+    &--smaller{
+        font-size: $font-size-smaller;
+    }
+
+    &--small{
+        font-size: $font-size-small;
+    }
+
+    &--regular{
+        font-size: $font-size-regular;
+    }
+
+    &--large{
+        font-size: $font-size-large;
+    }
+
+    &--larger{
+        font-size: $font-size-larger;
+    }
+}
+
+//buttons
+.btn-cs-baige {
+    --bs-btn-font-weight: 500;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bs-baige);
+    --bs-btn-border-color: var(--bd-violet);
+    --bs-btn-border-radius: .5rem;
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: #{shade-color($baige-color, 10%)};
+    --bs-btn-hover-border-color: #{shade-color($baige-color, 10%)};
+    --bs-btn-focus-shadow-rgb: var(--bs-baige-rgb);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #{shade-color($baige-color, 20%)};
+    --bs-btn-active-border-color: #{shade-color($baige-color, 20%)};
+}
+
+// .bi{
+//     font-size: 1.25rem;
+//     margin: 0 3px;
+// }
+
+// .bi-sm::before{
+//     font-size: 0.8rem;
+//     margin-bottom: 0.3rem;
+//     margin-left: 0.3rem;
+// }
+
+//errors
+label{
+    &.error{
+        color: #FF0000;
+        font-size: 12px;
+    }
+
+    &.form-label{
+        font-weight: 600;
+    }
+}
+
+.invalid-feedback{
+    font-size: .675rem;
+}
 /*
 *** ADMIN SIDEBAR & ICONS
 */

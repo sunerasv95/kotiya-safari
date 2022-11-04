@@ -68,7 +68,7 @@ Route::get('inquiries', [GuestInquiryController::class, "inquiry"])
 Route::get('terms-and-conditions', [GuestHomeController::class, "termsCondtionsPage"])
     ->name('guest.terms-conditions');
 
-Route::get('acknowledgement/{param}', [GuestHomeController::class, "acknowledgement"])
+Route::get('acknowledgement', [GuestHomeController::class, "acknowledgement"])
     ->name('guest.acknowledgement');
 
 //requests
@@ -112,7 +112,7 @@ Route::prefix('reservations')->group(function () {
 
 Route::prefix('/cn/admin')->group(function () {
 
-    Route::get('/', [AuthController::class, "login"])
+    Route::get('login', [AuthController::class, "login"])
         ->name('admin.login');
 
     Route::post('auth/signIn', [AuthController::class, "submitSignIn"])
@@ -128,7 +128,7 @@ Route::prefix('/cn/admin')
         Route::get('auth/signOut', [AuthController::class, "submitSignOut"])
             ->name('admin.auth.signout.submit');
 
-        Route::get('dashboard', [DashboardController::class, "index"])
+        Route::get('/', [DashboardController::class, "index"])
             ->name('admin.dashboard');
 
 
@@ -164,13 +164,13 @@ Route::prefix('/cn/admin')
             Route::get('/', [InquiryController::class, "findAll"])
                 ->name('admin.inquiries');
 
-            Route::get('filter/{status?}', [InquiryController::class, "findAllByStatus"])
+            Route::get('filter/{status?}', [InquiryController::class, "filter"])
                 ->name('admin.inquiries.filter');
 
             Route::get('create', [InquiryController::class, "createInquiry"])
                 ->name('admin.inquiries.create');
 
-            Route::get('{inquiryId}', [InquiryController::class, "findByReferenceNumber"])
+            Route::get('{inquiryId}', [InquiryController::class, "findOne"])
                 ->name('admin.inquiries.view');
 
             Route::post('createInquiry', [InquiryController::class, "save"])
@@ -188,10 +188,13 @@ Route::prefix('/cn/admin')
             Route::get('/', [ReservationController::class, "findAll"])
                 ->name('admin.reservations');
 
-            Route::get('{bkRefId}', [ReservationController::class, "findByReferenceNumber"])
+            Route::get('filter/{status?}', [ReservationController::class, "filter"])
+                ->name('admin.reservations.filter');
+
+            Route::get('{reference}', [ReservationController::class, "findOne"])
                 ->name('admin.reservations.view');
 
-            Route::post('inquiryRequest', [ReservationController::class, "storeReservationRequest"])
+            Route::post('inquiryRequest', [ReservationController::class, "store"])
                 ->name('store-reservation-order-request');
         });
 

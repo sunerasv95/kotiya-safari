@@ -4,9 +4,9 @@ namespace App\Services\Contracts;
 
 interface ReservationOrderServiceInterface
 {
-    public function getAllReservations();
+    public function getAllReservations($status = null);
 
-    public function getReservationByBkRefNumber(string $bkRefNumber);
+    public function getReservationByReference(string $bkRefNumber);
 
     public function findReservationForGuest(string $guestEmail);
 

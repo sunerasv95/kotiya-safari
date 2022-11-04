@@ -1,6 +1,12 @@
 :root {
   --bs-baige: #c7681f;
+  --bs-deep-sky-blue: #00BFFF;
+  --bs-trquoise: #40E0D0;
+  --bs-light-salmon: #FFA07A;
   --bs-baige-rgb: rgb(199, 104, 31);
+  --bs-deep-sky-blue-rgb: rgb(0, 191, 255);
+  --bs-trquoise-rgb: rgb(64, 224, 208);
+  --bs-light-salmon-rgb: rgb(255, 160, 122);
 }
 
 .pack {
@@ -11,25 +17,25 @@
 .pack--name {
   text-align: start;
   font-size: 2.5rem;
-  color: #2e2e2e;
+  color: rgb(46, 46, 46);
 }
 .pack--price-tag {
   text-align: start;
   font-family: "Poppins Bold";
   font-weight: "bolder";
-  color: #64b161;
+  color: rgb(100, 177, 97);
 }
 .pack--list li {
-  color: #2e2e2e;
+  color: rgb(46, 46, 46);
   padding: 0.525rem 0;
   text-align: start;
 }
 .pack--desc > * {
   text-align: start;
-  color: #2e2e2e;
+  color: rgb(46, 46, 46);
 }
 .pack:hover {
-  background-color: #2e2e2e;
+  background-color: rgb(46, 46, 46);
 }
 .pack:hover .pack--name {
   color: #ffffff;
@@ -41,5 +47,5 @@
   color: #ffffff;
 }
 .pack:hover button {
-  background-color: #305315;
+  background-color: rgb(48, 83, 21);
 }

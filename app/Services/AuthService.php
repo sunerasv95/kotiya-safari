@@ -16,7 +16,7 @@ class AuthService implements AuthServiceInterface
         $this->userRepository = $userRepository;
     }
 
-    public function adminSignIn($username, $password)
+    public function adminSignIn($email, $password)
     {
         $result = [
             "error" => false,
@@ -24,25 +24,25 @@ class AuthService implements AuthServiceInterface
         ];
 
         try {
-            $adminUser = $this->userRepository->findByEmail($username, ["role"], UserTypes::ADMIN_TYPE);
+            $admin = $this->userRepository->findAdmin("email", $email, ["role"]);
 
-            if(!isset($adminUser)){
+            if(!isset($admin)){
                 return [
                     "error" => true,
                     "message" => "Invalid User or Password"
                 ];
             }
 
-            if (!Hash::check($password, $adminUser->password)) {
+            if (!Hash::check($password, $admin->password)) {
                 return [
                     "error" => true,
                     "message" => "Invalid Password"
                 ];
             }
 
-            $data['_username']      = $adminUser->username;
-            $data['_roleId']        = $adminUser->role_id;
-            $data['_permissions']   = $adminUser->role->permissions->map(function ($permission) {
+            $data['_adminId']       = $admin->admin_code;
+            $data['_roleId']        = $admin->role_id;
+            $data['_permissions']   = $admin->role->permissions->map(function ($permission) {
                 return $permission->permission_slug;
             })->toArray();
 
@@ -62,6 +62,4 @@ class AuthService implements AuthServiceInterface
     {
         removeCurrentUserSession();
     }
-
-
 }

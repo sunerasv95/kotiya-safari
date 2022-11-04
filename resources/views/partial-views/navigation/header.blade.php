@@ -25,7 +25,7 @@
                         <a class="nav-link" aria-current="page" href="{{ route('guest.contact') }}">Contact Us</a>
                     </li>
                     <li class="nav-item px-2">
-                        <a class="btn btn-cs-baige px-3 py-2" data-bs-toggle="modal" data-bs-target="#reservationInquiryModal">
+                        <a class="btn btn-cs-baige px-3 py-2" data-bs-toggle="modal" data-bs-target="#reservation-inquiry-modal">
                             Check Availabiity
                         </a>
                     </li>

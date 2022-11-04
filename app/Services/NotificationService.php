@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Admin;
+use App\Models\Guest;
 use App\Models\Inquiry;
-use App\Models\User;
 use App\Services\Contracts\NotificationServiceInterface;
 use App\Notifications\Admin\NewInquiryNotification;
 use App\Notifications\Guest\InquiryReceivedNotification;
@@ -11,7 +12,7 @@ use App\Notifications\Guest\InquiryReceivedNotification;
 class NotificationService implements NotificationServiceInterface
 {
 
-    public function sendInquiryAcknowledgementViaEmail(User $guest, Inquiry $inquiry)
+    public function sendInquiryAcknowledgementViaEmail(Guest $guest, Inquiry $inquiry)
     {
         try {
 
@@ -22,7 +23,7 @@ class NotificationService implements NotificationServiceInterface
         }
     }
 
-    public function sendNewInquiryReceived(User $admin)
+    public function sendNewInquiryReceived(Admin $admin)
     {
         try {
             //to-do:

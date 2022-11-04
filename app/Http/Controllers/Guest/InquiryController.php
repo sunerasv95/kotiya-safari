@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guest;
 
+use App\Constants\Types;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inquiry\BookingInquiryRequest;
 use App\Services\Contracts\CommonServiceInterface;
@@ -32,7 +33,7 @@ class InquiryController extends Controller
     {
         try {
             $validated = $request->validated();
-            $result = $this->inquiryService->createInquiry($validated);
+            $result = $this->inquiryService->createInquiry($validated, Types::WEB_REQUESTED);
 
             if($request->ajax()){
                 return response()->json($result);

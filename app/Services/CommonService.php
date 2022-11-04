@@ -42,4 +42,14 @@ class CommonService implements CommonServiceInterface
             throw $th;
         }
     }
+
+    public function retriveReservationStatus()
+    {
+        try {
+            $status = DB::table('reservation_status')->get();
+            return json_decode($status, true);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Constants\UserTypes;
+use App\Models\Admin;
+use App\Models\Guest;
 use App\Models\User;
 use App\Models\UserType;
 use App\Repositories\Contracts\UserRepositoryInterface;
@@ -10,39 +12,39 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface
 {
-
-    public function all(int $userType)
+    public function allAdmins()
     {
-        return User::where('user_type', $userType)->get();
+        return Admin::get();
     }
 
-    public function allByRole(int $userType, int $roleId)
+    public function allGuests()
     {
-
+        return Guest::get();
     }
 
-    public function findByEmail(string $email, array $with=[], int $userType)
+    public function findAdmin(string $attribute, string $value, array $with=[])
     {
-        return User::where('email', $email)
-            ->when(!empty($with), function($q) use($with) {
-                return $q->with($with);
-            })
-            ->where('user_type', $userType)
-            ->first();
+        return Admin::when($attribute !== null, function($q) use($attribute, $value){
+            switch($attribute){
+                case "email":
+                    $q->where("email", $value);
+                break;
+
+                case "admin_code":
+                    $q->where("admin_code", $value);
+                break;
+
+                default:
+                    $q->where("email", $value);
+            }
+            return $q;
+        })
+        ?->first();
     }
 
-    public function findByUsername(string $username, array $with = [], int $userType)
+    public function findGuest(string $attribute, string $value)
     {
-        return User::where('username', $username)
-            ->when(!empty($with), function($q) use($with) {
-                return $q->with($with);
-            })
-            ->first();
-    }
-
-    public function findId(string $attribute, string $value)
-    {
-        return User::when($attribute !== null, function($q) use($attribute, $value){
+        return Guest::when($attribute !== null, function($q) use($attribute, $value){
             switch($attribute){
                 case "email":
                     $q->where("email", $value);
@@ -57,71 +59,95 @@ class UserRepository implements UserRepositoryInterface
             }
             return $q;
         })
-        ->select('id')->first()->id;
+        ?->first();
     }
 
-    public function save(array $userData= [])
+    public function getAdminId(string $attribute, string $value)
     {
-        $user = new User();
-
-        $user->name                 = $userData['full_name'];;
-        $user->email                = $userData['email'];
-        $user->username             = $userData['email'];
-        $user->password             = $userData['password'];
-        $user->role_id              = $userData['role_id'];;
-        $user->user_type            = $userData['user_type'];
-        $user->country_id           = $userData['country_id'];
-        $user->activated            = 1;
-        $user->disabled             = 0;
-        $user->email_verified_at    = null;
-        $user->created_at           = now();
-        $user->updated_at           = now();
-
-        $user->save();
-
-        return $user;
+        return $this->findAdmin($attribute, $value)?->id;
     }
 
-    public function update(User $user, array $updateData = [])
+    public function getGuestId(string $attribute, string $value)
     {
-        return $user->update([
-            "name" => $updateData['name'],
-            "email" => $updateData['email'],
-            "username" => $updateData['username'],
-            "role_id" => $updateData['role_id']
+        return $this->findGuest($attribute, $value)?->id;
+    }
+
+    public function saveAdmin(array $data= [])
+    {
+        $admin = new Admin();
+
+        $admin->name                 = $data['full_name'];;
+        $admin->email                = $data['email'];
+        $admin->password             = $data['password'];
+        $admin->role_id              = $data['role_id'];
+        $admin->activated            = 1;
+        $admin->deleted              = 0;
+        $admin->created_at           = now();
+        $admin->updated_at           = now();
+
+        $admin->save();
+
+        return $admin;
+    }
+
+    public function saveGuest(array $data= [])
+    {
+        $guest = new Guest();
+
+        $guest->name                 = $data['full_name'];
+        $guest->email                = $data['email'];
+        $guest->password             = $data['password'];
+        $guest->country_id           = $data['country_id'];
+        $guest->activated            = 1;
+        $guest->disabled             = 0;
+        $guest->email_verified_at    = null;
+        $guest->created_at           = now();
+        $guest->updated_at           = now();
+
+        $guest->save();
+
+        return $guest;
+    }
+
+    public function updateAdmin(Admin $admin, array $data = [])
+    {
+        return $admin->update([
+            "name" => $data['name'],
+            "email" => $data['email'],
+            "role_id" => $data['role_id']
         ]);
     }
 
-    public function updatePassword(User $user, $oldPassword, $newPassword)
+    public function updateAdminPassword(Admin $admin, $oldPassword, $newPassword)
     {
-        $user->password = Hash::make($newPassword);
-        return $user->save();
+        $admin->password = Hash::make($newPassword);
+        return $admin->save();
     }
 
-    public function disable(User $user)
+    public function deleteAdmin(Admin $admin)
     {
-        $user->disabled = 1;
-        return $user->save();
+        $admin->deleted = 1;
+        return $admin->save();
     }
 
-    public function enable(User $user)
+    public function activateAdmin(Admin $admin)
     {
-        $user->disabled = 0;
-        return $user->save();
+        $admin->activated = 1;
+        return $admin->save();
     }
 
-    public function delete(User $user)
+    public function deactivateAdmin(Admin $admin)
     {
-        $user->activated = 0;
-        return $user->save();
+        $admin->activated = 0;
+        return $admin->save();
     }
 
-    public function updateLastLogin(User $user, $loggedInIp)
+    public function updateAdminLastLogin(Admin $admin, $loggedInIp)
     {
-        $user->last_login_from = $loggedInIp;
-        $user->last_login_at = now();
+        $admin->last_login_from = $loggedInIp;
+        $admin->last_login_at = now();
 
-        return $user->save();
+        return $admin->save();
     }
 
 }

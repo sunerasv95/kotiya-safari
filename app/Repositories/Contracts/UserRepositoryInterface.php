@@ -2,33 +2,38 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Models\Admin;
 use App\Models\Role;
 use App\Models\User;
 
 interface UserRepositoryInterface
 {
-    public function all(int $userType);
+    public function allAdmins();
+    
+    public function findAdmin(string $attribute, string $value, array $with=[]);
 
-    public function allByRole(int $userType, int $roleId);
+    public function getAdminId(string $attribute, string $value);
 
-    public function findByEmail(string $email, array $with=[], int $userType);
+    public function saveAdmin(array $data= []);
 
-    public function findByUsername(string $username, array $with = [], int $userType);
+    public function updateAdmin(Admin $user, array $updateData = []);
 
-    public function findId(string $attribute, string $value);
+    public function updateAdminPassword(Admin $admin, $oldPassword, $newPassword);
 
-    public function save(array $userData= []);
+    public function deleteAdmin(Admin $admin);
 
-    public function update(User $user, array $updateData = []);
+    public function activateAdmin(Admin $admin);
 
-    public function updatePassword(User $user, $oldPassword, $newPassword);
+    public function deactivateAdmin(Admin $admin);
 
-    public function disable(User $user);
+    public function updateAdminLastLogin(Admin $admin, $loggedInIp);
 
-    public function enable(User $user);
+    public function allGuests();
 
-    public function delete(User $user);
+    public function findGuest(string $attribute, string $value);
+    
+    public function getGuestId(string $attribute, string $value);
 
-    public function updateLastLogin(User $user, $loggedInIp);
+    public function saveGuest(array $data= []);
 
 }

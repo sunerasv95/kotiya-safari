@@ -12,13 +12,19 @@ const mix = require('laravel-mix');
  */
 
 mix
+    .js('resources/js/libs/bootstrap', 'public/dist/js/libs')
+    
     .js('resources/js/app.js', 'public/dist/js')
     
     .js('resources/js/admin/admin-app.js', 'public/dist/admin/js')
+    .js('resources/js/admin/inquiries.js', 'public/dist/admin/js')
 
     .copy('resources/fonts', 'public/dist/fonts')
     .copy('resources/images', 'public/dist/images')
 
+    .sass('resources/sass/bootstrap.scss', 'public/dist/css/libs')
+
+    .sass('resources/sass/bootstrap-icons.scss', 'public/dist/css')
     .sass('resources/sass/app.scss', 'public/dist/css')
     .sass('resources/sass/home.scss', 'public/dist/css')
     .sass('resources/sass/packages.scss', 'public/dist/css')

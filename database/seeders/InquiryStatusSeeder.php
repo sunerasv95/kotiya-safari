@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Constants\StatusTypes;
+use App\Constants\Types;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -16,9 +16,9 @@ class InquiryStatusSeeder extends Seeder
     public function run()
     {
         $status = [
-            StatusTypes::PENDING,
-            StatusTypes::RESERVED,
-            StatusTypes::REJECTED
+            Types::PENDING_STATUS,
+            Types::RESERVED_STATUS,
+            Types::REJECTED_STATUS
         ];
 
         foreach($status as $s){

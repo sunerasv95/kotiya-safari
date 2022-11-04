@@ -63,12 +63,9 @@ class HomeController extends Controller
         return view('terms-and-conditions');
     }
 
-    public function acknowledgement($param)
+    public function acknowledgement()
     {
-        $bookingId = decrypt($param);
-
-        $data = compact('bookingId');
-        return view('acknowledgements.inquiry-success', $data);
+        return view('acknowledgements.inquiry-success');
     }
 
     public function blogsPage()

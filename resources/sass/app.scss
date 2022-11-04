@@ -1,6 +1,4 @@
 @import "variables";
-@import "~bootstrap/scss/bootstrap";
-@import '~bootstrap-icons/font/bootstrap-icons';
 
 //Fonts
 @font-face {
@@ -156,16 +154,16 @@ body{
     --bs-btn-active-border-color: #{shade-color($baige-color, 20%)};
 }
 
-.bi{
-    font-size: 1.25rem;
-    margin: 0 3px;
-}
+// .bi{
+//     font-size: 1.25rem;
+//     margin: 0 3px;
+// }
 
-.bi-sm::before{
-    font-size: 0.8rem;
-    margin-bottom: 0.3rem;
-    margin-left: 0.3rem;
-}
+// .bi-sm::before{
+//     font-size: 0.8rem;
+//     margin-bottom: 0.3rem;
+//     margin-left: 0.3rem;
+// }
 
 //errors
 label{

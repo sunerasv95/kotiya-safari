@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Inquiry;
-use App\Models\ReservationOrder as RepoModel;
+use App\Models\ReservationOrder;
 use App\Models\ReservationOrderDetail;
 use App\Models\ReservationVerification;
 use App\Repositories\Contracts\ReservationOrderRepositoryInterface;
@@ -14,26 +14,42 @@ use Illuminate\Support\Facades\DB;
 class ReservationOrderRepository implements ReservationOrderRepositoryInterface
 {
 
-    public function findAllReservations($with=[])
+    public function findAll($with=[], $status = null)
     {
-        return RepoModel::when(!empty($with), function($q) use($with){
+        return ReservationOrder::when(!empty($with), function($q) use($with){
             return $q->with($with);
-        })->get();
+        })
+        ->when($status != null && $status != "ALL" , function($q) use($status) {
+            return $q->where('status', $status);
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
     }
 
-    public function findReservationByBkRefNumber(string $bkRefNumber, $with = [])
+    public function findOne(string $attribute, string $value, $with = [])
     {
-        return RepoModel::where('order_reference_no', $bkRefNumber)
-            ->when(!empty($with), function($q) use($with){
-                return $q->with($with);
-            })
-            ->first();
+        return ReservationOrder::when(isset($attribute), function($q) use($attribute, $value){
+            switch($attribute){
+                case "reservation_reference":
+                    $q->where("reservation_reference", $value);
+                break;
+
+                case "inquiry_id":
+                    $q->where("inquiry_id", $value);
+                break;
+
+                default:
+                    $q->where("reservation_reference", $value);
+            }
+            return $q;
+        })
+        ->when(!empty($with), function($q) use($with){
+            return $q->with($with);
+        })
+        ?->first();
+           
     }
 
-    public function findReservationByInquiryId($inquiryId)
-    {
-        return RepoModel::where('inquiry_id', $inquiryId)->first();
-    }
 
     public function findReservationForGuest(string $guestCode)
     {
@@ -44,34 +60,24 @@ class ReservationOrderRepository implements ReservationOrderRepositoryInterface
             ->first();
     }
 
-    public function saveReservation(Inquiry $inquiry, array $orderData)
+    public function save(array $data)
     {
-        //dd($inquiry, $orderData);
-        $reservationOrder = new RepoModel();
-        $guestCode = $inquiry->guest->guest_code;
+        $reservation = new ReservationOrder();
 
-        $reservationOrder->guest_code                 = $guestCode ?? null;
-        $reservationOrder->order_reference_no         = "ROD".rand(100000, 999999);
-        $reservationOrder->bk_verification_code       = "VK".rand(10000, 99999);
-        $reservationOrder->is_verified                = 0;
-        $reservationOrder->is_rescheduled             = 0;
-        $reservationOrder->verified_at                = null;
-        $reservationOrder->verification_expired_at    = Carbon::now()->addDays(5);
-        $reservationOrder->remark                     = $orderData['remark'];
-        $reservationOrder->status                     = "PENDING";
-        $reservationOrder->generated_by               = $orderData['adminId'];
-        $reservationOrder->is_deleted                 = 0;
-        $reservationOrder->created_at                 = now();
-        $reservationOrder->updated_at                 = now();
+        $reservation->inquiry_id            = $data['inquiry_id'];
+        $reservation->guest_id              = $data['guest_id'];
+        $reservation->reservation_reference = $data['reference'];
+        $reservation->status                = $data['status'];
+        $reservation->generated_by          = $data['admin_id'];
+        $reservation->is_deleted            = 0;
+        $reservation->created_at            = now();
+        $reservation->updated_at            = now();
 
-        $reservationOrder->inquiry()->associate($inquiry);
-        $reservationOrder->save();
-
-        $this->saveReservationDetails($reservationOrder, $orderData);
-        return 1;
+        $reservation->save();
+        return $reservation;
     }
 
-    public function saveReservationDetails(RepoModel $reservationOrder, array $orderDetails)
+    public function saveDetails(ReservationOrder $reservationOrder, array $orderDetails)
     {
         $reservationDetail = new ReservationOrderDetail();
 
@@ -105,11 +111,11 @@ class ReservationOrderRepository implements ReservationOrderRepositoryInterface
 
     public function reservationCountByStatus($status = null)
     {
-        return RepoModel::where('status', $status)->get()->count();
+        return ReservationOrder::where('status', $status)->get()->count();
     }
 
-    public function reservationCountByVerificationStatus($verificationStatus = 0)
-    {
-        return RepoModel::where('is_verified', $verificationStatus)->get()->count();
-    }
+    // public function reservationCountByVerificationStatus($verificationStatus = 0)
+    // {
+    //     return RepoModel::where('is_verified', $verificationStatus)->get()->count();
+    // }
 }
