@@ -7,7 +7,8 @@ final class Types
     const PENDING_STATUS        = "PENDING";
     const RESERVED_STATUS       = "RESERVED";
     const REJECTED_STATUS       = "REJECTED";
-    const DEPOSIT_PAID_STATUS   = "DEPOSIT_PAID";
+    
+    const PARTIALLY_PAID_STATUS   = "PARTIALLY_PAID";
     const COMPLETED_STATUS      = "COMPLETED";
     const RESCHEDULED_STATUS    = "RESCHEDULED";
     const CANCELLED_STATUS      = "CANCELLED";
@@ -16,9 +17,11 @@ final class Types
     const ADMIN_REQUESTED       = "ADMIN";
 
     const BOOKING_REF_PREFIX    = "BLC";
+    const PAYMENT_REF_PREFIX    = "PLG";
 
     const BOOKING = "BOOKING";
     const INQUIRY = "INQUIRY";
+    const PAYMENT = "PAYMENT";
 
     const PAY_CAT_DEPOSIT = "DEPPAY";
     const PAY_CAT_RESERVATION = "RESPAY";
@@ -27,5 +30,8 @@ final class Types
 
     const PAY_METHOD_CARD = "PAYCARD";
     const PAY_METHOD_CASH = "PAYCASH";
+
+    const PARTIAL_PAY = "PP";
+    const FULL_PAY = "FP";
 
 }

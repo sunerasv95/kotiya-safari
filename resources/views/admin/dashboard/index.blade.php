@@ -1,15 +1,16 @@
 @extends('layouts.admin-app')
 
-@php $pageTitle = "Dashboard" @endphp
-
-@section('page-title', $pageTitle)
+@section('page-title', "Dashboard")
 
 @section('page-styles')
 @endsection
 
 @section('main-content')
-    <div class="mt-3">
-        <x-admin-page-header :page-title="$pageTitle" />
+    <div>
+        <x-admin-page-header>
+            <x-slot name="actions"></x-slot>
+        </x-admin-page-header>
+        
         <div class="row">
             <div class="col-md-3">
                 <div class="card text-light bg-gradient mb-3 mx-1 shadow rounded border-0" style="min-width: 16rem;">

@@ -17,18 +17,17 @@ class AuthController extends Controller
 
     public function login()
     {
-        return view('auth.admin-auth.login');
+        return view('admin.auth.login');
     }
 
     public function submitSignIn(Request $request)
     {
-        //dd($request->all());
         $reqData = $request->validate([
-            "email" => "required|email",
+            "username" => "required|email",
             "password" => "required"
         ]);
 
-        $email      = $reqData['email'];
+        $email      = $reqData['username'];
         $password   = $reqData['password'];
 
         $res = $this->authService->adminSignIn($email, $password);

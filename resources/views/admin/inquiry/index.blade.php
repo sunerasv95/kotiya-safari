@@ -9,52 +9,44 @@
 @endsection
 
 @section('main-content')
-    <div class="mt-3">
-        <x-admin-page-header 
-            :page-title="$pageTitle"
-            :has-button="true"
-            :button-url="route('admin.inquiries.create')"
-            button-icon="bi bi-plus-circle"
-        />
-        <div class="row">
-            <div class="col-md-12">
-                @include('partial-views.alerts.alert-danger')
-                @include('partial-views.alerts.alert-success')
-            </div>
-        </div>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5">
-            <div class="row">
-                <div class="col-md-12">
-                    <span class="mr-3"></i>Filters by Status</span>
+    <div>
+        <x-breadcrumb />
+        <x-alerts-bar/>
+        <x-action-bar>
+            <x-slot name="start">
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Filter
+                    </button>
+                    <ul class="dropdown-menu">
+                        @if (!empty($status))
+                            <li>
+                                <input class="dropdown-item inquiry-filter" type="button" name="status-filter"
+                                    id="all-btn" value="ALL">
+                            </li>
+                            @foreach ($status as $item)
+                                @php
+                                    $status = $item['status_name'];
+                                    $statusName = $item['display_name'];
+                                @endphp
+                                <li>
+                                    <input class="dropdown-item inquiry-filter" type="button" name="status-filter"
+                                        id="{{ Str::lower($status) }}-btn" value="{{ $status }}">
+                                </li>
+                            @endforeach
+                        @endif
+                    </ul>
                 </div>
-                <div class="col-md-12 mt-2">
-                    @if (!empty($status))
-                        <input type="radio" class="btn-check mr-1" name="status-filter" id="ALL-outlined"
-                            autocomplete="off" value="ALL">
-                        <label class="btn btn-outline-secondary btn-sm ml-0" for="ALL-outlined">All
-                        </label>
-                        @foreach ($status as $item)
-                            @php
-                                $status = $item['status_name'];
-                                $statusName = $item['display_name'];
-                            @endphp
-                            <input type="radio" class="btn-check mx-1" name="status-filter"
-                                id="{{ Str::lower($status) }}-outlined" autocomplete="off" value="{{ $status }}">
-                            <label @class([
-                                'btn',
-                                'btn-sm',
-                                'mx-1',
-                                'btn-outline-warning' => $status === 'PENDING',
-                                'btn-outline-success' => $status === 'RESERVED',
-                                'btn-outline-danger' => $status === 'REJECTED',
-                            ]) for="{{ Str::lower($status) }}-outlined">
-                                {{ Str::ucfirst($statusName) }}
-                            </label>
-                        @endforeach
-                    @endif
-                </div>
-            </div>
-        </div>
+            </x-slot>
+            <x-slot name="end">
+                <a class="btn btn-success" href="{{ route('admin.inquiries.create') }}" role="button">
+                    <i class="bi bi-plus-circle"></i>
+                    New Inquiry
+                </a>
+            </x-slot>
+        </x-action-bar>
+
         <div class="table-responsive">
             <table id="inquiry-table" class="table table-striped" style="width:100%">
                 <thead>
@@ -114,7 +106,7 @@
                 responsive: true
             });
 
-            $("input[name=status-filter]").change(function() {
+            $(document).on('click', '.inquiry-filter', function() {
                 let status = $(this).val();
 
                 filterByStatus(status)
@@ -135,7 +127,7 @@
                                     `<span class='badge bg-danger text-light'>Rejected</span>`;
                             } else {
                                 badge =
-                                `<span class='badge bg-secondary text-light'>N/A</span>`;
+                                    `<span class='badge bg-secondary text-light'>N/A</span>`;
                             }
 
                             viewBtn =

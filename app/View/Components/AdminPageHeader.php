@@ -12,16 +12,16 @@ class AdminPageHeader extends Component
     public $buttonIcon;
 
     public function __construct(
-        $pageTitle,
-        $hasButton = false,
-        $buttonUrl = "",
-        $buttonIcon = ""
+        // $pageTitle,
+        // $hasButton = false,
+        // $buttonUrl = "",
+        // $buttonIcon = ""
     )
     {
-        $this->pageTitle    = $pageTitle;
-        $this->hasButton    = $hasButton;
-        $this->buttonUrl    = $buttonUrl;
-        $this->buttonIcon   = $buttonIcon;
+        // $this->pageTitle    = $pageTitle;
+        // $this->hasButton    = $hasButton;
+        // $this->buttonUrl    = $buttonUrl;
+        // $this->buttonIcon   = $buttonIcon;
     }
 
     /**

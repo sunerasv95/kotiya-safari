@@ -7,9 +7,11 @@ use App\Repositories\Contracts\ReservationOrderRepositoryInterface;
 use App\Repositories\Contracts\BlogRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\BlogRepository;
+use App\Repositories\Contracts\PaymentRepositoryInterface;
 use App\Repositories\Contracts\PermissionRepositoryInterface;
 use App\Repositories\Contracts\RoleRepositoryInterface;
 use App\Repositories\InquiryRepository;
+use App\Repositories\PaymentRepository;
 use App\Repositories\PermissionRepository;
 use App\Repositories\ReservationOrderRepository;
 use App\Repositories\RoleRepository;
@@ -31,6 +33,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(InquiryRepositoryInterface::class, InquiryRepository::class);
         $this->app->bind(ReservationOrderRepositoryInterface::class, ReservationOrderRepository::class);
         $this->app->bind(BlogRepositoryInterface::class, BlogRepository::class);
+        $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
 
     }
 

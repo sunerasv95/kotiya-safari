@@ -25,6 +25,8 @@ class CreateReservationOrderRequest extends FormRequest
     {
         return [
             "inquiry_id"        => "required",
+            "payment_option"    => "required",
+            "payable_amount"    => "required_if:payment_option,PP,FP",
             "reservation_note"  => "nullable"
         ];
     }

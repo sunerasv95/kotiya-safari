@@ -15,8 +15,7 @@ class CreateReservationOrdersTbl extends Migration
     public function up()
     {
         $status = [
-            Types::PENDING_STATUS,
-            Types::DEPOSIT_PAID_STATUS,
+            Types::PARTIALLY_PAID_STATUS,
             Types::COMPLETED_STATUS,
             Types::RESCHEDULED_STATUS,
             Types::CANCELLED_STATUS

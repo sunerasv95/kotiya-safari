@@ -9,15 +9,44 @@
 @endsection
 
 @section('main-content')
-    <div class="mt-3">
-        <x-admin-page-header :page-title="$pageTitle" />
-        <div class="row">
-            <div class="col-md-12">
-                @include('partial-views.alerts.alert-danger')
-                @include('partial-views.alerts.alert-success')
-            </div>
-        </div>
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5">
+    <div>   
+        <x-breadcrumb />
+        <x-alerts-bar/>
+        <x-action-bar>
+            <x-slot name="start">
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Filter
+                    </button>
+                    <ul class="dropdown-menu">
+                        @if (!empty($status))
+                            <li>
+                                <input class="dropdown-item inquiry-filter" type="button" name="status-filter"
+                                    id="all-btn" value="ALL">
+                            </li>
+                            @foreach ($status as $item)
+                                @php
+                                    $status = $item['status_name'];
+                                @endphp
+                                <li>
+                                    <input class="dropdown-item inquiry-filter" type="button" name="status-filter"
+                                        id="{{ Str::lower($status) }}-btn" value="{{ $status }}">
+                                </li>
+                            @endforeach
+                        @endif
+                    </ul>
+                </div>
+            </x-slot>
+            <x-slot name="end">
+                {{-- <a class="btn btn-success" href="{{ route('admin.inquiries.create') }}" role="button">
+                    <i class="bi bi-plus-circle"></i>
+                    New Inquiry
+                </a> --}}
+            </x-slot>
+        </x-action-bar>
+
+        {{-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5">
             <div class="row">
                 <div class="col-md-12">
                     <span class="mr-3"></i>Filters by Status</span>
@@ -39,7 +68,7 @@
                                 'btn-sm',
                                 'mx-1',
                                 'btn-outline-primary' =>
-                                    $status === config('constants.DEPOSIT_PAID_STATUS'),
+                                    $status === config('constants.'PARTIALLY_PAID_STATUS'),
                                 'btn-outline-warning' => $status === config('constants.PENDING_STATUS'),
                                 'btn-outline-success' => $status === config('constants.COMPLETED_STATUS'),
                                 'btn-outline-danger' => $status === config('constants.CANCELLED_STATUS'),
@@ -52,7 +81,7 @@
                     @endif
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="table-responsive">
             <table id="reservation-table" class="table table-striped" style="width:100%">
@@ -80,7 +109,7 @@
                             <td>
                                 @if ($reservation['status'] === config('constants.PENDING_STATUS'))
                                     <span class="badge bg-warning text-dark">Payment Pending</span>
-                                @elseif($reservation['status'] === config('constants.DEPOSIT_PAID_STATUS'))
+                                @elseif($reservation['status'] === config('constants.'PARTIALLY_PAID_STATUS'))
                                     <span class="badge bg-secondary text-light">Deposit Paid</span>
                                 @elseif($reservation['status'] === config('constants.COMPLETED_STATUS'))
                                     <span class="badge bg-success text-light">Completed</span>
@@ -122,7 +151,7 @@
                 responsive: true
             });
 
-            $("input[name=status-filter]").change(function() {
+            $(document).on('click', '.inquiry-filter', function() {
                 let status = $(this).val();
 
                 filterByStatus(status)
@@ -136,7 +165,7 @@
                             if (reservation.status === "PENDING") {
                                 statusBadge =
                                     `<span class='badge bg-warning text-dark'>Payment Pending</span>`;
-                            } else if (reservation.status === "DEPOSIT_PAID") {
+                            } else if (reservation.status === "'PARTIALLY_PAID") {
                                 statusBadge =
                                     `<span class='badge bg-primary text-light'>Deposit Paid</span>`;
                             } else if (reservation.status === "COMPLETED") {

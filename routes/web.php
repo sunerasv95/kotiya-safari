@@ -128,7 +128,7 @@ Route::prefix('/cn/admin')
         Route::get('auth/signOut', [AuthController::class, "submitSignOut"])
             ->name('admin.auth.signout.submit');
 
-        Route::get('/', [DashboardController::class, "index"])
+        Route::get('dashboard', [DashboardController::class, "index"])
             ->name('admin.dashboard');
 
 

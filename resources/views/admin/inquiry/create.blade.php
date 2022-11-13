@@ -10,8 +10,10 @@
 @endsection
 
 @section('main-content')
-    <div class="mt-3">
-        <x-admin-page-header :page-title="$pageTitle" />
+    <div>
+        <x-admin-page-header>
+            <x-slot name="actions"></x-slot>
+        </x-admin-page-header>
 
         <div class="row">
             <div class="col-md-12">

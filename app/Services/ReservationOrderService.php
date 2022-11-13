@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Constants\Types;
 use App\Models\Remark;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
+use App\Repositories\Contracts\PaymentRepositoryInterface;
 use App\Repositories\Contracts\ReservationOrderRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\Contracts\ReservationOrderServiceInterface;
@@ -16,19 +17,20 @@ class ReservationOrderService implements ReservationOrderServiceInterface
     private $reservationRepository;
     private $inquiryRepository;
     private $guestRepository;
-    private $adminRepository;
+    private $paymentRepository;
     private $userRepository;
 
     public function __construct(
         ReservationOrderRepositoryInterface $reservationRepository,
         InquiryRepositoryInterface $inquiryRepository,
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
+        PaymentRepositoryInterface $paymentRepository
     )
     {
         $this->reservationRepository    = $reservationRepository;
         $this->inquiryRepository        = $inquiryRepository;
         $this->userRepository           = $userRepository;
-
+        $this->paymentRepository        = $paymentRepository;
     }
 
     public function getAllReservations($status = null)
@@ -109,25 +111,39 @@ class ReservationOrderService implements ReservationOrderServiceInterface
             $inquiryReference = $data['inquiry_id'];
             $inquiry = $this->inquiryRepository->findOne("inquiry_reference_no", $inquiryReference, ["guest"]);
 
-            if($inquiry->status === Types::PENDING_STATUS){
+            if($inquiry->status === Types::PENDING_STATUS && $inquiry->is_deleted === 0){
 
-                $currentUser        = retriveCurrentUserSession();
-                $data['inquiry_id'] = $inquiry->id;
-                $data['guest_id']   = $inquiry->guest_id;
-                $data['reference']  = generateReferenceNumber(Types::BOOKING);
-                $data['status']     = Types::PENDING_STATUS;
-                $data['admin_id']   = $this->userRepository->getAdminId("admin_code", $currentUser['_adminId']);
+                $currentUser            = retriveCurrentUserSession();
+                $data['inquiry_id']     = $inquiry->id;
+                $data['guest_id']       = $inquiry->guest_id;
+                $data['reference']      = generateReferenceNumber(Types::BOOKING);
+                $data['status']         = Types::PARTIALLY_PAID_STATUS;
+                $data['admin_id']       = $this->userRepository->getAdminId("admin_code", $currentUser['_adminId']);
 
-                $this->reservationRepository->save($data);
+                $savedReservation = $this->reservationRepository->save($data);
+
+                if(isset($data['reservation_note'])) addRemark($inquiry,  $data['reservation_note'], $data['admin_id']);
+
                 $this->inquiryRepository->updateStatus($inquiry, Types::RESERVED_STATUS);
 
-                $remarkBody = isset($data['reservation_note']) ? " | ".$data['reservation_note'] : '';
+                // if(){
 
-                $remark                 = new Remark();
-                $remark->body           = Str::of("Reservation added")->append($remarkBody);
-                $remark->remarked_by    = $data['admin_id'];
+                // }
 
-                $inquiry->remarks()->save($remark);
+                // $pdata['guest_id']              = $inquiry->guest_id;
+                // $pdata['reservation_order_id']  = $savedReservation->id;
+                // $pdata['payment_reference']     = generateReferenceNumber(Types::PAYMENT);
+                // $pdata['payment_category']      = $data['payment_option'];
+                // $pdata['amount']                = $data['payable_amount'];
+                // $pdata['tax_p']                 = 0;
+                // $pdata['tax']                   = 0;
+                // $pdata['discount_p']            = 0;
+                // $pdata['discount']              = 0;
+                // $pdata['total']                 = $data['payable_amount'];
+                // $pdata['payment_method']        = 0;
+                // $pdata['status']                = 0;
+               
+                // $this->paymentRepository->save($pdata);
 
                 DB::commit();
 

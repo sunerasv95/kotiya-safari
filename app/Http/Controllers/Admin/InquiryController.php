@@ -60,9 +60,13 @@ class InquiryController extends Controller
         if(!isset($inquiry)){
             return redirect()->back()->with("errorMsg", "Inquiry is not found");
         }else{
+            $payOptions = $this->commonService->retrievePaymentOptions();
+            $boardingPlans = $this->commonService->retrieveBoardingPlans();
+
             $remarks = $inquiry['remarks'];
 
-            $data = compact('inquiry', 'remarks');
+            $data = compact('inquiry', 'remarks', 'payOptions', 'boardingPlans');
+            //dd($data);
             return view('admin.inquiry.show', $data);
         }
     }

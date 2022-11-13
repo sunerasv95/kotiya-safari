@@ -11,4 +11,8 @@ interface CommonServiceInterface
     public function retriveInquiryStatus();
 
     public function retriveReservationStatus();
+
+    public function retrievePaymentOptions($optCode = null);
+
+    public function retrieveBoardingPlans($planCode = null);
 }

@@ -9,8 +9,10 @@
 
 @section('main-content')
 
-    <div class="mt-3">
-        <x-admin-page-header :page-title="$pageTitle" />
+    <div>
+        <x-admin-page-header>
+            <x-slot name="actions"></x-slot>
+        </x-admin-page-header>
         <div class="row">
             <div class="col-md-12">
                 @include('partial-views.alerts.alert-danger')
@@ -19,7 +21,7 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <div class="card shadow p-3 mb-5 rounded border-0">
+                <div class="card shadow p-3 rounded border-0">
                     <div class="card-body">
                         <div class="mb-2 row">
                             <div class="h4 pb-2 mb-4 text-black">
@@ -78,7 +80,7 @@
 
                         <div class="h4 pb-1 mb-4 text-black">
                             Remarks
-                          </div>
+                        </div>
                         <div class="py-1">
                             @forelse ($remarks as $remark)
                                 <div class="row">
@@ -91,14 +93,15 @@
                                     </div>
                                     <div class="col-md-9">
                                         <p class="text-muted fst-italic">
-                                            <small>{{ $remark['body'] }}  
+                                            <small>{{ $remark['body'] }}
                                                 <span>
-                                                    | By {{ isCurrentUser($remark['remarked_user']['admin_code']) ? 'Me': $remark['remarked_user']['name'] }}
+                                                    | By
+                                                    {{ isCurrentUser($remark['remarked_user']['admin_code']) ? 'Me' : $remark['remarked_user']['name'] }}
                                                 </span>
                                             </small>
                                         </p>
                                     </div>
-                                   
+
                                 </div>
                             @empty
                                 <p class="text-muted fst-italic"><small>No remarks found</small></p>
@@ -233,7 +236,12 @@
     </script>
     <script>
         var nowTemp = new Date();
-        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+        var now = new Date(
+            nowTemp.getFullYear(),
+            nowTemp.getMonth(),
+            nowTemp.getDate(),
+            0, 0, 0, 0
+        );
 
         var checkin = $('#update-checkin-date').datepicker({
             beforeShowDay: function(date) {
@@ -270,7 +278,7 @@
                 rules: {
                     up_checkin: {
                         required: true,
-                        
+
                     },
                     up_checkout: {
                         required: true
@@ -293,11 +301,19 @@
         $(document).on("click", "#confirm-reservation", function() {
             $("#reservation-confirm-form").validate({
                 rules: {
+                    payment_option: {
+                        required: true
+                    },
+                    payable_amount: {
+                        required: true,
+                        digits: true
+                    },
                     reservation_note: {
                         required: false
                     }
                 },
                 submitHandler: function(form) {
+                    console.log(form);
                     form.submit();
                 }
             });

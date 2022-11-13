@@ -64,7 +64,6 @@ class ReservationController extends Controller
     public function store(CreateReservationOrderRequest $request)
     {
         $validated = $request->validated();
-
         $result = $this->reservationService->createReservationOrder($validated);
         
         if($result['error']){

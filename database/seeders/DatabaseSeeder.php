@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             InquiryStatusSeeder::class,
             ReservationStatusSeeder::class,
-            UserTypeSeeder::class,
+            PaymentOptionsSeeder::class,
             RoleSeeder::class,
             PermissionSeeder::class,
             RolePermissionSeeder::class,

@@ -6,7 +6,7 @@
     @endphp
 
     <div class="row mb-4">
-        <div class="col-md-7">
+        <div class="col-md-12">
             <h1 class="h3 fw-bold">
                 @if ($urlSegmentCount > 2)
                     @for ($s = 2; $s < $urlSegmentCount; $s++)
@@ -23,11 +23,6 @@
                     @endfor
                 @endif
             </h1>
-        </div>
-        <div class="col-md-5">
-            <div class="d-flex justify-content-end align-items-center">
-                {{ $actions }}
-            </div>
         </div>
     </div>
 </div>
