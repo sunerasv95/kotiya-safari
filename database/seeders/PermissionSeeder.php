@@ -15,18 +15,24 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = array(
+        $modules = array(
             "Dashboard",
             "Inquiries",
             "Reservations",
             "Reports"
         );
 
-        foreach($permissions as $permission){
-            Permission::factory()->create([
-                "permission_name" => $permission,
-                "permission_slug" => Str::slug($permission)
-            ]);
+        $actions = ["Create", "Update", "View"];
+
+        foreach($modules as $module){
+            foreach($actions as $action){
+                $pname = $module. " ". $action;
+                Permission::factory()->create([
+                    "permission_name" =>  $pname,
+                    "permission_slug" => Str::slug($pname)
+                ]);
+            }
+           
         }
 
     }

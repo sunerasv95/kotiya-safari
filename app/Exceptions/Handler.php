@@ -41,7 +41,7 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        dd($exception);
+        // dd($exception);
         //     //retrive ex message -> $exception->getMessage()
         // if (get_class($exception) === "Illuminate\Database\Eloquent\ModelNotFoundException") {
         //     $errorMsg = "Something went wrong!";

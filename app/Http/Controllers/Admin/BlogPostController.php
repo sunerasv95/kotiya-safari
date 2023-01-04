@@ -54,7 +54,7 @@ class BlogPostController extends Controller
         $result = $this->blogService->createPost($validatedData);
         if($result){
             $successMsg = "Your post has been created successfully!";
-            return redirect()->route('list-blog-posts')->with("successMsg", $successMsg);
+            return redirect()->route('admin.blogs')->with("successMsg", $successMsg);
         }
         return redirect()->back();
     }

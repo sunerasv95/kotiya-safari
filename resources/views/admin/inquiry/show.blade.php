@@ -1,322 +1,336 @@
 @extends('layouts.admin-app')
+
+@php $pageTitle = "View Inquiry" @endphp
+
+@section('page-title', $pageTitle)
+
 @section('page-styles')
 @endsection
 
 @section('main-content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
-    <h1 class="h2">View Inquiry</h1>
-</div>
-<div class="row my-2">
-    <div class="col-md-12">
-        <a href="{{ route('list-inquiries') }}" class="btn  btn-light">
-            <i class="bi bi-arrow-left-circle"></i>
-            Back to List
-        </a>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        @include('partial-views.alerts.alert-danger')
-        @include('partial-views.alerts.alert-success')
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-8">
-        <div class="card shadow p-3 mb-5 bg-body rounded border-0">
-            <div class="card-body">
-                <div class="mb-2 row">
-                    <div class="col-sm-3">
-                        <h4>#{{ $inquiry['inquiry_reference_no'] }}</h4></span>
+
+    <div>
+        <x-admin-page-header>
+            <x-slot name="actions"></x-slot>
+        </x-admin-page-header>
+        <div class="row">
+            <div class="col-md-12">
+                @include('partial-views.alerts.alert-danger')
+                @include('partial-views.alerts.alert-success')
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card shadow p-3 rounded border-0">
+                    <div class="card-body">
+                        <div class="mb-2 row">
+                            <div class="h4 pb-2 mb-4 text-black">
+                                Details
+                            </div>
+                            <div class="col-sm-3">
+                                <h4>#{{ $inquiry['inquiry_reference_no'] }}</h4></span>
+                            </div>
+                            <div class="col-sm-9">
+                                @if ($inquiry['status'] === config('constants.PENDING_STATUS'))
+                                    <h5><span class="badge bg-warning text-dark">Pending</span></h5>
+                                @elseif($inquiry['status'] === config('constants.RESERVED_STATUS'))
+                                    <h5><span class="badge bg-success">Reservation Added</span></h5>
+                                @elseif($inquiry['status'] === config('constants.REJECTED_STATUS'))
+                                    <h5><span class="badge bg-danger">Rejected</span></h5>
+                                @else
+                                    <h5><span class="badge bg-secondary">N/A</span></h5>
+                                @endif
+                            </div>
+                        </div>
+
+                        <dl class="row">
+                            <dt class="col-sm-3">Customer Name</dt>
+                            <dd class="col-sm-9">{{ $inquiry['guest']['name'] }}</dd>
+
+                            <dt class="col-sm-3">Customer Email</dt>
+                            <dd class="col-sm-9">{{ $inquiry['guest']['email'] }}</dd>
+
+                            <dt class="col-sm-3">Check-In </dt>
+                            <dd class="col-sm-9">{{ $inquiry['checkin_date'] }}</dd>
+
+                            <dt class="col-sm-3">Check-Out</dt>
+                            <dd class="col-sm-9">{{ $inquiry['checkout_date'] }}</dd>
+
+                            <dt class="col-sm-3">Guest Flexible with Dates</dt>
+                            <dd class="col-sm-9">
+                                @if ($inquiry['dates_flexible'])
+                                    <span class="badge bg-success">Yes</span>
+                                @else
+                                    <span class="badge bg-warning">No</span>
+                                @endif
+                            </dd>
+
+                            <dt class="col-sm-3">Number of Adults</dt>
+                            <dd class="col-sm-9">{{ $inquiry['no_adults'] }}</dd>
+
+                            <dt class="col-sm-3">Number of Kids</dt>
+                            <dd class="col-sm-9">{{ $inquiry['no_kids'] }}</dd>
+
+                            <dt class="col-sm-3">Created At</dt>
+                            <dd class="col-sm-9">{{ Carbon\Carbon::parse($inquiry['created_at']) }}</dd>
+
+                            <dt class="col-sm-3">Updated At</dt>
+                            <dd class="col-sm-9">{{ Carbon\Carbon::parse($inquiry['updated_at']) }}</dd>
+                        </dl>
+
+                        <div class="h4 pb-1 mb-4 text-black">
+                            Remarks
+                        </div>
+                        <div class="py-1">
+                            @forelse ($remarks as $remark)
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <p class="text-muted fst-italic">
+                                            <small>
+                                                {{ Carbon\Carbon::parse($remark['updated_at']) }}
+                                            </small>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <p class="text-muted fst-italic">
+                                            <small>{{ $remark['body'] }}
+                                                <span>
+                                                    | By
+                                                    {{ isCurrentUser($remark['remarked_user']['admin_code']) ? 'Me' : $remark['remarked_user']['name'] }}
+                                                </span>
+                                            </small>
+                                        </p>
+                                    </div>
+
+                                </div>
+                            @empty
+                                <p class="text-muted fst-italic"><small>No remarks found</small></p>
+                            @endforelse
+                        </div>
                     </div>
-                    <div class="col-sm-9">
-                        @if ($inquiry['status'] === "PENDING")
-                        <h5><span class="badge bg-warning text-dark">Pending</span></h5>
-                        @elseif($inquiry['status'] === "RES_ADDED")
-                        <h5><span class="badge bg-success">Reservation Added</span></h5>
-                        @elseif($inquiry['status'] === "REJECTED")
-                        <h5><span class="badge bg-danger">Rejected</span></h5>
-                        @else
-                        <h5><span class="badge bg-secondary">N/A</span></h5>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <div class="d-flex flex-column mb-3">
+                        @if ($inquiry['status'] === config('constants.PENDING_STATUS'))
+                            <button type="button" class="btn btn-warning mb-1 mt-1" data-bs-toggle="modal"
+                                data-bs-target="#update-inquiry-modal">
+                                <i class="bi bi-pencil-square"></i>
+                                Update</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#reservation-generate-modal">
+                                <i class="bi bi-file-arrow-up"></i>
+                                Generate a Reservation</button>
+                            <button type="button" class="btn btn-outline-danger mb-1 mt-1" data-bs-toggle="modal"
+                                data-bs-target="#inquiry-reject-modal">
+                                <i class="bi bi-x-octagon"></i>
+                                Reject Inquiry</button>
+                        @endif
+
+                        @if ($inquiry['status'] === config('constants.RESERVED_STATUS') && !empty($inquiry['reservation_order']))
+                            <a href="{{ route('admin.reservations.view', ['reference' => $inquiry['reservation_order']['reservation_reference']]) }}"
+                                class="btn btn-info">
+                                <i class="bi bi-box-arrow-in-up-right"></i>
+                                Go-to Reservation
+                            </a>
                         @endif
                     </div>
                 </div>
-
-                <dl class="row">
-                    <dt class="col-sm-3">Customer Name</dt>
-                    <dd class="col-sm-9">{{ $inquiry['guest']['full_name'] }}</dd>
-
-                    <dt class="col-sm-3">Customer Email</dt>
-                    <dd class="col-sm-9">{{ $inquiry['guest']['email'] }}</dd>
-
-                    <dt class="col-sm-3">Check-In </dt>
-                    <dd class="col-sm-9">{{ $inquiry['checkin_date'] }}</dd>
-
-                    <dt class="col-sm-3">Check-Out</dt>
-                    <dd class="col-sm-9">{{ $inquiry['checkout_date'] }}</dd>
-
-                    <dt class="col-sm-3">Number of Adults</dt>
-                    <dd class="col-sm-9">{{ $inquiry['no_adults'] }}</dd>
-
-                    <dt class="col-sm-3">Number of Kids</dt>
-                    <dd class="col-sm-9">{{ $inquiry['no_kids'] }}</dd>
-
-                    <dt class="col-sm-3">Inquiry Created At</dt>
-                    <dd class="col-sm-9">{{ $inquiry['created_at'] }}</dd>
-
-                    @if ($inquiry['remark'] != null)
-                    <dt class="col-sm-3">Remark</dt>
-                    <dd class="col-sm-9">{{ $inquiry['remark'] }}</dd>
-                    @endif
-
-                    @if ($inquiry['remark'] != null)
-                    <dt class="col-sm-3">Remark</dt>
-                    <dd class="col-sm-9">{{ $inquiry['remark'] }}</dd>
-                    @endif
-
-                    @if ($inquiry['remark'] != null)
-                    <dt class="col-sm-3">Remark</dt>
-                    <dd class="col-sm-9">{{ $inquiry['remark'] }}</dd>
-                    @endif
-                </dl>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div>
-            @if ($inquiry['status'] === "PENDING" || $inquiry['status'] === "RES_ADDED")
-            <h5>Actions</h5>
-            @endif
-            <div class="d-flex flex-column mb-3">
-                @if ($inquiry['status'] === "PENDING")
-                <button type="button" class="btn btn-warning mb-1 mt-1" data-bs-toggle="modal"
-                    data-bs-target="#updateInquiryModal">
-                    <i class="bi bi-pencil-square"></i>
-                    Update</button>
-                <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#reservationGenModal">
-                    <i class="bi bi-file-arrow-up"></i>
-                    Generate a Reservation</button>
-                <button type="button" class="btn btn-outline-danger mb-1 mt-1" data-bs-toggle="modal"
-                    data-bs-target="#rejectedConfirmation">
-                    <i class="bi bi-x-octagon"></i>
-                    Reject Inquiry</button>
-                @endif
-
-                @if ($inquiry['status'] === "RES_ADDED" && !empty($inquiry['reservation_order']))
-                    <a href="{{ route('view-reservation', ['bkRefId'=> $inquiry['reservation_order']['order_reference_no']]) }}"
-                        class="btn btn-info">
-                        <i class="bi bi-box-arrow-in-up-right"></i>
-                        Go-to Reservation
-                    </a>
-                @endif
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Reservation Generate Modal -->
-<div class="modal fade" id="reservationGenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Reservation Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <span class="pb-3">
-                    Reservation will be genarated according to following details
-                </span>
-                <fieldset disabled>
-                    <div class="row mt-3">
-                        <div class="col-md-6 mb-3">
-                            <label for="checkInDatePreview" class="form-label">Check-In</label>
-                            <input class="form-control" type="date" id="checkInDatePreview" value={{
-                                $inquiry['checkin_date']}}>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="checkOutDatePreview" class="form-label">Check-Out</label>
-                            <input class="form-control" type="date" id="checkOutDatePreview" value={{
-                                $inquiry['checkout_date']}}>
-                        </div>
-                    </div>
-                </fieldset>
-                <form class="pt-1" id="reservationOrderForm" method="POST"
-                    action="{{ route('store-reservation-order-request') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="campSite" class="form-label">Location</label>
-                        <select class="form-select" id="campSite" name="campSiteId"
-                            aria-label="Reserved Camp site location">
-                            <option selected value>Select a Camping Site</option>
-                            <option value="CAMPS-A">Camp Site A</option>
-                            <option value="CAMPS-B">Camp Site B</option>
-                            <option value="CAMPS-C">Camp Site C</option>
-                        </select>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <label for="tent" class="form-label">Tent</label>
-                            <select class="form-select" id="tent" name="tentId" aria-label="Reserved Tent">
-                                <option selected value>Select a Tent</option>
-                                <option value="TNT-01">T-001</option>
-                                <option value="TNT-02">T-002</option>
-                                <option value="TNT-03">T-003</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <label for="totalNights" class="form-label">Total Nights</label>
-                            <input type="text" class="form-control" value="{{ $inquiry['total_nights']}}"
-                                id="totalNights" name="nightsCount" readonly>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="form-label">Remark</label>
-                        <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
-                    </div>
-                    <input type="hidden" name="inquiryId" value="{{ $inquiry['inquiry_reference_no'] }}">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success" id="bookingGenerateBtn"
-                    form="reservationOrderForm">Generate Reservation</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Inquiry Update Modal -->
-<div class="modal fade" tabindex="-1" id="updateInquiryModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Update Inquiry #{{ $inquiry['inquiry_reference_no'] }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="inquiryUpdateForm" action="{{ route('update-inquiry-submit') }}" method="POST">
-                    @csrf
-                    <div class=" row mb-3">
-                        <div class="col">
-                            <label for="updNoAdults" class="col-form-label">No of Adults</label>
-                            <input type="number" class="form-control" id="updNoAdults" name="updNoAdults"
-                                value="{{ $inquiry['no_adults'] }}">
-                        </div>
-                        <div class="col">
-                            <label for="updNoKids" class="col-form-label">No of Kids</label>
-                            <input type="number" class="form-control" id="updNoKids" name="updNoKids"
-                                value="{{ $inquiry['no_kids'] }}">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="updRemark" class="col-form-label">Remark</label>
-                        <textarea class="form-control" id="updRemark" name="updRemark"
-                            rows="3">{{ $inquiry['remark'] ?? "" }}</textarea>
-                    </div>
-                    <input type="hidden" name="updInquiryId" value="{{ $inquiry['inquiry_reference_no'] }}">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-warning" id="updateInquiryBtn" form="inquiryUpdateForm">Save
-                    Changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Reject inquiry modal -->
-<div class="modal fade" tabindex="-1" id="rejectedConfirmation">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><strong>Confirmation</strong></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>This action can not be un-done. Are you sure to reject this inquiry?</p>
-                <form
-                    id="inquiryRejectForm"
-                    method="POST"
-                    action="{{ route('reject-inquiry-submit') }}"
-                >
-                    @csrf
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Reject Reason</label>
-                        <textarea class="form-control" id="rejectReason" name="rejectReason"></textarea>
-                    </div>
-                    <input type="hidden" name="rejectId" value="{{ $inquiry['inquiry_reference_no'] }}">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button
-                    type="submit"
-                    class="btn btn-danger"
-                    id="confirmRejectInquiryBtn"
-                    form="inquiryRejectForm"
-                >Yes, Reject this Inquiry</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+    @include('partial-views.modals.generate-reservation', [
+        'inquiryId' => $inquiry['inquiry_reference_no'],
+    ])
+    @include('partial-views.modals.update-inquiry', ['inquiryId' => $inquiry['inquiry_reference_no']])
+    @include('partial-views.modals.reject-inquiry')
 
 @endsection
 
 @section('page-scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-<script>
-$(document).on("click", "#bookingGenerateBtn", function(){
-    $("#reservationOrderForm").validate({
-            rules: {
-                campSiteId: {
-                    required: true
-                },
-                tentId:{
-                    required: true
-                },
-                remark: {
-                    required: false
+    <script>
+        $(function() {
+            var updateModal = document.getElementById('update-inquiry-modal');
+            var reservationModal = document.getElementById('reservation-generate-modal');
+            var rejectModal = document.getElementById('inquiry-reject-modal');
+
+            $("#inquiry-reject-form").validate({
+                rules: {
+                    msg_body: {
+                        required: true,
+                        minlength: 3
+                    }
                 }
-            }
-    });
-});
+            });
 
-$(document).on("click", "#updateInquiryBtn", function(){
-    $("#inquiryUpdateForm").validate({
-        rules: {
-            updNoAdults: {
-                required: true,
-                digits: true,
-                min:1,
-                max: 5
-            },
-            updNoKids:{
-                required: true,
-                digits: true,
-                min: 0,
-                max: 5
-            },
-            updRemark: {
-                required: false
-            }
+            $("#update-inquiry-form").validate({
+                rules: {
+                    up_checkin: {
+                        required: true
+                    },
+                    up_checkout: {
+                        required: true
+                    },
+                    up_no_adults: {
+                        required: true,
+                        min: 1
+                    },
+                    up_no_kids: {
+                        required: true
+                    }
+                }
+            });
+
+            $('#inquiry-reject-form textarea').on('blur keyup', function() {
+                if ($("#inquiry-reject-form").valid()) {
+                    $('#reject-inquiry').prop('disabled', false);
+                } else {
+                    $('#reject-inquiry').prop('disabled', true);
+                }
+            });
+
+            $('#update-inquiry-form input').on('change', function() {
+                if ($("#update-inquiry-form").valid()) {
+                    $('#update-inquiry').prop('disabled', false);
+                } else {
+                    $('#update-inquiry').prop('disabled', true);
+                }
+            })
+
+            updateModal.addEventListener('hidden.bs.modal', function(e) {
+                resetUpdateForm();
+            });
+
+            reservationModal.addEventListener('hidden.bs.modal', function(e) {
+                resetReservationForm();
+            });
+
+            rejectModal.addEventListener('hidden.bs.modal', function(e) {
+                resetRejectForm();
+            });
+        });
+
+        function resetUpdateForm() {
+            $('#update-inquiry').prop('disabled', true);
+
+            var checkin = $('#update-checkin-date');
+            var checkout = $('#update-checkout-date');
+            var noadults = $('#update-no-adults');
+            var nokids = $('#update-no-kids');
+
+            checkin.val(checkin.data('prev'));
+            checkout.val(checkout.data('prev'));
+            noadults.val(noadults.data('prev'));
+            nokids.val(nokids.data('prev'));
         }
-    });
-});
 
-$(document).on("click", "#confirmRejectInquiryBtn", function(){
-    $("#inquiryRejectForm").validate({
-        rules: {
-            rejectReason: {
-                required: true,
-                minlength: 2,
-                maxlength: 100
-            }
+        function resetReservationForm() {
+            $('#reservation-note').val('');
         }
-    });
-});
 
-</script>
+        function resetRejectForm() {
+            $('#reject-inquiry').prop('disabled', true);
+            $('#msg-body').val('');
+        }
+    </script>
+    <script>
+        var nowTemp = new Date();
+        var now = new Date(
+            nowTemp.getFullYear(),
+            nowTemp.getMonth(),
+            nowTemp.getDate(),
+            0, 0, 0, 0
+        );
+
+        var checkin = $('#update-checkin-date').datepicker({
+            beforeShowDay: function(date) {
+                return date.valueOf() >= now.valueOf()
+            },
+            autoClose: true
+        }).on('changeDate', function(e) {
+            if (e.date.valueOf() >
+                checkout.datepicker('getDate').valueOf() ||
+                !checkout.datepicker('getDate').valueOf()
+            ) {
+                var newDate = new Date(e.date);
+                newDate.setDate(newDate.getDate() + 1);
+                checkout.datepicker("update", newDate);
+            }
+            $('#update-checkout-date')[0].focus();
+        });
+
+        var checkout = $('#update-checkout-date').datepicker({
+            beforeShowDay: function(date) {
+                if (!checkin.datepicker("getDate").valueOf()) {
+                    return date.valueOf() >= new Date().valueOf();
+                } else {
+                    return date.valueOf() > checkin.datepicker("getDate").valueOf();
+                }
+            },
+            autoclose: true
+
+        }).on('changeDate', function(e) {});
+    </script>
+    <script>
+        $(document).on("click", "#update-inquiry", function() {
+            $("#update-inquiry-form").validate({
+                rules: {
+                    up_checkin: {
+                        required: true,
+
+                    },
+                    up_checkout: {
+                        required: true
+                    },
+                    up_no_adults: {
+                        required: true,
+                        min: 1
+                    },
+                    up_no_kids: {
+                        required: true,
+                        min: 0
+                    }
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+
+        $(document).on("click", "#confirm-reservation", function() {
+            $("#reservation-confirm-form").validate({
+                rules: {
+                    payment_option: {
+                        required: true
+                    },
+                    payable_amount: {
+                        required: true,
+                        digits: true
+                    },
+                    reservation_note: {
+                        required: false
+                    }
+                },
+                submitHandler: function(form) {
+                    console.log(form);
+                    form.submit();
+                }
+            });
+        });
+
+        $(document).on("click", "#reject-inquiry", function() {
+            $("#inquiry-reject-form").validate({
+                rules: {
+                    msg_body: {
+                        required: true,
+                        minlength: 2
+                    }
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 @endsection

@@ -9,9 +9,11 @@ class Role extends Model
 {
     use HasFactory;
 
-    public function admin()
+    protected $hidden = ['pivot'];
+
+    public function users()
     {
-        return $this->hasMany(Admin::class);
+        return $this->hasMany(User::class);
     }
 
     public function permissions()

@@ -6,11 +6,9 @@ interface InquiryServiceInterface
 {
     public function getAllInquiries($status = null);
 
-    public function getAllValueAddedServices();
-
     public function getInquiryByReferenceNumber(string $inquiryRefNumber);
 
-    public function createInquiry(array $newInquiry);
+    public function createInquiry(array $newInquiry, string $requestType);
 
     public function updateInquiry(array $updateOrderData);
 

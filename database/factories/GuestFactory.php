@@ -16,7 +16,7 @@ class GuestFactory extends Factory
         return [
             "guest_code"  => "GSU".rand(100000, 999999),
             "full_name"  => $this->faker->name('male'),
-            "email" => $this->faker->email(),
+            "email" => "ssviyangoda95@gmail.com",//$this->faker->email(),
             "is_email_verified" => 0,
             "country_code" => "SL",
             "last_login_ip" => $this->faker->ipv4(),

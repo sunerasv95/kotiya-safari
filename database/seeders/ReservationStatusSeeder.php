@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Constants\Types;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,14 @@ class ReservationStatusSeeder extends Seeder
      */
     public function run()
     {
-        $status = ["PENDING", "PAR_PAID", "COMPLETED", "RE_SCHE", "CANCELLED"];
+        $status = [
+            Types::PENDING_STATUS,
+            Types::PARTIALLY_PAID_STATUS,
+            Types::COMPLETED_STATUS,
+            Types::RESCHEDULED_STATUS,
+            Types::CANCELLED_STATUS
+        ];
+
         foreach($status as $i){
             DB::table('reservation_status')->insert([
                 "status_name" => $i,

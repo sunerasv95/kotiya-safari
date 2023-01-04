@@ -24,11 +24,10 @@ class CreateReservationOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            "campSiteId"    => "required",
-            "tentId"        => "required",
-            "nightsCount"   => "required",
-            "remark"        => "nullable",
-            "inquiryId"     => "required"
+            "inquiry_id"        => "required",
+            "payment_option"    => "required",
+            "payable_amount"    => "required_if:payment_option,PP,FP",
+            "reservation_note"  => "nullable"
         ];
     }
 }

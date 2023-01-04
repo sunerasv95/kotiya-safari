@@ -2,53 +2,54 @@
 
 namespace App\Services;
 
-use App\Repositories\AdminRepository;
-use App\Repositories\Contracts\AdminRepositoryInterface;
-use App\Repositories\Contracts\GuestRepositoryInterface;
+use App\Constants\Types;
+use App\Models\Remark;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
+use App\Repositories\Contracts\PaymentRepositoryInterface;
 use App\Repositories\Contracts\ReservationOrderRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\Contracts\ReservationOrderServiceInterface;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ReservationOrderService implements ReservationOrderServiceInterface
 {
     private $reservationRepository;
     private $inquiryRepository;
     private $guestRepository;
-    private $adminRepository;
+    private $paymentRepository;
+    private $userRepository;
 
     public function __construct(
         ReservationOrderRepositoryInterface $reservationRepository,
         InquiryRepositoryInterface $inquiryRepository,
-        GuestRepositoryInterface $guestRepository,
-        AdminRepositoryInterface $adminRepository
+        UserRepositoryInterface $userRepository,
+        PaymentRepositoryInterface $paymentRepository
     )
     {
         $this->reservationRepository    = $reservationRepository;
         $this->inquiryRepository        = $inquiryRepository;
-        $this->guestRepository          = $guestRepository;
-        $this->adminRepository          = $adminRepository;
-
+        $this->userRepository           = $userRepository;
+        $this->paymentRepository        = $paymentRepository;
     }
 
-    public function getAllReservations()
+    public function getAllReservations($status = null)
     {
-        $with = ["inquiry", "inquiry.guest"];
         try {
-            return $this->reservationRepository->findAllReservations($with)->toArray();
+            return $this->reservationRepository
+                ->findAll(["inquiry", "guest"], $status)
+                ->toArray();
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
-    public function getReservationByBkRefNumber(string $bkRefNumber)
+    public function getReservationByReference(string $ReferenceNumber)
     {
-        $with = ["inquiry", "inquiry.guest", "reservationOrderDetails"];
         try {
             return $this->reservationRepository
-                ->findReservationByBkRefNumber($bkRefNumber, $with)
-                ->toArray();
+                ->findOne("reservation_reference", $ReferenceNumber, ["inquiry", "guest"])
+                ?->toArray();
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -63,7 +64,7 @@ class ReservationOrderService implements ReservationOrderServiceInterface
             "data" => []
         ];
         try {
-            $guest = $this->guestRepository->findGuestByEmail($guestEmail);
+            $guest = $this->guestRepository->findByEmail($guestEmail);
             if($guest){
                 $guestCode = $guest->guest_code;
                 $reservationFound = $this->reservationRepository->findReservationForGuest($guestCode);
@@ -96,44 +97,60 @@ class ReservationOrderService implements ReservationOrderServiceInterface
         }
     }
 
-    public function createReservationOrder(array $orderData)
+    public function createReservationOrder(array $data)
     {
         $result = [
             "error" => true,
             "message"=> null
         ];
-        DB::beginTransaction();
-        try {
-            $inquiryRef = $orderData['inquiryId'];
-            $inquiry    = $this->inquiryRepository->findInquiryByReferenceNumber($inquiryRef, ["guest"]);
-            //dd($orderData);
-            if(isset($inquiry)){
-                $inquiryId = $inquiry->id;
-                $reservationOrder = $this->reservationRepository->findReservationByInquiryId($inquiryId);
-                if(isset($reservationOrder)){
-                    $result['message'] = "A Reservation has already created for this inquiry!";
-                }else{
-                    if($inquiry['is_deleted'] == 1){
-                        $result['message'] = "Inquiry is not exists!";
-                    }elseif($inquiry['status'] == 2){
-                        $result['message'] = "Inquiry is already processed!";
-                    }else{
-                        $currentUser = retriveCurrentUserSession();
-                        //dd($currentUser);
-                        $orderData['adminId'] = $this->adminRepository->findAdminId($currentUser['_adminId']);
-                        $orderSaved = $this->reservationRepository->saveReservation($inquiry, $orderData);
-                        $inquiryStatusUpdated = $this->inquiryRepository->updateInquiryStatus($inquiry, "RES_ADDED");
 
-                        if($orderSaved && $inquiryStatusUpdated){
-                            DB::commit();
-                            $result['error']    = false;
-                            $result['message']  = "Reservation has been created!";
-                        }
-                    }
-                }
+        DB::beginTransaction();
+
+        try {
+
+            $inquiryReference = $data['inquiry_id'];
+            $inquiry = $this->inquiryRepository->findOne("inquiry_reference_no", $inquiryReference, ["guest"]);
+
+            if($inquiry->status === Types::PENDING_STATUS && $inquiry->is_deleted === 0){
+
+                $currentUser            = retriveCurrentUserSession();
+                $data['inquiry_id']     = $inquiry->id;
+                $data['guest_id']       = $inquiry->guest_id;
+                $data['reference']      = generateReferenceNumber(Types::BOOKING);
+                $data['status']         = Types::PARTIALLY_PAID_STATUS;
+                $data['admin_id']       = $this->userRepository->getAdminId("admin_code", $currentUser['_adminId']);
+
+                $savedReservation = $this->reservationRepository->save($data);
+
+                if(isset($data['reservation_note'])) addRemark($inquiry,  $data['reservation_note'], $data['admin_id']);
+
+                $this->inquiryRepository->updateStatus($inquiry, Types::RESERVED_STATUS);
+
+                // if(){
+
+                // }
+
+                // $pdata['guest_id']              = $inquiry->guest_id;
+                // $pdata['reservation_order_id']  = $savedReservation->id;
+                // $pdata['payment_reference']     = generateReferenceNumber(Types::PAYMENT);
+                // $pdata['payment_category']      = $data['payment_option'];
+                // $pdata['amount']                = $data['payable_amount'];
+                // $pdata['tax_p']                 = 0;
+                // $pdata['tax']                   = 0;
+                // $pdata['discount_p']            = 0;
+                // $pdata['discount']              = 0;
+                // $pdata['total']                 = $data['payable_amount'];
+                // $pdata['payment_method']        = 0;
+                // $pdata['status']                = 0;
+               
+                // $this->paymentRepository->save($pdata);
+
+                DB::commit();
+
             }else{
-                $result['message'] = "Inquiry is not found!";
+
             }
+
             return $result;
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -150,7 +167,7 @@ class ReservationOrderService implements ReservationOrderServiceInterface
 
         try {
             $inquiryRef = $updateOrderData['updInquiryId'];
-            $inquiry    = $this->inquiryRepository->findInquiryByReferenceNumber($inquiryRef);
+            $inquiry    = $this->inquiryRepository->findOne("inquiry_reference_no", $inquiryRef);
 
             if(!isset($inquiry)){
                 $result['message'] = "Inquiry is not found!";

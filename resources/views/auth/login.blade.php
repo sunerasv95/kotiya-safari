@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -39,18 +39,6 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -69,5 +57,16 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
+<section class="h-100">
+    <header class="container h-100">
+      <div class="d-flex align-items-center justify-content-center h-100">
+        <div class="d-flex flex-column">
+          <h1 class="text align-self-center p-2">item 1</h1>
+          <h4 class="text align-self-center p-2">item 2</h4>
+          <button class="btn btn-danger align-self-center p-2" type="button" name="button">item 3</button>
+        </div>
+      </div>
+    </header>
+  </section>
 @endsection

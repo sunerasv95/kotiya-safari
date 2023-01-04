@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\Inquiry as RepoModel;
 use App\Models\Inquiry;
 use App\Models\VAS;
 use App\Repositories\Contracts\InquiryRepositoryInterface;
@@ -10,9 +9,9 @@ use App\Repositories\Contracts\InquiryRepositoryInterface;
 class InquiryRepository implements InquiryRepositoryInterface
 {
 
-    public function findAllInquiries($with=[], $status= null)
+    public function findAll($with=[], $status= null)
     {
-        return RepoModel::when(!empty($with), function($q)use($with){
+        return Inquiry::when(!empty($with), function($q)use($with){
             return $q->with($with);
         })
         ->when($status != null && $status != "ALL" , function($q) use($status) {
@@ -22,92 +21,57 @@ class InquiryRepository implements InquiryRepositoryInterface
         ->get();
     }
 
-    public function findInquiryByReferenceNumber(string $inquiryRefNumber, $with=[])
+    public function findOne(string $attribute, string $value, $with=[])
     {
-        return RepoModel::where('inquiry_reference_no', $inquiryRefNumber)
-            ->when(!empty($with), function($q) use($with){
-                return $q->with($with);
-            })
-            ->first();
+        return Inquiry::when(isset($attribute), function($q) use($attribute, $value){
+            switch($attribute){
+                case "inquiry_reference_no":
+                    $q->where("inquiry_reference_no", $value);
+                break;
+
+                default:
+                    $q->where("inquiry_reference_no", $value);
+            }
+            return $q;
+        })
+        ->when(!empty($with), function($q) use($with){
+            return $q->with($with);
+        })
+        ?->first();
     }
 
-    public function findInquiryById(int $inquiryId)
+    public function save(array $newInquiry)
     {
-        return RepoModel::find($inquiryId);
-    }
+        $inquiry = new Inquiry();
 
-    public function saveInquiry(array $newInquiry)
-    {
-        //dd($newInquiry);
-        $inquiry = new RepoModel();
-
-        $inquiry->inquiry_reference_no   = rand(100000, 999999);
-        $inquiry->guest_id               = $newInquiry['guestId'];
-        $inquiry->checkin_date           = $newInquiry['checkinDate'];
-        $inquiry->checkout_date          = $newInquiry['checkoutDate'];
-        $inquiry->no_adults              = $newInquiry['noAdults'];
-        $inquiry->no_kids                = $newInquiry['noKids'];
-        $inquiry->ip_address             = rand(1000, 9999); //to-do: need to save real ip address
-        $inquiry->status                 = "PENDING";
-        $inquiry->remark                 = null;
+        $inquiry->inquiry_reference_no   = $newInquiry['reference_no'];
+        $inquiry->request_type	         = $newInquiry['request_type'];
+        $inquiry->guest_id               = $newInquiry['user_id'];
+        $inquiry->checkin_date           = $newInquiry['checkin_date'];
+        $inquiry->checkout_date          = $newInquiry['checkout_date'];
+        $inquiry->dates_flexible         = $newInquiry['flexible_dates'];
+        $inquiry->no_adults              = $newInquiry['no_adults'];
+        $inquiry->no_kids                = $newInquiry['no_kids'];
+        $inquiry->status                 = $newInquiry['status'];
+        $inquiry->tc_agreed              = $newInquiry['tc_agreed'];
         $inquiry->created_at             = now();
         $inquiry->updated_at             = now();
 
         $inquiry->save();
 
-        if(isset($newInquiry['reqServices']) && !empty($newInquiry['reqServices'])){
-            $serviceIds = array_map(function($code){
-                return $this->findValueAddedServiceIdByCode($code);
-            }, $newInquiry['reqServices']);
-            $inquiry->vass()->attach($serviceIds, ["created_at"=> now(), "updated_at" => now()]);
-        }
-
         return $inquiry;
     }
 
-    public function updateInquiry(Inquiry $inquiry, array $updateInquiry)
+    public function update(Inquiry $inquiry, array $updateInquiry)
     {
-        $inquiry->no_adults = $updateInquiry['updNoAdults'];
-        $inquiry->no_kids   = $updateInquiry['updNoKids'];
-        if(isset($updateInquiry['updRemark'])){
-            $inquiry->remark = $updateInquiry['updRemark'];
-        }
-        return $inquiry->save();
+        return $inquiry->update($updateInquiry);
     }
 
-    public function updateInquiryStatus(RepoModel $inquiry, string $status=null, string $remarkText = null, array $rejectData = [])
+    public function updateStatus(Inquiry $inquiry, string $status)
     {
-        $inquiry->status      = $status;
-        $inquiry->remark      = $remarkText;
-
-        if($status === "REJECTED"){
-            $inquiry->rejected_by = $rejectData['adminId'];
-            $inquiry->rejected_reason = $rejectData['rejectReason'];
-            $inquiry->rejected_at = now();
-        }
-
-        return $inquiry->save();
-    }
-
-    //Value added Services
-    public function findAllValueAddedServices()
-    {
-        return VAS::active()
-        ->select([
-            "service_name",
-            "service_code",
-            "service_description"
-        ])->get();
-    }
-
-    public function findValueAddedServiceIdByCode(string $vasCode)
-    {
-        return VAS::active()->where("service_code", $vasCode)->select("id")->first()->id;
-    }
-
-    public function inquiryCountByStatus($status = null)
-    {
-        return RepoModel::where('status', $status)->where('is_deleted', 0)->get()->count();
+        $inquiry->status = $status;
+        $inquiry->save();
+        return $inquiry;
     }
 
 }

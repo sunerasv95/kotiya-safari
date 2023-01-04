@@ -1,3 +1,46 @@
+//Fonts
+:root{
+    --bs-baige: #c7681f;
+    --bs-deep-sky-blue: #00BFFF;
+    --bs-trquoise: #40E0D0;
+    --bs-light-salmon: #FFA07A;
+    --bs-light-blue: #85C1E9;
+
+    --bs-baige-rgb: rgb(199, 104, 31);
+    --bs-deep-sky-blue-rgb: rgb(0, 191, 255);
+    --bs-trquoise-rgb: rgb(64, 224, 208);
+    --bs-light-salmon-rgb: rgb(255, 160, 122);
+    --bs-light-blue : rgb(133, 193, 233);
+}
+
+$primary-font-regular: 'Poppins';
+$primary-font-semi-bold: 'Poppins Semi';
+$primary-font-bold: 'Poppins Bold';
+$primary-font-extra-bold: 'Poppins Extra Bold';
+
+$secondary-font-regular: 'PlayfairDisplay Regular';
+$secondary-font-bold: 'PlayfairDisplay Bold';
+
+
+$font-size-smaller: .575rem;
+$font-size-small: .675rem;
+$font-size-regular: 1rem;
+$font-size-large: 2rem;
+$font-size-larger: 2.5rem;
+
+//Colors
+$white-color: #ffffff;
+$black-color: #000000;
+$baige-color: rgb(159, 105, 56);
+$green-color:rgb(100, 177, 97);
+$dark-green-color: rgb(48, 83, 21);
+$silver-color: rgb(41, 41, 41);
+$gray-color: rgb(10, 10, 10);
+$gray-black-color: rgb(46, 46, 46);
+$light-blue: rgb(133, 193, 233);
+$navy-blue: rgb(26, 82, 118);
+$dark-blue: rgb(21, 67, 96);
+
 // Body
 $body-bg: #f8fafc;
 

@@ -16,12 +16,9 @@ class RolePermissionSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = Permission::get();
-        Role::factory()
-            ->hasAttached(
-                $permissions, [
-                    "created_at"=> now(),
-                    "updated_at"=> now()
-                ])->create();
+        $role = Role::find(1);
+        $permissions = Permission::get()->pluck('id');
+
+        $role->permissions()->attach($permissions, ["created_at"=> now(), "updated_at"=> now()]);
     }
 }

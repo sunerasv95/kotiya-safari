@@ -15,12 +15,12 @@ class CreateReservationVerificationsTbl extends Migration
     {
         Schema::create('reservation_verifications', function (Blueprint $table) {
             $table->id();
-            $table->string('guest_code', 20)->nullable();
-            $table->string('order_reference_no', 20)->nullable();
-            $table->string('bk_verification_code', 20)->nullable();
+            $table->integer('reservation_order_id')->unsigned();
+            $table->string('verification_code', 50);
             $table->string('_token', 200)->nullable();
             $table->tinyInteger('attempts')->default(0);
             $table->tinyInteger('status')->default(1);
+            $table->timestamp('last_attempt_at')->nullable();
             $table->timestamps();
         });
     }

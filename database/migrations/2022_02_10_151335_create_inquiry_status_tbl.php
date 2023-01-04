@@ -16,6 +16,7 @@ class CreateInquiryStatusTbl extends Migration
         Schema::create('inquiry_status', function (Blueprint $table) {
             $table->id();
             $table->string('status_name', 20);
+            $table->string('display_name');
             $table->timestamps();
         });
     }

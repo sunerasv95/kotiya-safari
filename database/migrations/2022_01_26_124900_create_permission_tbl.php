@@ -15,6 +15,7 @@ class CreatePermissionTbl extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('permission_code');
             $table->string('permission_name', 20);
             $table->string('permission_slug', 20);
             $table->tinyInteger('status')->default(0);

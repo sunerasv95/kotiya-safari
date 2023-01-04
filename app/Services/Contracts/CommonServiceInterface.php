@@ -6,7 +6,13 @@ interface CommonServiceInterface
 {
     public function retrieveDataFromJsonFile($fileName);
 
-    public function retriveCountryList();
+    public function retrieveCountryList();
 
     public function retriveInquiryStatus();
+
+    public function retriveReservationStatus();
+
+    public function retrievePaymentOptions($optCode = null);
+
+    public function retrieveBoardingPlans($planCode = null);
 }

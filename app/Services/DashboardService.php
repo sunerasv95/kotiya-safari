@@ -30,9 +30,8 @@ class DashboardService implements DashboardServiceInterface
         $inquiryCount = $pendingBookings = $pendingPayments = $customersCount = 0;
 
         try {
-            $inquiryCount = $this->inquiryRepository->inquiryCountByStatus("PENDING");
             $pendingBookings = $this->reservationRepository->reservationCountByStatus("PENDING");
-            $pendingPayments = $this->reservationRepository->reservationCountByVerificationStatus(0);
+            //$pendingPayments = $this->reservationRepository->reservationCountByVerificationStatus(0);
 
             //dd($inquiryCount);
             $response['data']['inquiryCount']       = sprintf("%02d", $inquiryCount);

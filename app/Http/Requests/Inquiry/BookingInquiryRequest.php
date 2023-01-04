@@ -2,27 +2,21 @@
 
 namespace App\Http\Requests\Inquiry;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BookingInquiryRequest extends FormRequest
 {
     protected function prepareForValidation()
     {
-        //dd("eee", $this->selectedServicesArr);
-        $serviceArr = [];
-        if(isset($this->selectedServicesArr)){
-            $serviceArr = $this->setServicesAttributes($this->selectedServicesArr);
-        }
-        
         $this->merge([
-            'selectedServicesArr' => $serviceArr,
+            'check_in' => Carbon::parse($this->check_in)->format('Y-m-d'),
+            'check_out' => Carbon::parse($this->check_out)->format('Y-m-d'),
+            'flexible_dates' => !$this->has('flexible_dates') || $this->flexible_dates === "off" ? 0 : 1,
+            'tc_agreed' => $this->has('tc_agreed') && $this->tc_agreed === "on" ? 1 : 0,
         ]);
     }
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+
     public function authorize()
     {
         return true;
@@ -36,25 +30,15 @@ class BookingInquiryRequest extends FormRequest
     public function rules()
     {
         return [
-            "firstName"             => "required|string",
-            "lastName"              => "required|string",
-            "email"                 => "required|email",
-            "checkInDate"           => "required|date",
-            "checkOutDate"          => "required|date",
-            "noAdults"              => "required|integer|min:1",
-            "noKids"                => "required|integer",
-            "country"               => "required",
-            "serviceRequired"       => "required|boolean",
-            "selectedServicesArr"   => "nullable"
+            "full_name"         => "required|string",
+            "email"             => "required|email",
+            "check_in"          => "required|date",
+            "check_out"         => "required|date",
+            "flexible_dates"    => "required|boolean",
+            "no_adults"         => "required|integer|min:1",
+            "no_kids"           => "required|integer",
+            "country"           => "required",
+            "tc_agreed"         => "required|boolean|in:1",
         ];
-    }
-
-    private function setServicesAttributes($stringifyArr)
-    {
-        $str = trim($stringifyArr);
-        $str = str_replace(["[", "]", "\""], "", $str);
-        $str = explode(",", $str);
-        //dd($str);
-        return $str;
     }
 }

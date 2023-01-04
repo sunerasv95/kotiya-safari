@@ -22,7 +22,7 @@ class CheckUserSession
             return $next($request);
         }
         return redirect()
-            ->route('admin-login')
+            ->route('admin.login')
             ->with('errorMsg', "Unauthorized action. Please login!");
 
     }

@@ -1,0 +1,1212 @@
+[
+  {
+    "country": "Afghanistan",
+    "dial_code": "+93",
+    "abbreviation": "AF"
+  },
+  {
+    "country": "Aland Islands",
+    "dial_code": "+358",
+    "abbreviation": "AX"
+  },
+  {
+    "country": "Albania",
+    "dial_code": "+355",
+    "abbreviation": "AL"
+  },
+  {
+    "country": "Algeria",
+    "dial_code": "+213",
+    "abbreviation": "DZ"
+  },
+  {
+    "country": "AmericanSamoa",
+    "dial_code": "+1684",
+    "abbreviation": "AS"
+  },
+  {
+    "country": "Andorra",
+    "dial_code": "+376",
+    "abbreviation": "AD"
+  },
+  {
+    "country": "Angola",
+    "dial_code": "+244",
+    "abbreviation": "AO"
+  },
+  {
+    "country": "Anguilla",
+    "dial_code": "+1264",
+    "abbreviation": "AI"
+  },
+  {
+    "country": "Antarctica",
+    "dial_code": "+672",
+    "abbreviation": "AQ"
+  },
+  {
+    "country": "Antigua and Barbuda",
+    "dial_code": "+1268",
+    "abbreviation": "AG"
+  },
+  {
+    "country": "Argentina",
+    "dial_code": "+54",
+    "abbreviation": "AR"
+  },
+  {
+    "country": "Armenia",
+    "dial_code": "+374",
+    "abbreviation": "AM"
+  },
+  {
+    "country": "Aruba",
+    "dial_code": "+297",
+    "abbreviation": "AW"
+  },
+  {
+    "country": "Australia",
+    "dial_code": "+61",
+    "abbreviation": "AU"
+  },
+  {
+    "country": "Austria",
+    "dial_code": "+43",
+    "abbreviation": "AT"
+  },
+  {
+    "country": "Azerbaijan",
+    "dial_code": "+994",
+    "abbreviation": "AZ"
+  },
+  {
+    "country": "Bahamas",
+    "dial_code": "+1242",
+    "abbreviation": "BS"
+  },
+  {
+    "country": "Bahrain",
+    "dial_code": "+973",
+    "abbreviation": "BH"
+  },
+  {
+    "country": "Bangladesh",
+    "dial_code": "+880",
+    "abbreviation": "BD"
+  },
+  {
+    "country": "Barbados",
+    "dial_code": "+1246",
+    "abbreviation": "BB"
+  },
+  {
+    "country": "Belarus",
+    "dial_code": "+375",
+    "abbreviation": "BY"
+  },
+  {
+    "country": "Belgium",
+    "dial_code": "+32",
+    "abbreviation": "BE"
+  },
+  {
+    "country": "Belize",
+    "dial_code": "+501",
+    "abbreviation": "BZ"
+  },
+  {
+    "country": "Benin",
+    "dial_code": "+229",
+    "abbreviation": "BJ"
+  },
+  {
+    "country": "Bermuda",
+    "dial_code": "+1441",
+    "abbreviation": "BM"
+  },
+  {
+    "country": "Bhutan",
+    "dial_code": "+975",
+    "abbreviation": "BT"
+  },
+  {
+    "country": "Bolivia, Plurinational State of",
+    "dial_code": "+591",
+    "abbreviation": "BO"
+  },
+  {
+    "country": "Bosnia and Herzegovina",
+    "dial_code": "+387",
+    "abbreviation": "BA"
+  },
+  {
+    "country": "Botswana",
+    "dial_code": "+267",
+    "abbreviation": "BW"
+  },
+  {
+    "country": "Brazil",
+    "dial_code": "+55",
+    "abbreviation": "BR"
+  },
+  {
+    "country": "British Indian Ocean Territory",
+    "dial_code": "+246",
+    "abbreviation": "IO"
+  },
+  {
+    "country": "Brunei Darussalam",
+    "dial_code": "+673",
+    "abbreviation": "BN"
+  },
+  {
+    "country": "Bulgaria",
+    "dial_code": "+359",
+    "abbreviation": "BG"
+  },
+  {
+    "country": "Burkina Faso",
+    "dial_code": "+226",
+    "abbreviation": "BF"
+  },
+  {
+    "country": "Burundi",
+    "dial_code": "+257",
+    "abbreviation": "BI"
+  },
+  {
+    "country": "Cambodia",
+    "dial_code": "+855",
+    "abbreviation": "KH"
+  },
+  {
+    "country": "Cameroon",
+    "dial_code": "+237",
+    "abbreviation": "CM"
+  },
+  {
+    "country": "Canada",
+    "dial_code": "+1",
+    "abbreviation": "CA"
+  },
+  {
+    "country": "Cape Verde",
+    "dial_code": "+238",
+    "abbreviation": "CV"
+  },
+  {
+    "country": "Cayman Islands",
+    "dial_code": "+ 345",
+    "abbreviation": "KY"
+  },
+  {
+    "country": "Central African Republic",
+    "dial_code": "+236",
+    "abbreviation": "CF"
+  },
+  {
+    "country": "Chad",
+    "dial_code": "+235",
+    "abbreviation": "TD"
+  },
+  {
+    "country": "Chile",
+    "dial_code": "+56",
+    "abbreviation": "CL"
+  },
+  {
+    "country": "China",
+    "dial_code": "+86",
+    "abbreviation": "CN"
+  },
+  {
+    "country": "Christmas Island",
+    "dial_code": "+61",
+    "abbreviation": "CX"
+  },
+  {
+    "country": "Cocos (Keeling) Islands",
+    "dial_code": "+61",
+    "abbreviation": "CC"
+  },
+  {
+    "country": "Colombia",
+    "dial_code": "+57",
+    "abbreviation": "CO"
+  },
+  {
+    "country": "Comoros",
+    "dial_code": "+269",
+    "abbreviation": "KM"
+  },
+  {
+    "country": "Congo",
+    "dial_code": "+242",
+    "abbreviation": "CG"
+  },
+  {
+    "country": "Congo, The Democratic Republic of the Congo",
+    "dial_code": "+243",
+    "abbreviation": "CD"
+  },
+  {
+    "country": "Cook Islands",
+    "dial_code": "+682",
+    "abbreviation": "CK"
+  },
+  {
+    "country": "Costa Rica",
+    "dial_code": "+506",
+    "abbreviation": "CR"
+  },
+  {
+    "country": "Cote d'Ivoire",
+    "dial_code": "+225",
+    "abbreviation": "CI"
+  },
+  {
+    "country": "Croatia",
+    "dial_code": "+385",
+    "abbreviation": "HR"
+  },
+  {
+    "country": "Cuba",
+    "dial_code": "+53",
+    "abbreviation": "CU"
+  },
+  {
+    "country": "Cyprus",
+    "dial_code": "+357",
+    "abbreviation": "CY"
+  },
+  {
+    "country": "Czech Republic",
+    "dial_code": "+420",
+    "abbreviation": "CZ"
+  },
+  {
+    "country": "Denmark",
+    "dial_code": "+45",
+    "abbreviation": "DK"
+  },
+  {
+    "country": "Djibouti",
+    "dial_code": "+253",
+    "abbreviation": "DJ"
+  },
+  {
+    "country": "Dominica",
+    "dial_code": "+1767",
+    "abbreviation": "DM"
+  },
+  {
+    "country": "Dominican Republic",
+    "dial_code": "+1849",
+    "abbreviation": "DO"
+  },
+  {
+    "country": "Ecuador",
+    "dial_code": "+593",
+    "abbreviation": "EC"
+  },
+  {
+    "country": "Egypt",
+    "dial_code": "+20",
+    "abbreviation": "EG"
+  },
+  {
+    "country": "El Salvador",
+    "dial_code": "+503",
+    "abbreviation": "SV"
+  },
+  {
+    "country": "Equatorial Guinea",
+    "dial_code": "+240",
+    "abbreviation": "GQ"
+  },
+  {
+    "country": "Eritrea",
+    "dial_code": "+291",
+    "abbreviation": "ER"
+  },
+  {
+    "country": "Estonia",
+    "dial_code": "+372",
+    "abbreviation": "EE"
+  },
+  {
+    "country": "Ethiopia",
+    "dial_code": "+251",
+    "abbreviation": "ET"
+  },
+  {
+    "country": "Falkland Islands (Malvinas)",
+    "dial_code": "+500",
+    "abbreviation": "FK"
+  },
+  {
+    "country": "Faroe Islands",
+    "dial_code": "+298",
+    "abbreviation": "FO"
+  },
+  {
+    "country": "Fiji",
+    "dial_code": "+679",
+    "abbreviation": "FJ"
+  },
+  {
+    "country": "Finland",
+    "dial_code": "+358",
+    "abbreviation": "FI"
+  },
+  {
+    "country": "France",
+    "dial_code": "+33",
+    "abbreviation": "FR"
+  },
+  {
+    "country": "French Guiana",
+    "dial_code": "+594",
+    "abbreviation": "GF"
+  },
+  {
+    "country": "French Polynesia",
+    "dial_code": "+689",
+    "abbreviation": "PF"
+  },
+  {
+    "country": "Gabon",
+    "dial_code": "+241",
+    "abbreviation": "GA"
+  },
+  {
+    "country": "Gambia",
+    "dial_code": "+220",
+    "abbreviation": "GM"
+  },
+  {
+    "country": "Georgia",
+    "dial_code": "+995",
+    "abbreviation": "GE"
+  },
+  {
+    "country": "Germany",
+    "dial_code": "+49",
+    "abbreviation": "DE"
+  },
+  {
+    "country": "Ghana",
+    "dial_code": "+233",
+    "abbreviation": "GH"
+  },
+  {
+    "country": "Gibraltar",
+    "dial_code": "+350",
+    "abbreviation": "GI"
+  },
+  {
+    "country": "Greece",
+    "dial_code": "+30",
+    "abbreviation": "GR"
+  },
+  {
+    "country": "Greenland",
+    "dial_code": "+299",
+    "abbreviation": "GL"
+  },
+  {
+    "country": "Grenada",
+    "dial_code": "+1473",
+    "abbreviation": "GD"
+  },
+  {
+    "country": "Guadeloupe",
+    "dial_code": "+590",
+    "abbreviation": "GP"
+  },
+  {
+    "country": "Guam",
+    "dial_code": "+1671",
+    "abbreviation": "GU"
+  },
+  {
+    "country": "Guatemala",
+    "dial_code": "+502",
+    "abbreviation": "GT"
+  },
+  {
+    "country": "Guernsey",
+    "dial_code": "+44",
+    "abbreviation": "GG"
+  },
+  {
+    "country": "Guinea",
+    "dial_code": "+224",
+    "abbreviation": "GN"
+  },
+  {
+    "country": "Guinea-Bissau",
+    "dial_code": "+245",
+    "abbreviation": "GW"
+  },
+  {
+    "country": "Guyana",
+    "dial_code": "+595",
+    "abbreviation": "GY"
+  },
+  {
+    "country": "Haiti",
+    "dial_code": "+509",
+    "abbreviation": "HT"
+  },
+  {
+    "country": "Holy See (Vatican City State)",
+    "dial_code": "+379",
+    "abbreviation": "VA"
+  },
+  {
+    "country": "Honduras",
+    "dial_code": "+504",
+    "abbreviation": "HN"
+  },
+  {
+    "country": "Hong Kong",
+    "dial_code": "+852",
+    "abbreviation": "HK"
+  },
+  {
+    "country": "Hungary",
+    "dial_code": "+36",
+    "abbreviation": "HU"
+  },
+  {
+    "country": "Iceland",
+    "dial_code": "+354",
+    "abbreviation": "IS"
+  },
+  {
+    "country": "India",
+    "dial_code": "+91",
+    "abbreviation": "IN"
+  },
+  {
+    "country": "Indonesia",
+    "dial_code": "+62",
+    "abbreviation": "ID"
+  },
+  {
+    "country": "Iran, Islamic Republic of Persian Gulf",
+    "dial_code": "+98",
+    "abbreviation": "IR"
+  },
+  {
+    "country": "Iraq",
+    "dial_code": "+964",
+    "abbreviation": "IQ"
+  },
+  {
+    "country": "Ireland",
+    "dial_code": "+353",
+    "abbreviation": "IE"
+  },
+  {
+    "country": "Isle of Man",
+    "dial_code": "+44",
+    "abbreviation": "IM"
+  },
+  {
+    "country": "Israel",
+    "dial_code": "+972",
+    "abbreviation": "IL"
+  },
+  {
+    "country": "Italy",
+    "dial_code": "+39",
+    "abbreviation": "IT"
+  },
+  {
+    "country": "Jamaica",
+    "dial_code": "+1876",
+    "abbreviation": "JM"
+  },
+  {
+    "country": "Japan",
+    "dial_code": "+81",
+    "abbreviation": "JP"
+  },
+  {
+    "country": "Jersey",
+    "dial_code": "+44",
+    "abbreviation": "JE"
+  },
+  {
+    "country": "Jordan",
+    "dial_code": "+962",
+    "abbreviation": "JO"
+  },
+  {
+    "country": "Kazakhstan",
+    "dial_code": "+77",
+    "abbreviation": "KZ"
+  },
+  {
+    "country": "Kenya",
+    "dial_code": "+254",
+    "abbreviation": "KE"
+  },
+  {
+    "country": "Kiribati",
+    "dial_code": "+686",
+    "abbreviation": "KI"
+  },
+  {
+    "country": "Korea, Democratic People's Republic of Korea",
+    "dial_code": "+850",
+    "abbreviation": "KP"
+  },
+  {
+    "country": "Korea, Republic of South Korea",
+    "dial_code": "+82",
+    "abbreviation": "KR"
+  },
+  {
+    "country": "Kuwait",
+    "dial_code": "+965",
+    "abbreviation": "KW"
+  },
+  {
+    "country": "Kyrgyzstan",
+    "dial_code": "+996",
+    "abbreviation": "KG"
+  },
+  {
+    "country": "Laos",
+    "dial_code": "+856",
+    "abbreviation": "LA"
+  },
+  {
+    "country": "Latvia",
+    "dial_code": "+371",
+    "abbreviation": "LV"
+  },
+  {
+    "country": "Lebanon",
+    "dial_code": "+961",
+    "abbreviation": "LB"
+  },
+  {
+    "country": "Lesotho",
+    "dial_code": "+266",
+    "abbreviation": "LS"
+  },
+  {
+    "country": "Liberia",
+    "dial_code": "+231",
+    "abbreviation": "LR"
+  },
+  {
+    "country": "Libyan Arab Jamahiriya",
+    "dial_code": "+218",
+    "abbreviation": "LY"
+  },
+  {
+    "country": "Liechtenstein",
+    "dial_code": "+423",
+    "abbreviation": "LI"
+  },
+  {
+    "country": "Lithuania",
+    "dial_code": "+370",
+    "abbreviation": "LT"
+  },
+  {
+    "country": "Luxembourg",
+    "dial_code": "+352",
+    "abbreviation": "LU"
+  },
+  {
+    "country": "Macao",
+    "dial_code": "+853",
+    "abbreviation": "MO"
+  },
+  {
+    "country": "Macedonia",
+    "dial_code": "+389",
+    "abbreviation": "MK"
+  },
+  {
+    "country": "Madagascar",
+    "dial_code": "+261",
+    "abbreviation": "MG"
+  },
+  {
+    "country": "Malawi",
+    "dial_code": "+265",
+    "abbreviation": "MW"
+  },
+  {
+    "country": "Malaysia",
+    "dial_code": "+60",
+    "abbreviation": "MY"
+  },
+  {
+    "country": "Maldives",
+    "dial_code": "+960",
+    "abbreviation": "MV"
+  },
+  {
+    "country": "Mali",
+    "dial_code": "+223",
+    "abbreviation": "ML"
+  },
+  {
+    "country": "Malta",
+    "dial_code": "+356",
+    "abbreviation": "MT"
+  },
+  {
+    "country": "Marshall Islands",
+    "dial_code": "+692",
+    "abbreviation": "MH"
+  },
+  {
+    "country": "Martinique",
+    "dial_code": "+596",
+    "abbreviation": "MQ"
+  },
+  {
+    "country": "Mauritania",
+    "dial_code": "+222",
+    "abbreviation": "MR"
+  },
+  {
+    "country": "Mauritius",
+    "dial_code": "+230",
+    "abbreviation": "MU"
+  },
+  {
+    "country": "Mayotte",
+    "dial_code": "+262",
+    "abbreviation": "YT"
+  },
+  {
+    "country": "Mexico",
+    "dial_code": "+52",
+    "abbreviation": "MX"
+  },
+  {
+    "country": "Micronesia, Federated States of Micronesia",
+    "dial_code": "+691",
+    "abbreviation": "FM"
+  },
+  {
+    "country": "Moldova",
+    "dial_code": "+373",
+    "abbreviation": "MD"
+  },
+  {
+    "country": "Monaco",
+    "dial_code": "+377",
+    "abbreviation": "MC"
+  },
+  {
+    "country": "Mongolia",
+    "dial_code": "+976",
+    "abbreviation": "MN"
+  },
+  {
+    "country": "Montenegro",
+    "dial_code": "+382",
+    "abbreviation": "ME"
+  },
+  {
+    "country": "Montserrat",
+    "dial_code": "+1664",
+    "abbreviation": "MS"
+  },
+  {
+    "country": "Morocco",
+    "dial_code": "+212",
+    "abbreviation": "MA"
+  },
+  {
+    "country": "Mozambique",
+    "dial_code": "+258",
+    "abbreviation": "MZ"
+  },
+  {
+    "country": "Myanmar",
+    "dial_code": "+95",
+    "abbreviation": "MM"
+  },
+  {
+    "country": "Namibia",
+    "dial_code": "+264",
+    "abbreviation": "NA"
+  },
+  {
+    "country": "Nauru",
+    "dial_code": "+674",
+    "abbreviation": "NR"
+  },
+  {
+    "country": "Nepal",
+    "dial_code": "+977",
+    "abbreviation": "NP"
+  },
+  {
+    "country": "Netherlands",
+    "dial_code": "+31",
+    "abbreviation": "NL"
+  },
+  {
+    "country": "Netherlands Antilles",
+    "dial_code": "+599",
+    "abbreviation": "AN"
+  },
+  {
+    "country": "New Caledonia",
+    "dial_code": "+687",
+    "abbreviation": "NC"
+  },
+  {
+    "country": "New Zealand",
+    "dial_code": "+64",
+    "abbreviation": "NZ"
+  },
+  {
+    "country": "Nicaragua",
+    "dial_code": "+505",
+    "abbreviation": "NI"
+  },
+  {
+    "country": "Niger",
+    "dial_code": "+227",
+    "abbreviation": "NE"
+  },
+  {
+    "country": "Nigeria",
+    "dial_code": "+234",
+    "abbreviation": "NG"
+  },
+  {
+    "country": "Niue",
+    "dial_code": "+683",
+    "abbreviation": "NU"
+  },
+  {
+    "country": "Norfolk Island",
+    "dial_code": "+672",
+    "abbreviation": "NF"
+  },
+  {
+    "country": "Northern Mariana Islands",
+    "dial_code": "+1670",
+    "abbreviation": "MP"
+  },
+  {
+    "country": "Norway",
+    "dial_code": "+47",
+    "abbreviation": "NO"
+  },
+  {
+    "country": "Oman",
+    "dial_code": "+968",
+    "abbreviation": "OM"
+  },
+  {
+    "country": "Pakistan",
+    "dial_code": "+92",
+    "abbreviation": "PK"
+  },
+  {
+    "country": "Palau",
+    "dial_code": "+680",
+    "abbreviation": "PW"
+  },
+  {
+    "country": "Palestinian Territory, Occupied",
+    "dial_code": "+970",
+    "abbreviation": "PS"
+  },
+  {
+    "country": "Panama",
+    "dial_code": "+507",
+    "abbreviation": "PA"
+  },
+  {
+    "country": "Papua New Guinea",
+    "dial_code": "+675",
+    "abbreviation": "PG"
+  },
+  {
+    "country": "Paraguay",
+    "dial_code": "+595",
+    "abbreviation": "PY"
+  },
+  {
+    "country": "Peru",
+    "dial_code": "+51",
+    "abbreviation": "PE"
+  },
+  {
+    "country": "Philippines",
+    "dial_code": "+63",
+    "abbreviation": "PH"
+  },
+  {
+    "country": "Pitcairn",
+    "dial_code": "+872",
+    "abbreviation": "PN"
+  },
+  {
+    "country": "Poland",
+    "dial_code": "+48",
+    "abbreviation": "PL"
+  },
+  {
+    "country": "Portugal",
+    "dial_code": "+351",
+    "abbreviation": "PT"
+  },
+  {
+    "country": "Puerto Rico",
+    "dial_code": "+1939",
+    "abbreviation": "PR"
+  },
+  {
+    "country": "Qatar",
+    "dial_code": "+974",
+    "abbreviation": "QA"
+  },
+  {
+    "country": "Romania",
+    "dial_code": "+40",
+    "abbreviation": "RO"
+  },
+  {
+    "country": "Russia",
+    "dial_code": "+7",
+    "abbreviation": "RU"
+  },
+  {
+    "country": "Rwanda",
+    "dial_code": "+250",
+    "abbreviation": "RW"
+  },
+  {
+    "country": "Reunion",
+    "dial_code": "+262",
+    "abbreviation": "RE"
+  },
+  {
+    "country": "Saint Barthelemy",
+    "dial_code": "+590",
+    "abbreviation": "BL"
+  },
+  {
+    "country": "Saint Helena, Ascension and Tristan Da Cunha",
+    "dial_code": "+290",
+    "abbreviation": "SH"
+  },
+  {
+    "country": "Saint Kitts and Nevis",
+    "dial_code": "+1869",
+    "abbreviation": "KN"
+  },
+  {
+    "country": "Saint Lucia",
+    "dial_code": "+1758",
+    "abbreviation": "LC"
+  },
+  {
+    "country": "Saint Martin",
+    "dial_code": "+590",
+    "abbreviation": "MF"
+  },
+  {
+    "country": "Saint Pierre and Miquelon",
+    "dial_code": "+508",
+    "abbreviation": "PM"
+  },
+  {
+    "country": "Saint Vincent and the Grenadines",
+    "dial_code": "+1784",
+    "abbreviation": "VC"
+  },
+  {
+    "country": "Samoa",
+    "dial_code": "+685",
+    "abbreviation": "WS"
+  },
+  {
+    "country": "San Marino",
+    "dial_code": "+378",
+    "abbreviation": "SM"
+  },
+  {
+    "country": "Sao Tome and Principe",
+    "dial_code": "+239",
+    "abbreviation": "ST"
+  },
+  {
+    "country": "Saudi Arabia",
+    "dial_code": "+966",
+    "abbreviation": "SA"
+  },
+  {
+    "country": "Senegal",
+    "dial_code": "+221",
+    "abbreviation": "SN"
+  },
+  {
+    "country": "Serbia",
+    "dial_code": "+381",
+    "abbreviation": "RS"
+  },
+  {
+    "country": "Seychelles",
+    "dial_code": "+248",
+    "abbreviation": "SC"
+  },
+  {
+    "country": "Sierra Leone",
+    "dial_code": "+232",
+    "abbreviation": "SL"
+  },
+  {
+    "country": "Singapore",
+    "dial_code": "+65",
+    "abbreviation": "SG"
+  },
+  {
+    "country": "Slovakia",
+    "dial_code": "+421",
+    "abbreviation": "SK"
+  },
+  {
+    "country": "Slovenia",
+    "dial_code": "+386",
+    "abbreviation": "SI"
+  },
+  {
+    "country": "Solomon Islands",
+    "dial_code": "+677",
+    "abbreviation": "SB"
+  },
+  {
+    "country": "Somalia",
+    "dial_code": "+252",
+    "abbreviation": "SO"
+  },
+  {
+    "country": "South Africa",
+    "dial_code": "+27",
+    "abbreviation": "ZA"
+  },
+  {
+    "country": "South Sudan",
+    "dial_code": "+211",
+    "abbreviation": "SS"
+  },
+  {
+    "country": "South Georgia and the South Sandwich Islands",
+    "dial_code": "+500",
+    "abbreviation": "GS"
+  },
+  {
+    "country": "Spain",
+    "dial_code": "+34",
+    "abbreviation": "ES"
+  },
+  {
+    "country": "Sri Lanka",
+    "dial_code": "+94",
+    "abbreviation": "LK"
+  },
+  {
+    "country": "Sudan",
+    "dial_code": "+249",
+    "abbreviation": "SD"
+  },
+  {
+    "country": "Suricountry",
+    "dial_code": "+597",
+    "abbreviation": "SR"
+  },
+  {
+    "country": "Svalbard and Jan Mayen",
+    "dial_code": "+47",
+    "abbreviation": "SJ"
+  },
+  {
+    "country": "Swaziland",
+    "dial_code": "+268",
+    "abbreviation": "SZ"
+  },
+  {
+    "country": "Sweden",
+    "dial_code": "+46",
+    "abbreviation": "SE"
+  },
+  {
+    "country": "Switzerland",
+    "dial_code": "+41",
+    "abbreviation": "CH"
+  },
+  {
+    "country": "Syrian Arab Republic",
+    "dial_code": "+963",
+    "abbreviation": "SY"
+  },
+  {
+    "country": "Taiwan",
+    "dial_code": "+886",
+    "abbreviation": "TW"
+  },
+  {
+    "country": "Tajikistan",
+    "dial_code": "+992",
+    "abbreviation": "TJ"
+  },
+  {
+    "country": "Tanzania, United Republic of Tanzania",
+    "dial_code": "+255",
+    "abbreviation": "TZ"
+  },
+  {
+    "country": "Thailand",
+    "dial_code": "+66",
+    "abbreviation": "TH"
+  },
+  {
+    "country": "Timor-Leste",
+    "dial_code": "+670",
+    "abbreviation": "TL"
+  },
+  {
+    "country": "Togo",
+    "dial_code": "+228",
+    "abbreviation": "TG"
+  },
+  {
+    "country": "Tokelau",
+    "dial_code": "+690",
+    "abbreviation": "TK"
+  },
+  {
+    "country": "Tonga",
+    "dial_code": "+676",
+    "abbreviation": "TO"
+  },
+  {
+    "country": "Trinidad and Tobago",
+    "dial_code": "+1868",
+    "abbreviation": "TT"
+  },
+  {
+    "country": "Tunisia",
+    "dial_code": "+216",
+    "abbreviation": "TN"
+  },
+  {
+    "country": "Turkey",
+    "dial_code": "+90",
+    "abbreviation": "TR"
+  },
+  {
+    "country": "Turkmenistan",
+    "dial_code": "+993",
+    "abbreviation": "TM"
+  },
+  {
+    "country": "Turks and Caicos Islands",
+    "dial_code": "+1649",
+    "abbreviation": "TC"
+  },
+  {
+    "country": "Tuvalu",
+    "dial_code": "+688",
+    "abbreviation": "TV"
+  },
+  {
+    "country": "Uganda",
+    "dial_code": "+256",
+    "abbreviation": "UG"
+  },
+  {
+    "country": "Ukraine",
+    "dial_code": "+380",
+    "abbreviation": "UA"
+  },
+  {
+    "country": "United Arab Emirates",
+    "dial_code": "+971",
+    "abbreviation": "AE"
+  },
+  {
+    "country": "United Kingdom",
+    "dial_code": "+44",
+    "abbreviation": "GB"
+  },
+  {
+    "country": "United States",
+    "dial_code": "+1",
+    "abbreviation": "US"
+  },
+  {
+    "country": "Uruguay",
+    "dial_code": "+598",
+    "abbreviation": "UY"
+  },
+  {
+    "country": "Uzbekistan",
+    "dial_code": "+998",
+    "abbreviation": "UZ"
+  },
+  {
+    "country": "Vanuatu",
+    "dial_code": "+678",
+    "abbreviation": "VU"
+  },
+  {
+    "country": "Venezuela, Bolivarian Republic of Venezuela",
+    "dial_code": "+58",
+    "abbreviation": "VE"
+  },
+  {
+    "country": "Vietnam",
+    "dial_code": "+84",
+    "abbreviation": "VN"
+  },
+  {
+    "country": "Virgin Islands, British",
+    "dial_code": "+1284",
+    "abbreviation": "VG"
+  },
+  {
+    "country": "Virgin Islands, U.S.",
+    "dial_code": "+1340",
+    "abbreviation": "VI"
+  },
+  {
+    "country": "Wallis and Futuna",
+    "dial_code": "+681",
+    "abbreviation": "WF"
+  },
+  {
+    "country": "Yemen",
+    "dial_code": "+967",
+    "abbreviation": "YE"
+  },
+  {
+    "country": "Zambia",
+    "dial_code": "+260",
+    "abbreviation": "ZM"
+  },
+  {
+    "country": "Zimbabwe",
+    "dial_code": "+263",
+    "abbreviation": "ZW"
+  }
+]

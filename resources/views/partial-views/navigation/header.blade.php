@@ -1,34 +1,34 @@
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">KOTIYA SAFARI</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="height: 90px;background:#000000;">
+        <div class="container-fluid mx-2 px-3">
+            <a class="navbar-brand" href="#">
+                <img src="{{ asset('dist/images/logo-brown-bg-sm.svg') }}" alt="" style="height: 72px;width:auto;">
+            </a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
+                <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+                    <li class="nav-item px-2">
+                        <a class="nav-link active" aria-current="page" href="{{ route('guest.home') }}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="{{ route('home') }}">Our Camps</a>
+                    <li class="nav-item px-2">
+                        <a class="nav-link " aria-current="page" href="{{ route('guest.accommodations') }}">Accomadation</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ route('home') }}">About us</a>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" aria-current="page" href="{{ route('guest.packages') }}">Packages & Rates</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ route('home') }}">Offers</a>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" aria-current="page" href="{{ route('guest.gallery') }}">Gallery</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ route('home') }}">Contact</a>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" aria-current="page" href="{{ route('guest.blogs') }}">Journal</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ route('blog') }}">Blog</a>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" aria-current="page" href="{{ route('guest.contact') }}">Contact Us</a>
                     </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{ route('reservation-request') }}" class="btn btn-warning btn-sm">Make a Request</a></li>
+                    <li class="nav-item px-2">
+                        <a class="btn btn-cs-baige px-3 py-2" data-bs-toggle="modal" data-bs-target="#reservation-inquiry-modal">
+                            Check Availabiity
+                        </a>
+                    </li>
                 </ul>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"

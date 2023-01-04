@@ -17,7 +17,7 @@ class GuestService implements GuestServiceInterface
     public function getAllGuests()
     {
         try {
-            return $this->guestRepository->findAllGuests()->toArray();
+            return $this->guestRepository->all()->toArray();
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -27,7 +27,7 @@ class GuestService implements GuestServiceInterface
     {
         try {
             return $this->guestRepository
-                ->findGuestByCode($guestCode);
+                ->findByCode($guestCode);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -36,7 +36,7 @@ class GuestService implements GuestServiceInterface
     public function createGuest(array $newGuest)
     {
         try {
-            $savedInquiry = $this->guestRepository->saveGuest($newGuest);
+            $savedInquiry = $this->guestRepository->save($newGuest);
             return $savedInquiry;
         } catch (\Throwable $th) {
             throw $th;

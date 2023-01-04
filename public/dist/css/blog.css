@@ -1,27 +1,54 @@
-section {
-  padding: 10px 8px;
-  margin: 5px 0;
+:root {
+  --bs-baige: #c7681f;
+  --bs-deep-sky-blue: #00BFFF;
+  --bs-trquoise: #40E0D0;
+  --bs-light-salmon: #FFA07A;
+  --bs-light-blue: #85C1E9;
+  --bs-baige-rgb: rgb(199, 104, 31);
+  --bs-deep-sky-blue-rgb: rgb(0, 191, 255);
+  --bs-trquoise-rgb: rgb(64, 224, 208);
+  --bs-light-salmon-rgb: rgb(255, 160, 122);
+  --bs-light-blue: rgb(133, 193, 233);
 }
 
-.blog-cover-img {
-  min-height: 90vh;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-size: cover;
-  opacity: 0.9;
+.bg-p {
+  height: 28rem;
+  transition: box-shadow 0.3s;
 }
-
-.blog-author-avatar {
-  width: 90px;
-  height: 90px;
-  margin-right: 20px;
+.bg-p--body {
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
-
-.blog-title {
-  font-size: 2.75rem;
-  font-weight: 600;
+.bg-p--body-footer {
+  width: 100%;
 }
-
-.blog-content-text {
-  font-size: 16px;
+.bg-p--body-footer div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.bg-p--img {
+  width: "100%";
+  height: 225px;
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+.bg-p--content {
+  padding: 4rem 0;
+}
+.bg-p--content p {
+  font-size: 1rem;
+}
+.bg-p:hover {
+  box-shadow: 0px 5px 19px -12px rgba(0, 0, 0, 0.75);
+}
+@media (min-width: 768px) {
+  .bg-p--img-lg {
+    font-size: 3.5rem;
+  }
 }

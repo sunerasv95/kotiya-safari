@@ -1,0 +1,61 @@
+@import "variables";
+
+.pack {
+    background-color: $white-color;
+    cursor: pointer;
+    -webkit-transition: background-color .3s ease-out;
+    -moz-transition: background-color .3s ease-out;
+    -o-transition: background-color .3s ease-out;
+    transition: background-color .3s ease-out;
+
+    &--name{
+        text-align: start; 
+        font-size: $font-size-larger;
+        color: $gray-black-color;
+    }
+
+    &--price-tag{
+        text-align: start; 
+        font-family: $primary-font-bold;
+        font-weight: 'bolder';
+        color: $green-color;
+    }
+
+    &--list{
+        li{
+            color: $gray-black-color;
+            padding: .525rem 0;
+            text-align: start;
+        }
+    }
+
+    &--desc > *{
+        text-align: start;
+        color: $gray-black-color;
+    }
+
+    &:hover {
+        background-color: $gray-black-color;
+        
+        .pack{
+            &--name{
+                color: $white-color;
+            }
+    
+            &--list{
+                li{
+                    color: $white-color;
+                }
+            }
+    
+            &--desc > *{
+                color: $white-color;
+            }
+
+        }
+
+        button{
+            background-color: $dark-green-color;
+        }
+    }
+}
