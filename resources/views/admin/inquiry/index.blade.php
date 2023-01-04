@@ -4,13 +4,11 @@
 @endsection
 
 @section('main-content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-4 pb-2 mb-3">
     <h1 class="h2">Inquiries</h1>
-    <div class="btn-toolbar mb-2 mb-md-0">
         <a href="{{ route('create-inquiry') }}" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Add New Inquiry
         </a>
-    </div>
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -21,7 +19,7 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-5">
     <div class="row">
         <div class="col-md-12">
-            <span class="mr-3"><i class="bi bi-funnel"></i>Filters by Status</span>
+            <span class="mr-3"><i class="bi bi-funnel"></i>Filters</span>
         </div>
         <div class="col-md-12 mt-2">
             @if (!empty($status))
